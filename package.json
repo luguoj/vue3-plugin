@@ -1,7 +1,31 @@
 {
   "name": "@psr-framework/vue3-plugin-amap",
-  "private": true,
-  "version": "0.0.0",
+  "private": false,
+  "version": "0.0.10",
+  "author": "zhoudingding",
+  "description": "高德地图AMap JSAPI vue3.x组件",
+  "keywords": [
+    "vue",
+    "vue3",
+    "map",
+    "amap"
+  ],
+  "main": "./dist/vue3-plugin-amap.umd.cjs",
+  "module": "./dist/vue3-plugin-amap.js",
+  "types": "./dist/components/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/vue3-plugin-amap.js",
+      "require": "./dist/vue3-plugin-amap.umd.cjs"
+    }
+  },
+  "files": [
+    "package.json",
+    "README.md",
+    "LICENSE",
+    "dist",
+    "declares"
+  ],
   "type": "module",
   "scripts": {
     "dev": "vite",

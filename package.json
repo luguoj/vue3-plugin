@@ -37,6 +37,7 @@
     "access": "public"
   },
   "dependencies": {
+    "@amap/amap-jsapi-loader": "^1.0.1",
     "vue": "^3.2.37"
   },
   "devDependencies": {

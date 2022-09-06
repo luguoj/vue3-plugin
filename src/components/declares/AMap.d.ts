@@ -4588,7 +4588,7 @@ declare global {
              * @instance
              * @function
              */
-            setTitle(title: string): void;
+            setTitle(title?: string): void;
             /**
              * 当点标记未自定义图标时，获取Icon内容
              * @name getIcon
@@ -5319,7 +5319,7 @@ declare global {
             show(): void;
             hide(): void;
             getPosition(): LngLat | null;
-            setPosition(position: Vector2): void;
+            setPosition(position: LngLat): void;
             getAnchor(): string | Vector2;
             setAnchor(anchor: string): void;
             getOffset(): Pixel;
@@ -5471,7 +5471,7 @@ declare global {
          */
         export interface OverlayOptions {
             map?: Map_2;
-            position?: Vector2;
+            position?: LngLat;
             content?: string | HTMLElement;
             visible?: boolean;
             zIndex?: number;

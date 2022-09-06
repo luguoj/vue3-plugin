@@ -30,3 +30,4 @@ import {PsrVue3AMap} from "@psr-framework/vue3-plugin-amap";
 2. mapLogo 是否显示高德地图logo 默认值true
 3. mapCenter 视图中心经纬度 { lng: number, lat: number }
 4. mapZoom 视图缩放级别 默认值5
+5. mapLayerBuildings 启用建筑图层 默认值false

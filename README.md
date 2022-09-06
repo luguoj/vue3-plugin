@@ -41,7 +41,8 @@ import {PsrVue3AMap} from "@psr-framework/vue3-plugin-amap";
 1. map 地图对象
 2. markerPosition 位置经纬度
 3. markerTitle 标题文本
-4. markerCustom 自定义内容 默认值flase
+4. markerVisible 可见性
+5. markerCustom 自定义内容 默认值flase
 
 #### 插槽
 1. 默认 自定义内容

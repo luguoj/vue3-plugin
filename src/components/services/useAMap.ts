@@ -1,37 +1,34 @@
 import AMapLoader from "@amap/amap-jsapi-loader";
-import {onMounted, ref, Ref, shallowRef, watchEffect} from "vue";
-// 加载地图API
-function loadAMap() {
-    const aMapLoaded = ref<boolean>(false)
-    // 从环境变量读取AMAP KEY
-    const key = process.env.VUE_APP_AMAP_KEY
-    if (key) {
-        onMounted(() => {
-            AMapLoader.load({
-                key,
-                version: '2.0',
-                plugins: []
-            }).then(() => {
-                aMapLoaded.value = true
-            })
-        })
-    } else {
-        throw new Error('地图加载失败，API Key缺失.')
-    }
-    return aMapLoaded
-}
+import {ref, ShallowRef, shallowRef, watchEffect} from "vue";
+import "../styles/hide-logo.scss"
 
-// 初始化地图 ，传入作为容器的元素节点
-export function useAMap(
-    mapContainerRef: Ref<HTMLDivElement | undefined>,
-    options?: any
-): Ref<AMap.Map | undefined> {
-    const mapRef = shallowRef<AMap.Map>()
-    const aMapLoaded = loadAMap()
+
+export function useAMap(options: {
+    key: string
+    mode?: '2D' | '3D'
+}): {
+    container: ShallowRef<HTMLDivElement | undefined>
+    map: ShallowRef<AMap.Map | undefined>
+} {
+    const loaded = ref<boolean>(false)
+    const container = shallowRef<HTMLDivElement>()
+    const map = shallowRef<AMap.Map>()
+    AMapLoader.load({
+        key: options.key,
+        version: '2.0',
+        plugins: []
+    }).then(() => {
+        loaded.value = true
+    })
     watchEffect(() => {
-        if (aMapLoaded.value && mapContainerRef.value) {
-            mapRef.value = new AMap.Map(mapContainerRef.value, options)
+        if (loaded.value && container.value) {
+            map.value = new AMap.Map(container.value, {
+                viewMode: options?.mode || '3D'
+            })
         }
     })
-    return mapRef
+    return {
+        container,
+        map
+    }
 }

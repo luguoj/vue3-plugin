@@ -3134,8 +3134,8 @@ declare global {
          */
         interface LabelOptions {
             content: string;
-            offset: Pixel | Vector2 | number[];
-            direction: string;
+            offset?: Pixel | Vector2 | number[];
+            direction?: 'top'|'right'|'bottom'|'left'|'center';
             _needUpdate?: boolean;
         }
 

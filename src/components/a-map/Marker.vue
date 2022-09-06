@@ -18,8 +18,10 @@ const props = withDefaults(defineProps<{
   markerMap: AMap.Map,
   markerPosition: { lng: number, lat: number },
   markerTitle?: string,
+  markerVisible?: boolean,
   markerCustom?: boolean
 }>(), {
+  markerVisible: true,
   markerCustom: false
 })
 const contentRef: Ref<HTMLElement | undefined> = ref()
@@ -50,6 +52,16 @@ watchEffect(() => {
 watchEffect(() => {
   if (marker.value) {
     marker.value.setTitle(props.markerTitle)
+  }
+})
+
+watchEffect(() => {
+  if (marker.value) {
+    if (props.markerVisible) {
+      marker.value.show()
+    } else {
+      marker.value.hide()
+    }
   }
 })
 </script>

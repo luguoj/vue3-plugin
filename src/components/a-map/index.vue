@@ -44,3 +44,14 @@ watchEffect(() => {
   width: 100%;
 }
 </style>
+<style lang="scss">
+.hide-logo {
+  .amap-logo {
+    display: none !important;
+  }
+
+  .amap-copyright {
+    opacity: 0 !important;
+  }
+}
+</style>

@@ -1,7 +1,5 @@
 import AMapLoader from "@amap/amap-jsapi-loader";
 import {ref, ShallowRef, shallowRef, watchEffect} from "vue";
-import "../styles/hide-logo.scss"
-
 
 export function useAMap(options: {
     key: string

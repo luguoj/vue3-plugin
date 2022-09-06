@@ -1,5 +1,9 @@
 <template>
-
+  <div class="ct-content" v-if="marker && markerCustom" ref="contentRef">
+    <div class="ct-content-inner">
+      <slot/>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -8,25 +12,34 @@ export default {
 }
 </script>
 <script setup lang="ts">
-import {shallowRef, ShallowRef, watch, watchEffect} from "vue";
+import {ref, Ref, shallowRef, ShallowRef, watch, watchEffect} from "vue";
 
 const props = withDefaults(defineProps<{
   markerMap: AMap.Map,
   markerPosition: { lng: number, lat: number },
   markerTitle?: string,
-}>(), {})
-
+  markerCustom?: boolean
+}>(), {
+  markerCustom: false
+})
+const contentRef: Ref<HTMLElement | undefined> = ref()
 const marker: ShallowRef<AMap.Marker | undefined> = shallowRef()
-
 watch(() => props.markerMap, (map) => {
   if (map) {
-    marker.value = new AMap.Marker({
+    const _marker = new AMap.Marker({
       position: new AMap.LngLat(props.markerPosition.lng, props.markerPosition.lat),
       title: props.markerTitle
     })
-    map.add(marker.value)
+    map.add(_marker)
+    marker.value = _marker
   }
 }, {immediate: true})
+
+watch(contentRef, content => {
+  if (marker.value) {
+    marker.value.setContent(content)
+  }
+})
 
 watchEffect(() => {
   if (marker.value) {
@@ -41,6 +54,15 @@ watchEffect(() => {
 })
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+.ct-content {
+  width: 0;
+  height: 0;
+}
 
+.ct-content-inner {
+  width: fit-content;
+  height: fit-content;
+  transform: translateX(-50%) translateY(-100%);
+}
 </style>

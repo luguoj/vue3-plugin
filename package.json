@@ -38,6 +38,7 @@
   },
   "dependencies": {
     "@amap/amap-jsapi-loader": "^1.0.1",
+    "@pansy/amap-types": "^2.17.0",
     "vue": "^3.2.37"
   },
   "devDependencies": {

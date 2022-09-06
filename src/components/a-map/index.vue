@@ -42,14 +42,14 @@ watchEffect(() => {
       if (!buildingsLayer) {
         buildingsLayer = new AMap.Buildings({
           heightFactor: 1,
-          wallColor: [255, 0, 0, 1],
+          wallColor: 'rgba(255,0,0,1)',
           roofColor: 'rgba(0,0,255,0.5)',
         })
-        map.value.add(buildingsLayer)
+        map.value.addLayer(buildingsLayer)
       }
     } else {
       if (buildingsLayer) {
-        map.value.remove(buildingsLayer)
+        map.value.removeLayer(buildingsLayer)
         buildingsLayer = null
       }
     }

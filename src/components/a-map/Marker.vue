@@ -22,7 +22,7 @@ const props = withDefaults(defineProps<{
   markerDraggable?: boolean,
   markerLabel?: string,
   markerLabelDirection?: 'top' | 'right' | 'bottom' | 'left' | 'center',
-  markerLabelOffset?: AMap.Pixel | AMap.Vector2 | number[],
+  markerLabelOffset?: AMap.Pixel,
   markerCustom?: boolean
 }>(), {
   markerVisible: true,
@@ -45,9 +45,9 @@ watch(() => props.markerMap, (map) => {
   }
 }, {immediate: true})
 
-watch(contentRef, content => {
-  if (marker.value) {
-    marker.value.setContent(content)
+watchEffect(() => {
+  if (marker.value && contentRef.value) {
+    marker.value.setContent(contentRef.value)
   }
 })
 
@@ -59,7 +59,7 @@ watchEffect(() => {
 
 watchEffect(() => {
   if (marker.value) {
-    marker.value.setTitle(props.markerTitle)
+    marker.value.setTitle(props.markerTitle || '')
   }
 })
 

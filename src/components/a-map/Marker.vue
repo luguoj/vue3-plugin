@@ -15,7 +15,7 @@ export default {
 import {onUnmounted, ref, Ref, shallowRef, ShallowRef, watch, watchEffect} from "vue";
 
 const props = withDefaults(defineProps<{
-  markerMap: AMap.Map,
+  markerMap?: AMap.Map,
   markerPosition: { lng: number, lat: number },
   markerTitle?: string,
   markerVisible?: boolean,

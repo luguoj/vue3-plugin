@@ -12,7 +12,7 @@ export default {
 }
 </script>
 <script setup lang="ts">
-import {ref, Ref, shallowRef, ShallowRef, watch, watchEffect} from "vue";
+import {onUnmounted, ref, Ref, shallowRef, ShallowRef, watch, watchEffect} from "vue";
 
 const props = withDefaults(defineProps<{
   markerMap: AMap.Map,
@@ -30,7 +30,8 @@ watch(() => props.markerMap, (map) => {
   if (map) {
     const _marker = new AMap.Marker({
       position: new AMap.LngLat(props.markerPosition.lng, props.markerPosition.lat),
-      title: props.markerTitle
+      title: props.markerTitle,
+      visible: props.markerVisible
     })
     map.add(_marker)
     marker.value = _marker
@@ -62,6 +63,12 @@ watchEffect(() => {
     } else {
       marker.value.hide()
     }
+  }
+})
+
+onUnmounted(() => {
+  if (marker.value && props.markerMap) {
+    props.markerMap.remove(marker.value)
   }
 })
 </script>

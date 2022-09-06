@@ -13,9 +13,11 @@ const props = withDefaults(defineProps<{
   mapLogo: boolean,
   mapCenter: { lng: number, lat: number },
   mapZoom: number,
+  mapLayerBuildings: boolean
 }>(), {
   mapLogo: true,
-  mapZoom: 5
+  mapZoom: 5,
+  mapLayerBuildings: false
 })
 
 const {container, map} = useAMap({key: props.mapKey})
@@ -32,6 +34,27 @@ watchEffect(() => {
   }
 })
 
+let buildingsLayer: AMap.Buildings | null
+
+watchEffect(() => {
+  if (map.value) {
+    if (props.mapLayerBuildings) {
+      if (!buildingsLayer) {
+        buildingsLayer = new AMap.Buildings({
+          heightFactor: 1,
+          wallColor: [255, 0, 0, 1],
+          roofColor: 'rgba(0,0,255,0.5)',
+        })
+        map.value.add(buildingsLayer)
+      }
+    } else {
+      if (buildingsLayer) {
+        map.value.remove(buildingsLayer)
+        buildingsLayer = null
+      }
+    }
+  }
+})
 </script>
 
 <template>

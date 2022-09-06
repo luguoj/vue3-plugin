@@ -1,3 +1,4 @@
+import "@pansy/amap-types";
 import PsrVue3AMap from "./a-map/index.vue"
 import PsrVue3AMapMarker from "./a-map/Marker.vue"
 import {App} from "vue";

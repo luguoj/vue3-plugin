@@ -24,10 +24,14 @@ import "@psr-framework/vue3-plugin-amap/style.css"
 import {PsrVue3AMap} from "@psr-framework/vue3-plugin-amap";
 ```
 
-## 属性
-
+## 组件
+### PsrVue3AMap 地图
+#### 属性
 1. mapKey 高德地图API访问密钥 必填
 2. mapLogo 是否显示高德地图logo 默认值true
 3. mapCenter 视图中心经纬度 { lng: number, lat: number }
 4. mapZoom 视图缩放级别 默认值5
 5. mapLayerBuildings 启用建筑图层 默认值false
+
+#### 插槽
+1. 默认 属性(map: AMap.Map 地图对象)

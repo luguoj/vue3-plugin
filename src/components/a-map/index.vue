@@ -58,7 +58,9 @@ watchEffect(() => {
 </script>
 
 <template>
-  <div class="ct-root" :class="{'hide-logo':!mapLogo}" ref="container"/>
+  <div class="ct-root" :class="{'hide-logo':!mapLogo}" ref="container">
+    <slot :map="map"/>
+  </div>
 </template>
 
 <style lang="scss" scoped>

@@ -19,9 +19,15 @@ const props = withDefaults(defineProps<{
   markerPosition: { lng: number, lat: number },
   markerTitle?: string,
   markerVisible?: boolean,
+  markerDraggable?: boolean,
+  markerLabel?: string,
+  markerLabelDirection?: 'top' | 'right' | 'bottom' | 'left' | 'center',
+  markerLabelOffset?: AMap.Pixel | AMap.Vector2 | number[],
   markerCustom?: boolean
 }>(), {
   markerVisible: true,
+  markerDraggable: false,
+  markerLabelDirection: 'right',
   markerCustom: false
 })
 const contentRef: Ref<HTMLElement | undefined> = ref()
@@ -31,7 +37,8 @@ watch(() => props.markerMap, (map) => {
     const _marker = new AMap.Marker({
       position: new AMap.LngLat(props.markerPosition.lng, props.markerPosition.lat),
       title: props.markerTitle,
-      visible: props.markerVisible
+      visible: props.markerVisible,
+      draggable: props.markerDraggable,
     })
     map.add(_marker)
     marker.value = _marker
@@ -65,7 +72,20 @@ watchEffect(() => {
     }
   }
 })
-
+watchEffect(() => {
+  if (marker.value) {
+    marker.value.setDraggable(props.markerDraggable)
+  }
+})
+watchEffect(() => {
+  if (marker.value) {
+    marker.value.setLabel({
+      content: props.markerLabel || '',
+      offset: props.markerLabelOffset,
+      direction: props.markerLabelDirection
+    })
+  }
+})
 onUnmounted(() => {
   if (marker.value && props.markerMap) {
     props.markerMap.remove(marker.value)

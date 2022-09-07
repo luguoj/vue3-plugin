@@ -12,7 +12,7 @@
   ],
   "main": "./dist/vue3-plugin-amap.umd.cjs",
   "module": "./dist/vue3-plugin-amap.js",
-  "types": "./dist/components/index.d.ts",
+  "types": "./dist/lib/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/vue3-plugin-amap.js",

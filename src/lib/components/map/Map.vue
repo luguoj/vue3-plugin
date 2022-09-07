@@ -2,11 +2,15 @@
 export default {
   name: 'PsrVue3AMap'
 }
+
+export interface PsrVue3AMapExpose {
+  map: AMap.Map
+}
 </script>
 <script setup lang="ts">
 
-import {watchEffect} from "vue";
-import {useAMap} from "../services/useAMap";
+import {defineExpose, watchEffect} from "vue";
+import {useAMap} from "../../services/useAMap";
 
 const props = withDefaults(defineProps<{
   mapKey: string,
@@ -54,6 +58,10 @@ watchEffect(() => {
       }
     }
   }
+})
+
+defineExpose({
+  map
 })
 </script>
 

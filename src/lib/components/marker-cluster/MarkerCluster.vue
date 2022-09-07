@@ -14,7 +14,7 @@ export default {
 }
 </script>
 <script setup lang="ts">
-import {computed, onUnmounted, ref, Ref, shallowRef, ShallowRef, watch, watchEffect} from "vue";
+import {computed, defineExpose, onUnmounted, ref, Ref, shallowRef, ShallowRef, watch, watchEffect} from "vue";
 
 const props = withDefaults(defineProps<{
   markerMap?: AMap.Map
@@ -78,6 +78,10 @@ onUnmounted(() => {
   if (markerCluster.value && props.markerMap) {
     markerCluster.value.setData([])
   }
+})
+
+defineExpose({
+  markerCluster
 })
 </script>
 

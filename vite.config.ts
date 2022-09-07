@@ -7,7 +7,7 @@ export default defineConfig({
     plugins: [vue(), dts()],
     build: {
         lib: {
-            entry: resolve(__dirname, 'src/components/index.ts'),
+            entry: resolve(__dirname, 'src/lib/index.ts'),
             name: 'PsrAMap',
             fileName: 'vue3-plugin-amap'
         },

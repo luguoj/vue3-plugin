@@ -12,7 +12,7 @@ export default {
 }
 </script>
 <script setup lang="ts">
-import {onUnmounted, ref, Ref, shallowRef, ShallowRef, watch, watchEffect} from "vue";
+import {defineExpose, onUnmounted, ref, Ref, shallowRef, ShallowRef, watch, watchEffect} from "vue";
 
 const props = withDefaults(defineProps<{
   markerMap?: AMap.Map,
@@ -90,6 +90,10 @@ onUnmounted(() => {
   if (marker.value && props.markerMap) {
     props.markerMap.remove(marker.value)
   }
+})
+
+defineExpose({
+  marker
 })
 </script>
 

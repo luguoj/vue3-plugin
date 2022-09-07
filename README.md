@@ -38,7 +38,7 @@ import {PsrVue3AMap} from "@psr-framework/vue3-plugin-amap";
 
 ### PsrVue3AMapMarker 点标记
 #### 属性
-1. map 地图对象
+1. markerMap 地图对象
 2. markerPosition 位置经纬度
 3. markerTitle 标题文本
 4. markerVisible 可见性
@@ -46,7 +46,20 @@ import {PsrVue3AMap} from "@psr-framework/vue3-plugin-amap";
 6. markerLabel 标签文本
 7. markerLabelDirection 标签方向
 8. markerLabelOffset 标签偏移
-9. markerCustom 自定义内容 默认值flase
+9. markerCustom 自定义内容 默认值false
 
 #### 插槽
 1. 默认 自定义内容
+
+### PsrVue3AMapMarkerCluster 点聚合
+#### 属性
+1. markerMap 地图对象
+2. clusterData 聚合数据
+3. clusterGridSize 聚合网格大小 默认值60
+4. clusterMaxZoom 聚合最大放大级别 默认值18
+5. clusterAverageCenter 是否使用平均中心 默认值true
+6. clusterStyles 聚合样式
+7. clusterCustomMarker 自定义未聚合标记
+
+#### 插槽
+1. marker(data) 自定义未聚合标记内容，插槽属性data：标记对应的聚合数据元素

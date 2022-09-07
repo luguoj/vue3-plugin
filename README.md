@@ -34,7 +34,10 @@ import {PsrVue3AMap} from "@psr-framework/vue3-plugin-amap";
 5. mapLayerBuildings 启用建筑图层 默认值false
 
 #### 插槽
-1. 默认 属性(map: AMap.Map 地图对象)
+1. default(map) 地图覆盖物、图层等，插槽属性map: AMap.Map 地图对象
+
+#### 导出
+1. map: AMap.Map 地图对象
 
 ### PsrVue3AMapMarker 点标记
 #### 属性
@@ -51,6 +54,9 @@ import {PsrVue3AMap} from "@psr-framework/vue3-plugin-amap";
 #### 插槽
 1. 默认 自定义内容
 
+#### 导出
+1. marker: AMap.Marker 标记对象
+
 ### PsrVue3AMapMarkerCluster 点聚合
 #### 属性
 1. markerMap 地图对象
@@ -63,3 +69,6 @@ import {PsrVue3AMap} from "@psr-framework/vue3-plugin-amap";
 
 #### 插槽
 1. marker(data) 自定义未聚合标记内容，插槽属性data：标记对应的聚合数据元素
+
+#### 导出
+1. markerCluster: AMap.MarkerCluster 标记聚合对象

@@ -12,7 +12,7 @@ npm i @psr-framework/vue3-plugin-amap
 
 ```ts
 import "@psr-framework/vue3-plugin-amap/style.css"
-import PsrVue3AMapPlugin from "@psr-framework/vue3-plugin-amap";
+import {PsrVue3AMapPlugin} from "@psr-framework/vue3-plugin-amap";
 
 const app = createApp(App).use(PsrVue3AMapPlugin).mount('#app')
 ```

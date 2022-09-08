@@ -7,7 +7,7 @@ export default {
 import {defineExpose, onUnmounted, shallowRef, watch, watchEffect} from "vue";
 
 const props = withDefaults(defineProps<{
-  markerMap?: AMap.Map,
+  aMap?: AMap.Map,
   buildingsWallColor?: string | string[],
   buildingsRoofColor?: string | string[],
   buildingsOpacity?: number,
@@ -22,7 +22,7 @@ const props = withDefaults(defineProps<{
 })
 const buildings = shallowRef<AMap.Buildings>()
 
-watch(() => props.markerMap, (map) => {
+watch(() => props.aMap, (map) => {
   if (map) {
     buildings.value = new AMap.Buildings({
       heightFactor: 1,
@@ -51,8 +51,8 @@ watch(() => props.buildingsVisible, visible => {
   }
 })
 onUnmounted(() => {
-  if (buildings.value && props.markerMap) {
-    props.markerMap.removeLayer(buildings.value)
+  if (buildings.value && props.aMap) {
+    props.aMap.removeLayer(buildings.value)
     buildings.value.destroy()
   }
 })

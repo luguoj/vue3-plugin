@@ -17,7 +17,7 @@ export default {
 import {computed, defineExpose, onUnmounted, ref, Ref, shallowRef, ShallowRef, watch, watchEffect} from "vue";
 
 const props = withDefaults(defineProps<{
-  markerMap?: AMap.Map
+  aMap?: AMap.Map
   clusterData: AMap.MarkerCluster.DataOptions[]
   clusterGridSize?: number,
   clusterMaxZoom?: number
@@ -45,7 +45,7 @@ const clusterDataWithId = computed(() => {
 const customMarkerRef: Ref<HTMLElement[] | undefined> = ref()
 
 const markerCluster: ShallowRef<AMap.MarkerCluster | undefined> = shallowRef()
-watch(() => props.markerMap, (map) => {
+watch(() => props.aMap, (map) => {
   if (map) {
     map.plugin(['AMap.MarkerCluster'], () => {
       markerCluster.value = new AMap.MarkerCluster(map,
@@ -69,13 +69,13 @@ watch(() => props.markerMap, (map) => {
 }, {immediate: true})
 
 watchEffect(() => {
-  if (props.markerMap && clusterDataWithId.value) {
+  if (props.aMap && clusterDataWithId.value) {
     markerCluster.value?.setData(clusterDataWithId.value)
   }
 })
 
 onUnmounted(() => {
-  if (markerCluster.value && props.markerMap) {
+  if (markerCluster.value && props.aMap) {
     markerCluster.value.setData([])
   }
 })

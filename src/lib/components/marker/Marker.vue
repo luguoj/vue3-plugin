@@ -15,7 +15,7 @@ export default {
 import {defineExpose, onUnmounted, ref, Ref, shallowRef, ShallowRef, watch, watchEffect} from "vue";
 
 const props = withDefaults(defineProps<{
-  markerMap?: AMap.Map,
+  aMap?: AMap.Map,
   markerPosition: { lng: number, lat: number },
   markerTitle?: string,
   markerVisible?: boolean,
@@ -32,7 +32,7 @@ const props = withDefaults(defineProps<{
 })
 const contentRef: Ref<HTMLElement | undefined> = ref()
 const marker: ShallowRef<AMap.Marker | undefined> = shallowRef()
-watch(() => props.markerMap, (map) => {
+watch(() => props.aMap, (map) => {
   if (map) {
     const _marker = new AMap.Marker({
       position: new AMap.LngLat(props.markerPosition.lng, props.markerPosition.lat),
@@ -87,8 +87,8 @@ watchEffect(() => {
   }
 })
 onUnmounted(() => {
-  if (marker.value && props.markerMap) {
-    props.markerMap.remove(marker.value)
+  if (marker.value && props.aMap) {
+    props.aMap.remove(marker.value)
   }
 })
 

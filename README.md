@@ -43,7 +43,7 @@ import {PsrVue3AMap} from "@psr-framework/vue3-plugin-amap";
 
 #### 属性
 
-1. markerMap 地图对象
+1. aMap 地图对象
 2. markerPosition 位置经纬度
 3. markerTitle 标题文本
 4. markerVisible 可见性
@@ -65,7 +65,7 @@ import {PsrVue3AMap} from "@psr-framework/vue3-plugin-amap";
 
 #### 属性
 
-1. markerMap 地图对象
+1. aMap 地图对象
 2. clusterData 聚合数据
 3. clusterGridSize 聚合网格大小 默认值60
 4. clusterMaxZoom 聚合最大放大级别 默认值18
@@ -85,7 +85,7 @@ import {PsrVue3AMap} from "@psr-framework/vue3-plugin-amap";
 
 #### 属性
 
-1. mapKey 高德地图API访问密钥 必填
+1. aMap 地图对象
 2. buildingsWallColor 墙壁颜色
 3. buildingsRoofColor 屋顶颜色
 4. buildingsOpacity 透明度 默认值1
@@ -96,3 +96,16 @@ import {PsrVue3AMap} from "@psr-framework/vue3-plugin-amap";
 #### 导出
 
 1. buildings: AMap.Buildings 建筑图层对象
+
+### PsrVue3AMapInfoWindow 消息窗体
+
+#### 属性
+
+1. aMap 地图对象
+2. infoWindowCustom 自定义内容 默认值false
+3. infoWindowVisible 可见性(双向绑定)
+4. infoWindowPosition 打开位置
+
+#### 导出
+
+1. infoWindow: AMap.InfoWindow 消息窗体对象

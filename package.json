@@ -1,7 +1,7 @@
 {
   "name": "@psr-framework/vue3-plugin-amap",
   "private": false,
-  "version": "1.4.2",
+  "version": "1.4.3",
   "author": "zhoudingding",
   "description": "高德地图AMap JSAPI vue3.x组件",
   "keywords": [

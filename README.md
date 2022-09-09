@@ -37,7 +37,7 @@ import {PsrVue3AMap} from "@psr-framework/vue3-plugin-amap";
 
 #### 插槽
 
-1. default(map) 图层、覆盖物等，map：地图对象
+1. default(map) 图层、覆盖物等，插槽属性map：地图对象
 
 #### 导出
 
@@ -119,10 +119,11 @@ import {PsrVue3AMap} from "@psr-framework/vue3-plugin-amap";
 #### 属性
 
 1. aMap 地图对象
-4. layerOpacity 透明度 默认值1
-5. layerZoomMin 显示显示图层的缩放级别下限 默认值2
-6. layerZoomMax 显示显示图层的缩放级别上限 默认值20
-7. layerVisible 可见性
+2. layerData THREE.Object3D对象
+3. layerOpacity 透明度 默认值1
+4. layerZoomMin 显示显示图层的缩放级别下限 默认值2
+5. layerZoomMax 显示显示图层的缩放级别上限 默认值20
+6. layerVisible 可见性
 
 #### 导出
 

@@ -109,3 +109,17 @@ import {PsrVue3AMap} from "@psr-framework/vue3-plugin-amap";
 #### 导出
 
 1. infoWindow: AMap.InfoWindow 消息窗体对象
+
+### PsrVue3AMapLayerThreeJs ThreeJs图层
+
+#### 属性
+
+1. aMap 地图对象
+4. layerOpacity 透明度 默认值1
+5. layerZoomMin 显示显示图层的缩放级别下限 默认值2
+6. layerZoomMax 显示显示图层的缩放级别上限 默认值20
+7. layerVisible 可见性
+
+#### 导出
+
+1. threeJs: AMap.GLCustomLayer 图层对象

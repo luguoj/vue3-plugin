@@ -1,7 +1,7 @@
 {
   "name": "@psr-framework/vue3-plugin-amap",
   "private": false,
-  "version": "1.4.0",
+  "version": "1.4.2",
   "author": "zhoudingding",
   "description": "高德地图AMap JSAPI vue3.x组件",
   "keywords": [
@@ -38,13 +38,13 @@
   },
   "dependencies": {
     "@amap/amap-jsapi-loader": "^1.0.1",
-    "@pansy/amap-types": "^2.17.0",
-    "@types/three": "^0.144.0",
     "three": "^0.144.0",
     "vue": "^3.2.37"
   },
   "devDependencies": {
     "@types/node": "^18.7.14",
+    "@pansy/amap-types": "^2.17.0",
+    "@types/three": "^0.144.0",
     "@vitejs/plugin-vue": "^3.0.3",
     "sass": "^1.54.8",
     "sass-loader": "^13.0.2",

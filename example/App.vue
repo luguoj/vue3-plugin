@@ -1,12 +1,17 @@
 <script setup lang="ts">
-import "@pansy/amap-types";
-import {PsrVue3AMap, PsrVue3AMapExpose, PsrVue3AMapMarker, PsrVue3AMapMarkerCluster, PsrVue3AMapMarkerClusterExpose} from "./lib";
+import {
+  PsrVue3AMap,
+  PsrVue3AMapExpose,
+  PsrVue3AMapMarker,
+  PsrVue3AMapMarkerCluster,
+  PsrVue3AMapMarkerClusterExpose,
+  PsrVue3AMapLayerBuilding,
+  PsrVue3AMapInfoWindow,
+  PsrVue3AMapLayerThreeJs
+} from "../src";
 import {ref} from "vue";
-import PsrVue3AMapLayerBuilding from "./lib/components/layer/building/Building.vue";
-import PsrVue3AMapInfoWindow from "./lib/components/info-window/InfoWindow.vue";
 import * as THREE from "three";
 import {BoxGeometry} from "three/src/geometries/BoxGeometry";
-import PsrVue3AMapLayerThreeJs from "./lib/components/layer/three-js/ThreeJs.vue";
 import {GLTFLoader} from "three/examples/jsm/loaders/GLTFLoader";
 
 const amapKey = `${import.meta.env.VITE_APP_AMAP_KEY}`

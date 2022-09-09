@@ -35,6 +35,10 @@ import {PsrVue3AMap} from "@psr-framework/vue3-plugin-amap";
 3. mapCenter 视图中心经纬度 { lng: number, lat: number }
 4. mapZoom 视图缩放级别 默认值5
 
+#### 插槽
+
+1. default(map) 图层、覆盖物等，map：地图对象
+
 #### 导出
 
 1. map: AMap.Map 地图对象

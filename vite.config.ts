@@ -11,7 +11,7 @@ export default defineConfig({
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
       name: 'PsrAMap',
-      fileName: 'vue3-plugin-visual'
+      fileName: 'vue3-plugin-echarts'
     },
     rollupOptions: {
       // 确保外部化处理那些你不想打包进库的依赖

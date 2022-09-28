@@ -2,9 +2,37 @@
   "name": "@psr-framework/vue3-plugin-echarts",
   "private": true,
   "version": "0.0.0",
+  "author": "zhoudingding",
+  "description": "vue3.x Echarts组件",
+  "keywords": [
+    "vue",
+    "vue3",
+    "echarts"
+  ],
+  "main": "./dist/vue3-plugin-echarts.umd.cjs",
+  "module": "./dist/vue3-plugin-echarts.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/vue3-plugin-echarts.js",
+      "require": "./dist/vue3-plugin-echarts.umd.cjs"
+    },
+    "./style.css": "./dist/style.css"
+  },
+  "files": [
+    "package.json",
+    "README.md",
+    "LICENSE",
+    "dist",
+    "example"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
+  },
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview"
   },
@@ -12,9 +40,11 @@
     "vue": "^3.2.37"
   },
   "devDependencies": {
+    "@types/node": "^18.7.23",
     "@vitejs/plugin-vue": "^3.1.0",
     "typescript": "^4.6.4",
     "vite": "^3.1.0",
+    "vite-plugin-dts": "^1.5.0",
     "vue-tsc": "^0.40.4"
   }
 }

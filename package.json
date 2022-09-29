@@ -1,6 +1,6 @@
 {
   "name": "@psr-framework/vue3-plugin-echarts",
-  "private": true,
+  "private": false,
   "version": "0.0.0",
   "author": "zhoudingding",
   "description": "vue3.x Echarts组件",

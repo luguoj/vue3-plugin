@@ -1,16 +1,37 @@
-# Vue 3 + TypeScript + Vite
+# vue3-plugin-echarts
+Apache Echarts vue3.x组件
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## 安装
 
-## Recommended IDE Setup
+```shell
+npm i @psr-framework/vue3-plugin-echarts
+```
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
+## 全局注册
 
-## Type Support For `.vue` Imports in TS
+```ts
+import "@psr-framework/vue3-plugin-echarts/style.css"
+import {PsrVue3EchartsPlugin} from "@psr-framework/vue3-plugin-echarts";
 
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's Take Over mode by following these steps:
+const app = createApp(App).use(PsrVue3EchartsPlugin).mount('#app')
+```
 
-1. Run `Extensions: Show Built-in Extensions` from VS Code's command palette, look for `TypeScript and JavaScript Language Features`, then right click and select `Disable (Workspace)`. By default, Take Over mode will enable itself if the default TypeScript extension is disabled.
-2. Reload the VS Code window by running `Developer: Reload Window` from the command palette.
+## 按需注册
 
-You can learn more about Take Over mode [here](https://github.com/johnsoncodehk/volar/discussions/471).
+```ts
+import "@psr-framework/vue3-plugin-echarts/style.css"
+import {PsrVue3Echarts} from "@psr-framework/vue3-plugin-echarts";
+```
+
+## 组件
+
+### PsrVue3Echarts 地图
+
+#### 属性
+
+1. chartDarkTheme 深色主题 默认值false
+2. chartOptions 图标配置项
+
+#### 导出
+
+1. echarts: EChartsType echarts实例对象

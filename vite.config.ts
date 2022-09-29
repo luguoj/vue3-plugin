@@ -10,7 +10,7 @@ export default defineConfig({
   build: {
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
-      name: 'PsrAMap',
+      name: 'PsrEcharts',
       fileName: 'vue3-plugin-echarts'
     },
     rollupOptions: {

@@ -1,0 +1,52 @@
+{
+  "name": "@psr-framework/vue3-plugin-drag-resize",
+  "private": false,
+  "version": "1.0.0",
+  "author": "zhoudingding",
+  "description": "vue3.x 拖拽缩放组件",
+  "keywords": [
+    "vue",
+    "vue3",
+    "drag",
+    "resize"
+  ],
+  "main": "./dist/vue3-plugin-drag-resize.umd.cjs",
+  "module": "./dist/vue3-plugin-drag-resize.js",
+  "types": "./dist/package/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/vue3-plugin-drag-resize.js",
+      "require": "./dist/vue3-plugin-drag-resize.umd.cjs"
+    },
+    "./style.css": "./dist/style.css"
+  },
+  "files": [
+    "package.json",
+    "README.md",
+    "LICENSE",
+    "dist",
+    "example"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
+  },
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vue-tsc --noEmit && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "vue": "^3.2.37"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^3.1.0",
+    "sass": "^1.55.0",
+    "sass-loader": "^13.1.0",
+    "typescript": "^4.6.4",
+    "vite": "^3.1.0",
+    "vite-plugin-dts": "^1.6.6",
+    "vue-tsc": "^0.40.4"
+  }
+}

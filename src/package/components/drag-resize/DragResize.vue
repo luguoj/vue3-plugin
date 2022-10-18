@@ -458,6 +458,13 @@ function bodyDown(ev: MouseEvent) {
 
   if (props.parentLimitation) {
     limits.value = calcDragLimitation();
+  }else{
+    limits.value = {
+      left: {min: null, max: null},
+      right: {min: null, max: null},
+      top: {min: null, max: null},
+      bottom: {min: null, max: null},
+    }
   }
 }
 

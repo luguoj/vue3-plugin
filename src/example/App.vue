@@ -2,8 +2,8 @@
 import {ref} from "vue";
 import PsrVue3DragResize from "../package/components/drag-resize/DragResize.vue";
 
-const width = ref(0)
-const height = ref(0)
+const width = ref(100)
+const height = ref(100)
 const top = ref(0)
 const left = ref(0)
 
@@ -16,11 +16,20 @@ function resize(newRect: any) {
 </script>
 
 <template>
-  <psr-vue3-drag-resize :isActive="true" :w="200" :h="200" v-on:resizing="resize" v-on:dragging="resize">
-    <h3>Hello World!</h3>
-    <p>{{ top }} х {{ left }} </p>
-    <p>{{ width }} х {{ height }}</p>
-  </psr-vue3-drag-resize>
+  <div style="height: 400px;width:600px;background-color: #d6d6d6">
+    <psr-vue3-drag-resize
+        :isActive="true"
+        :x="top"
+        :y="left"
+        :w="width"
+        :h="height"
+        v-on:resizing="resize"
+        v-on:dragging="resize">
+      <h3>Hello World!</h3>
+      <p>{{ top }} х {{ left }} </p>
+      <p>{{ width }} х {{ height }}</p>
+    </psr-vue3-drag-resize>
+  </div>
 </template>
 
 <style scoped>

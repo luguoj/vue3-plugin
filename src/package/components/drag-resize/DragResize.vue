@@ -198,7 +198,6 @@ const left = ref()
 const top = ref()
 const right = ref()
 const bottom = ref()
-const minHeight = ref()
 
 const stickDrag = ref(false)
 const bodyDrag = ref(false)
@@ -275,7 +274,7 @@ watch(() => props.x, (newVal, oldVal) => {
   if (stickDrag.value || bodyDrag.value || (newVal === left.value) || oldVal === undefined) {
     return;
   }
-  const delta = oldVal - newVal;
+  const delta = Math.round(oldVal - newVal);
   bodyDown({pageX: left.value, pageY: top.value} as any);
   bodyMove({x: delta, y: 0});
   nextTick(() => {
@@ -287,7 +286,7 @@ watch(() => props.y, (newVal, oldVal) => {
   if (stickDrag.value || bodyDrag.value || (newVal === top.value) || oldVal === undefined) {
     return;
   }
-  const delta = oldVal - newVal;
+  const delta = Math.round(oldVal - newVal);
   bodyDown({pageX: left.value, pageY: top.value} as any);
   bodyMove({x: 0, y: delta});
   nextTick(() => {
@@ -300,7 +299,7 @@ watch(() => props.w, (newVal, oldVal) => {
     return;
   }
   const stick = 'mr';
-  const delta = oldVal - newVal;
+  const delta = Math.round(oldVal - newVal);
   stickDown(stick, {pageX: right.value, pageY: top.value + (height.value / 2)} as any, true);
   stickMove({x: delta, y: 0});
 
@@ -313,7 +312,7 @@ watch(() => props.h, (newVal, oldVal) => {
     return;
   }
   const stick = 'bm';
-  const delta = oldVal - newVal;
+  const delta = Math.round(oldVal - newVal);
   stickDown(stick, {pageX: left.value + (width.value / 2), pageY: bottom.value} as any, true);
   stickMove({x: 0, y: delta});
 
@@ -334,8 +333,8 @@ onMounted(() => {
   parentWidth.value = props.parentW ? props.parentW : parentElement!.clientWidth;
   parentHeight.value = props.parentH ? props.parentH : parentElement!.clientHeight;
 
-  left.value = props.x;
-  top.value = props.y;
+  left.value = Math.round(props.x);
+  top.value = Math.round(props.y);
   right.value = parentWidth.value - props.w - left.value;
   bottom.value = parentHeight.value - props.h - top.value;
 
@@ -386,8 +385,8 @@ function move(ev: MouseEvent) {
   const pageY = ev.pageY;
 
   const delta = {
-    x: (dimensionsBeforeMove.value.pointerX - pageX) / props.parentScaleX,
-    y: (dimensionsBeforeMove.value.pointerY - pageY) / props.parentScaleY,
+    x: Math.round((dimensionsBeforeMove.value.pointerX - pageX) / props.parentScaleX),
+    y: Math.round((dimensionsBeforeMove.value.pointerY - pageY) / props.parentScaleY)
   };
 
   if (stickDrag.value) {
@@ -458,7 +457,7 @@ function bodyDown(ev: MouseEvent) {
 
   if (props.parentLimitation) {
     limits.value = calcDragLimitation();
-  }else{
+  } else {
     limits.value = {
       left: {min: null, max: null},
       right: {min: null, max: null},

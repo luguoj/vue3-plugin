@@ -4,33 +4,6 @@
   "version": "1.0.3",
   "author": "zhoudingding",
   "description": "vue3.x 拖拽缩放组件",
-  "keywords": [
-    "vue",
-    "vue3",
-    "drag",
-    "resize"
-  ],
-  "main": "./dist/vue3-plugin-drag-resize.umd.cjs",
-  "module": "./dist/vue3-plugin-drag-resize.js",
-  "types": "./dist/package/index.d.ts",
-  "exports": {
-    ".": {
-      "import": "./dist/vue3-plugin-drag-resize.js",
-      "require": "./dist/vue3-plugin-drag-resize.umd.cjs"
-    },
-    "./style.css": "./dist/style.css"
-  },
-  "files": [
-    "package.json",
-    "README.md",
-    "LICENSE",
-    "dist",
-    "example"
-  ],
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org",
-    "access": "public"
-  },
   "type": "module",
   "scripts": {
     "dev": "vite --host",

@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import Buttons from "./Buttons.vue";
-</script>
+import Dropdown from "./Dropdown.vue";</script>
 
 
 <template>
-  <Buttons></Buttons>
+  <Buttons/>
+  <Dropdown/>
 </template>
 
 <style scoped>

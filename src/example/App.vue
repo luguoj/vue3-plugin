@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import SampleAsyncActionButton from "./button/SampleAsyncActionButton.vue";
+import Buttons from "./Buttons.vue";
 </script>
 
 
 <template>
-  <SampleAsyncActionButton></SampleAsyncActionButton>
+  <Buttons></Buttons>
 </template>
 
 <style scoped>

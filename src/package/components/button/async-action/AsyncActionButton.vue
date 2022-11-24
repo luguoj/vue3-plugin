@@ -12,7 +12,8 @@ import {ElButton} from "element-plus";
 import 'element-plus/es/components/button/style/css'
 
 const props = defineProps<{
-  buttonAction: Function,
+  buttonAction: (params?: any) => Promise<any> | any,
+  buttonActionParams?: any
 }>()
 
 const synchronizing = ref(false)
@@ -20,7 +21,7 @@ const synchronizing = ref(false)
 function onClick() {
   if (synchronizing.value === false) {
     synchronizing.value = true
-    const result = props.buttonAction()
+    const result = props.buttonAction(props.buttonActionParams)
     if (result instanceof Promise) {
       result.finally(() => {
         synchronizing.value = false

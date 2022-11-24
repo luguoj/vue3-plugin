@@ -31,7 +31,8 @@ const props = withDefaults(defineProps<{
   buttonCustom?: boolean,
   buttonAccept?: string,
   buttonContentType?: 'text' | 'ArrayBuffer',
-  buttonAction: (result: string | ArrayBuffer | null) => Promise<any> | any
+  buttonAction: (result: string | ArrayBuffer | null, params?: any) => Promise<any> | any
+  buttonActionParams?: any
 }>(), {
   buttonCustom: false,
   buttonAccept: '.txt',
@@ -48,7 +49,7 @@ const synchronizing = ref(false)
 const {readAsText, readAsArrayBuffer} = useFileReader({
   load: (result) => {
     synchronizing.value = true
-    const actionResult = props.buttonAction(result)
+    const actionResult = props.buttonAction(result, props.buttonActionParams)
     if (actionResult instanceof Promise) {
       actionResult.finally(() => {
         synchronizing.value = false

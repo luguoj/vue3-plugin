@@ -19,7 +19,7 @@ const props = defineProps<{
 const synchronizing = ref(false)
 
 function onClick() {
-  if (synchronizing.value === false) {
+  if (synchronizing.value === false && typeof props.buttonAction === 'function') {
     synchronizing.value = true
     const result = props.buttonAction(props.buttonActionParams)
     if (result instanceof Promise) {

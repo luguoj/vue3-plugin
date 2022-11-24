@@ -48,12 +48,15 @@ const uploadRef = ref<UploadInstance>()
 const synchronizing = ref(false)
 const {readAsText, readAsArrayBuffer} = useFileReader({
   load: (result) => {
-    synchronizing.value = true
-    const actionResult = props.buttonAction(result, props.buttonActionParams)
-    if (actionResult instanceof Promise) {
-      actionResult.finally(() => {
+    if (typeof props.buttonAction === 'function') {
+      const actionResult = props.buttonAction(result, props.buttonActionParams)
+      if (actionResult instanceof Promise) {
+        actionResult.finally(() => {
+          synchronizing.value = false
+        })
+      } else {
         synchronizing.value = false
-      })
+      }
     } else {
       synchronizing.value = false
     }

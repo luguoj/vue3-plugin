@@ -87,7 +87,11 @@ function onChange(uploadFile: UploadFile) {
   }
 }
 </script>
-
+<script lang="ts">
+export default {
+  inheritAttrs: false
+}
+</script>
 <style lang="scss" scoped>
 
 </style>

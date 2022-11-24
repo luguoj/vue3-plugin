@@ -18,17 +18,15 @@ const props = defineProps<{
 const synchronizing = ref(false)
 
 function onClick() {
-  if (props.buttonAction) {
-    if (synchronizing.value === false) {
-      synchronizing.value = true
-      const result = props.buttonAction()
-      if (result instanceof Promise) {
-        result.finally(() => {
-          synchronizing.value = false
-        })
-      } else {
+  if (synchronizing.value === false) {
+    synchronizing.value = true
+    const result = props.buttonAction()
+    if (result instanceof Promise) {
+      result.finally(() => {
         synchronizing.value = false
-      }
+      })
+    } else {
+      synchronizing.value = false
     }
   }
 }

@@ -2,11 +2,11 @@
 import {shallowRef} from "vue";
 import {ElScrollbar, ScrollbarInstance} from "element-plus"
 import "element-plus/es/components/scrollbar/style/css"
-import {handleHorizontalScrollingOnWheel} from "../package"
+import {PsrElScrollbarService} from "../package"
 
 const scrollbarRef = shallowRef<ScrollbarInstance>()
 
-handleHorizontalScrollingOnWheel(scrollbarRef)
+PsrElScrollbarService.handleHorizontalScrollingOnWheel(scrollbarRef)
 
 </script>
 

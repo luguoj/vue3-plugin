@@ -8,11 +8,11 @@
     </el-form>
     <template #footer>
       <span class="dialog-footer">
-        <psr-async-action-button
+        <psr-el-async-action-button
             type="primary"
             :disabled="!formDirty"
             :button-action="handleSubmit"
-        >保存</psr-async-action-button>
+        >保存</psr-el-async-action-button>
       </span>
     </template>
   </el-dialog>
@@ -25,7 +25,7 @@ import "element-plus/es/components/dialog/style/css"
 import "element-plus/es/components/form/style/css"
 import "element-plus/es/components/message/style/css"
 import "element-plus/es/components/message-box/style/css"
-import {PsrAsyncActionButton} from "../../button/async-action";
+import {PsrElAsyncActionButton} from "../../button/async-action";
 import {isEqual} from "lodash";
 import {PsrCreateUpdateFormDialogModel} from "./PsrCreateUpdateFormDialogModel";
 

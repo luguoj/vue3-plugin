@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {PsrAsyncActionButton, PsrReadFileButton} from "../package";
+import {PsrElAsyncActionButton, PsrElReadFileButton} from "../package";
 import {Search} from '@element-plus/icons-vue'
 import {ElIcon} from "element-plus";
 import "element-plus/es/components/icon/style/css"
@@ -16,12 +16,12 @@ function buttonReadProgress(loaded: number, total: number) {
 
 
 <template>
-  <psr-async-action-button
+  <psr-el-async-action-button
       :icon="Search"
       :button-action="buttonAction"
   >Async Action
-  </psr-async-action-button>
-  <psr-read-file-button
+  </psr-el-async-action-button>
+  <psr-el-read-file-button
       :button-action="buttonAction"
       @button-read-progress="buttonReadProgress"
       type="danger"
@@ -32,7 +32,7 @@ function buttonReadProgress(loaded: number, total: number) {
       </el-icon>
     </template>
     Read File
-  </psr-read-file-button>
+  </psr-el-read-file-button>
 </template>
 
 <style scoped>

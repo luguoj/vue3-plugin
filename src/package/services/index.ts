@@ -1,1 +1,1 @@
-export * from "./handleHorizontalScrollingOnWheel"
+export * from "./scrollbar"

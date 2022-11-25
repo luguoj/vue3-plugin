@@ -1,3 +1,3 @@
-import PsrAsyncActionDropdownItem from './AsyncActionDropdownItem.vue'
+import PsrElAsyncActionDropdownItem from './AsyncActionDropdownItem.vue'
 
-export {PsrAsyncActionDropdownItem}
+export {PsrElAsyncActionDropdownItem}

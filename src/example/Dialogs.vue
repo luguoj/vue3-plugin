@@ -1,7 +1,7 @@
 <template>
   <button @click="handleCreate">create</button>
   <button @click="handleModify">modify</button>
-  <psr-create-update-from-dialog :dialog-model="model">
+  <psr-el-create-update-from-dialog :dialog-model="model">
     <template #default="{formData,creating}">
       <el-form-item label="id">
         <el-input v-model="formData.id" :disabled="!creating"/>
@@ -11,11 +11,11 @@
       </el-form-item>
       creating:{{ creating }} - {{ formData }}
     </template>
-  </psr-create-update-from-dialog>
+  </psr-el-create-update-from-dialog>
 </template>
 
 <script setup lang="ts">
-import {PsrCreateUpdateFormDialogModel, PsrCreateUpdateFromDialog} from "../package"
+import {PsrCreateUpdateFormDialogModel, PsrElCreateUpdateFromDialog} from "../package"
 import {ElFormItem, ElInput} from "element-plus"
 import "element-plus/es/components/form-item/style/css"
 import "element-plus/es/components/input/style/css"

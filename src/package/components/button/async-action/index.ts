@@ -1,3 +1,3 @@
-import PsrAsyncActionButton from './AsyncActionButton.vue'
+import PsrElAsyncActionButton from './AsyncActionButton.vue'
 
-export {PsrAsyncActionButton}
+export {PsrElAsyncActionButton}

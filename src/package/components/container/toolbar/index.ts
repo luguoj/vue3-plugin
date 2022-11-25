@@ -1,3 +1,3 @@
-import PsrToolbar from './Toolbar.vue'
+import PsrElToolbar from './Toolbar.vue'
 
-export {PsrToolbar}
+export {PsrElToolbar}

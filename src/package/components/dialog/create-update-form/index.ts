@@ -1,5 +1,5 @@
-import PsrCreateUpdateFromDialog from './CreateUpdateFromDialog.vue'
+import PsrElCreateUpdateFromDialog from './CreateUpdateFromDialog.vue'
 
 export * from "./PsrCreateUpdateFormDialogModel";
 
-export {PsrCreateUpdateFromDialog}
+export {PsrElCreateUpdateFromDialog}

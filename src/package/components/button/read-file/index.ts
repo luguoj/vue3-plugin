@@ -1,3 +1,3 @@
-import PsrReadFileButton from './ReadFileButton.vue'
+import PsrElReadFileButton from './ReadFileButton.vue'
 
-export {PsrReadFileButton}
+export {PsrElReadFileButton}

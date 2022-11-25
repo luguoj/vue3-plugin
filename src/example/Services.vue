@@ -1,16 +1,13 @@
 <script setup lang="ts">
-import {shallowRef, watch} from "vue";
+import {shallowRef} from "vue";
 import {ElScrollbar, ScrollbarInstance} from "element-plus"
 import "element-plus/es/components/scrollbar/style/css"
 import {handleHorizontalScrollingOnWheel} from "../package"
 
 const scrollbarRef = shallowRef<ScrollbarInstance>()
 
-watch(scrollbarRef, scrollbar => {
-  if (scrollbar) {
-    handleHorizontalScrollingOnWheel(scrollbar)
-  }
-})
+handleHorizontalScrollingOnWheel(scrollbarRef)
+
 </script>
 
 <template>

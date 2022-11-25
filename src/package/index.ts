@@ -5,4 +5,6 @@ export * from "./components/dropdown-item/async-action"
 
 export * from "./components/container/toolbar"
 
+export * from "./components/dialog/create-update-form"
+
 export * from "./services"

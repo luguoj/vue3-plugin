@@ -1,6 +1,6 @@
 <template>
   <el-scrollbar ref="scrollbarRef" view-style="padding: 1rem;">
-    <el-timeline>
+    <el-timeline style="padding-inline-start: 0;">
       <el-timeline-item
           v-for="(message,index) in messages" :key="index"
           :timestamp="getTimestamp(message.time)"
@@ -90,22 +90,27 @@ function getTimestamp(date: Date) {
 
 <style lang="scss" scoped>
 .message-card-info {
-  background-color: var(--el-color-info);
+  background-color: var(--el-color-info-light-9);
+  color: var(--el-color-info);
 }
 
 .message-card-debug {
-  background-color: var(--el-color-primary);
+  background-color: var(--el-color-primary-light-9);
+  color: var(--el-color-primary);
 }
 
 .message-card-success {
-  background-color: var(--el-color-success);
+  background-color: var(--el-color-success-light-9);
+  color: var(--el-color-success);
 }
 
 .message-card-warn {
-  background-color: var(--el-color-warning);
+  background-color: var(--el-color-warning-light-9);
+  color: var(--el-color-warning);
 }
 
 .message-card-error {
-  background-color: var(--el-color-error);
+  background-color: var(--el-color-error-light-9);
+  color: var(--el-color-error);
 }
 </style>

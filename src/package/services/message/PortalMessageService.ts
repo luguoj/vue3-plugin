@@ -1,9 +1,10 @@
 import {ref} from "vue";
 import {Queue, ResolveCallback} from "@psr-framework/typescript-utils"
-import {ElMessage} from "element-plus"
+import {ElMessage, ElNotification} from "element-plus"
 import "element-plus/es/components/message/style/css"
+import "element-plus/es/components/notification/style/css"
 
-type MessageLevel = 'info' | 'success' | 'warn' | 'error' | 'debug'
+export type MessageLevel = 'info' | 'success' | 'warn' | 'error' | 'debug'
 
 interface Message {
     time: Date,
@@ -17,6 +18,7 @@ interface Message {
 export interface MessageOptions {
     data?: any[]
     toast?: boolean
+    notify?: boolean
     console?: boolean
     log?: boolean
 }
@@ -42,7 +44,7 @@ export class PortalMessageService {
 
     info(message: string, options?: MessageOptions) {
         this.message(message, {
-            toast: true,
+            notify: true,
             log: true,
             ...options,
             level: 'info'
@@ -85,7 +87,7 @@ export class PortalMessageService {
         })
     }
 
-    message(message: string, {data = [], toast, console, log, level}: MessageOptions & { level: MessageLevel }) {
+    message(message: string, {data = [], toast, notify, console, log, level}: MessageOptions & { level: MessageLevel }) {
         const msgObj: Message = {
             time: new Date(),
             message,
@@ -96,6 +98,9 @@ export class PortalMessageService {
         this.messages.value.push(msgObj)
         if (toast) {
             this.toastOut(msgObj)
+        }
+        if (notify) {
+            this.notifyOut(msgObj)
         }
         if (console) {
             this.consoleOut(msgObj)
@@ -119,6 +124,24 @@ export class PortalMessageService {
                 break
             case "error":
                 ElMessage({message, type: 'error'})
+                break
+        }
+    }
+
+    private notifyOut({message, level}: Message) {
+        switch (level) {
+            case "info":
+            case "debug":
+                ElNotification({title: '消息', message, type: 'info'})
+                break
+            case "success":
+                ElNotification({title: '成功', message, type: 'success'})
+                break
+            case "warn":
+                ElNotification({title: '警告', message, type: 'warning'})
+                break
+            case "error":
+                ElNotification({title: '错误', message, type: 'error'})
                 break
         }
     }

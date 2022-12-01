@@ -1,7 +1,7 @@
 {
   "name": "@psr-framework/portal-lib-message",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite --host",
@@ -9,6 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@psr-framework/typescript-utils": "git+https://gitee.com/psr-platform/typescript-utils.git#1.2.0",
+    "@psr-framework/vue3-plugin-element-plus-extension": "git+https://gitee.com/psr-platform/vue3-plugin-element-plus-extension.git#1.1.0",
     "vue": "^3.2.41"
   },
   "devDependencies": {

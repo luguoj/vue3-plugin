@@ -1,5 +1,5 @@
 import {ref} from "vue";
-import {Queue, ResolveCallback} from "@psr-framework/typescript-utils"
+import {PromiseQueue} from "@psr-framework/typescript-utils"
 import {ElMessage, ElNotification} from "element-plus"
 import "element-plus/es/components/message/style/css"
 import "element-plus/es/components/notification/style/css"
@@ -34,7 +34,7 @@ export interface LogService {
 
 export class PortalMessageService {
     readonly messages = ref<Message[]>([])
-    readonly loggingQueue: Queue = new Queue()
+    readonly loggingQueue: PromiseQueue.Queue = new PromiseQueue.Queue()
     private readonly _debugging
     private readonly _logService?: LogService
 
@@ -189,9 +189,9 @@ export class PortalMessageService {
     private log(message: Message) {
         if (this._logService) {
             const logService = this._logService
-            this.loggingQueue.enqueue<boolean>((resolve: ResolveCallback<boolean>, reject) => {
+            this.loggingQueue.enqueue<boolean>((resolve: PromiseQueue.ResolveCallback<boolean>, reject: PromiseQueue.RejectCallback) => {
                 return logService(message).then(resolve).catch(reject)
-            })
+            }).then()
         }
     }
 

@@ -13,13 +13,13 @@ function clear() {
 
 function info() {
   msg.info("test-info", {
-    data: [{a: 1}],
+    data: [{a: 1}, {b: 2}],
     console: true
   })
 }
 
 function debug() {
-  msg.debug("test-debug%o", {
+  msg.debug("test-debug", {
     data: [{a: 1}],
   })
 }

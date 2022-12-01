@@ -6,17 +6,22 @@ import "element-plus/es/components/notification/style/css"
 
 export type MessageLevel = 'info' | 'success' | 'warn' | 'error' | 'debug'
 
+interface Owner {
+    method: string
+    source: string
+}
+
 interface Message {
     time: Date,
-    stack?: string,
+    owner?: Owner,
     message: string,
-    data?: any[]
+    data?: any
     level: MessageLevel
 }
 
 
 export interface MessageOptions {
-    data?: any[]
+    data?: any
     toast?: boolean
     notify?: boolean
     console?: boolean
@@ -87,12 +92,22 @@ export class PortalMessageService {
         })
     }
 
-    message(message: string, {data = [], toast, notify, console, log, level}: MessageOptions & { level: MessageLevel }) {
+    message(message: string, {data, toast, notify, console, log, level}: MessageOptions & { level: MessageLevel }) {
+        const stackStrs = (new Error()).stack?.split("\n")
+        let owner: Owner | undefined
+        if (stackStrs && stackStrs.length > 0) {
+            stackStrs.splice(0, 3)
+            const [, method, source] = stackStrs[0].trim().split(' ')
+            owner = {
+                method,
+                source: source.substring(1, source.length - 1)
+            }
+        }
         const msgObj: Message = {
             time: new Date(),
             message,
             data,
-            stack: (new Error()).stack?.split("\n")[2].trim().split(" ")[1],
+            owner,
             level
         }
         this.messages.value.push(msgObj)
@@ -146,20 +161,27 @@ export class PortalMessageService {
         }
     }
 
-    private consoleOut({message, level, data = []}: Message) {
+    private consoleOut({message, level, owner, data}: Message) {
+        let msg = message
+        if (data) {
+            msg += '\n- data:%o'
+        }
+        if (owner) {
+            msg += `\n- owner: ${owner.method}\t@ ${owner.source}`
+        }
         switch (level) {
             case "info":
             case "success":
-                console.info(message, ...data)
+                console.info(msg, data)
                 break
             case "debug":
-                console.trace(message, ...data)
+                console.debug(msg, data)
                 break
             case "warn":
-                console.warn(message, ...data)
+                console.warn(msg, data)
                 break
             case "error":
-                console.error(message, ...data)
+                console.error(msg, data)
                 break
         }
     }

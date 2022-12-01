@@ -1,44 +1,17 @@
 import {ref} from "vue";
-import {PromiseQueue} from "@psr-framework/typescript-utils"
 import {ElMessage, ElNotification} from "element-plus"
 import "element-plus/es/components/message/style/css"
 import "element-plus/es/components/notification/style/css"
+import {PromiseQueue} from "@psr-framework/typescript-utils"
+import {PsrPortalMessageTypes} from "../../types/PsrPortalMessageTypes";
 
-export type MessageLevel = 'info' | 'success' | 'warn' | 'error' | 'debug'
-
-interface Owner {
-    method: string
-    source: string
-}
-
-interface Message {
-    time: Date,
-    owner?: Owner,
-    message: string,
-    data?: any
-    level: MessageLevel
-}
-
-
-export interface MessageOptions {
-    data?: any
-    toast?: boolean
-    notify?: boolean
-    console?: boolean
-    log?: boolean
-}
-
-export interface LogService {
-    (message: Message): Promise<boolean>
-}
-
-export class PortalMessageService {
-    readonly messages = ref<Message[]>([])
+export class MessageService {
+    readonly messages = ref<PsrPortalMessageTypes.Message[]>([])
     readonly loggingQueue: PromiseQueue.Queue = new PromiseQueue.Queue()
     private readonly _debugging
-    private readonly _logService?: LogService
+    private readonly _logService?: PsrPortalMessageTypes.LogService
 
-    constructor(options: { logService?: LogService, debugging?: boolean }) {
+    constructor(options: { logService?: PsrPortalMessageTypes.LogService, debugging?: boolean }) {
         this._logService = options.logService
         this._debugging = !!options.debugging
     }
@@ -47,7 +20,7 @@ export class PortalMessageService {
         this.messages.value = []
     }
 
-    info(message: string, options?: MessageOptions) {
+    info(message: string, options?: PsrPortalMessageTypes.MessageOptions) {
         this.message(message, {
             notify: true,
             log: true,
@@ -56,7 +29,7 @@ export class PortalMessageService {
         })
     }
 
-    success(message: string, options?: MessageOptions) {
+    success(message: string, options?: PsrPortalMessageTypes.MessageOptions) {
         this.message(message, {
             toast: true,
             log: true,
@@ -65,7 +38,7 @@ export class PortalMessageService {
         })
     }
 
-    warn(message: string, options?: MessageOptions) {
+    warn(message: string, options?: PsrPortalMessageTypes.MessageOptions) {
         this.message(message, {
             toast: true,
             log: true,
@@ -74,7 +47,7 @@ export class PortalMessageService {
         })
     }
 
-    error(message: string, options?: MessageOptions) {
+    error(message: string, options?: PsrPortalMessageTypes.MessageOptions) {
         this.message(message, {
             toast: true,
             log: true,
@@ -83,7 +56,7 @@ export class PortalMessageService {
         })
     }
 
-    debug(message: string, options?: MessageOptions) {
+    debug(message: string, options?: PsrPortalMessageTypes.MessageOptions) {
         this.message(message, {
             console: true,
             log: true,
@@ -92,9 +65,21 @@ export class PortalMessageService {
         })
     }
 
-    message(message: string, {data, toast, notify, console, log, level}: MessageOptions & { level: MessageLevel }) {
+    message(
+        message: string,
+        {
+            data,
+            toast,
+            notify,
+            console,
+            log,
+            level
+        }: PsrPortalMessageTypes.MessageOptions & {
+            level: PsrPortalMessageTypes.MessageLevel
+        }
+    ) {
         const stackStrs = (new Error()).stack?.split("\n")
-        let owner: Owner | undefined
+        let owner: PsrPortalMessageTypes.MessageOwner | undefined
         if (stackStrs && stackStrs.length > 0) {
             stackStrs.splice(0, 3)
             const [, method, source] = stackStrs[0].trim().split(' ')
@@ -103,7 +88,7 @@ export class PortalMessageService {
                 source: source.substring(1, source.length - 1)
             }
         }
-        const msgObj: Message = {
+        const msgObj: PsrPortalMessageTypes.Message = {
             time: new Date(),
             message,
             data,
@@ -125,7 +110,7 @@ export class PortalMessageService {
         }
     }
 
-    private toastOut({message, level}: Message) {
+    private toastOut({message, level}: PsrPortalMessageTypes.Message) {
         switch (level) {
             case "info":
             case "debug":
@@ -143,7 +128,7 @@ export class PortalMessageService {
         }
     }
 
-    private notifyOut({message, level}: Message) {
+    private notifyOut({message, level}: PsrPortalMessageTypes.Message) {
         switch (level) {
             case "info":
             case "debug":
@@ -161,7 +146,7 @@ export class PortalMessageService {
         }
     }
 
-    private consoleOut({message, level, owner, data}: Message) {
+    private consoleOut({message, level, owner, data}: PsrPortalMessageTypes.Message) {
         let msg = message
         if (data) {
             msg += '\n- data:%o'
@@ -186,7 +171,7 @@ export class PortalMessageService {
         }
     }
 
-    private log(message: Message) {
+    private log(message: PsrPortalMessageTypes.Message) {
         if (this._logService) {
             const logService = this._logService
             this.loggingQueue.enqueue<boolean>((resolve: PromiseQueue.ResolveCallback<boolean>, reject: PromiseQueue.RejectCallback) => {

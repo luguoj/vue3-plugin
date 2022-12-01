@@ -3,9 +3,9 @@ import {ElContainer, ElHeader, ElMain} from "element-plus"
 import "element-plus/es/components/container/style/css"
 import "element-plus/es/components/header/style/css"
 import "element-plus/es/components/main/style/css"
-import {PsrMessageList, PsrPortalMessage} from "../package";
+import {PsrMessageList, PsrPortalMessage, PsrPortalMessageTypes} from "../package";
 
-const msg = PsrPortalMessage.useMessage()
+const msg: PsrPortalMessageTypes.MessageService = PsrPortalMessage.useMessage()
 
 function clear() {
   msg.clear()

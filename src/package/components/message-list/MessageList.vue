@@ -27,7 +27,7 @@ import "element-plus/es/components/timeline-item/style/css"
 import "element-plus/es/components/card/style/css"
 import {CircleCloseFilled, InfoFilled, QuestionFilled, SuccessFilled, WarningFilled} from "@element-plus/icons-vue"
 import {PsrPortalMessage} from "../../plugins/PsrPortalMessage";
-import {MessageLevel} from "../../services/message/PortalMessageService";
+import {PsrPortalMessageTypes} from "../../types/PsrPortalMessageTypes";
 import moment from "moment";
 
 const scrollbarRef = ref<ScrollbarInstance>()
@@ -52,7 +52,7 @@ function scrollToBottom() {
     })
 }
 
-function getType(level: MessageLevel) {
+function getType(level: PsrPortalMessageTypes.MessageLevel) {
   switch (level) {
     case "info":
       return "info"
@@ -67,7 +67,7 @@ function getType(level: MessageLevel) {
   }
 }
 
-function getIcon(level: MessageLevel) {
+function getIcon(level: PsrPortalMessageTypes.MessageLevel) {
   switch (level) {
     case "info":
       return InfoFilled

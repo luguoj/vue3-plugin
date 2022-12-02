@@ -61,8 +61,8 @@ export class MessageService<M extends PsrPortalMessageTypes.MessageOptions> {
             stackStrs.splice(0, 3)
             const [, method, source] = stackStrs[0].trim().split(' ')
             owner = {
-                method,
-                source: source.substring(1, source.length - 1)
+                method: source ? method : '(匿名)',
+                source: source?.substring(1, source.length - 1) || method
             }
         }
         const msgObj: PsrPortalMessageTypes.Message = {

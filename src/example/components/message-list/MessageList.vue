@@ -26,9 +26,8 @@ import "element-plus/es/components/timeline/style/css"
 import "element-plus/es/components/timeline-item/style/css"
 import "element-plus/es/components/card/style/css"
 import {CircleCloseFilled, InfoFilled, QuestionFilled, SuccessFilled, WarningFilled} from "@element-plus/icons-vue"
-import {PsrPortalMessage} from "../../plugins/PsrPortalMessage";
-import {PsrPortalMessageTypes} from "../../types/PsrPortalMessageTypes";
 import moment from "moment";
+import {PsrPortalMessage, PsrPortalMessageTypes} from "../../../..";
 
 const scrollbarRef = ref<ScrollbarInstance>()
 

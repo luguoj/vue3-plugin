@@ -1,4 +1,4 @@
-import {MessageService as MessageServiceImpl} from "../services/message/MessageService";
+import {MessageService as AbstractMessageService} from "../services/message/MessageService";
 
 export namespace PsrPortalMessageTypes {
     export type MessageLevel = 'info' | 'success' | 'warn' | 'error' | 'debug'
@@ -18,15 +18,13 @@ export namespace PsrPortalMessageTypes {
 
     export interface MessageOptions {
         data?: any
-        toast?: boolean
-        notify?: boolean
         console?: boolean
-        log?: boolean
     }
 
     export interface LogService {
         (message: Message): Promise<boolean>
     }
 
-    export type MessageService = MessageServiceImpl
+    export abstract class MessageService<M extends MessageOptions> extends AbstractMessageService<M> {
+    }
 }

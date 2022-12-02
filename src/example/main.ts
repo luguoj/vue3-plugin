@@ -1,7 +1,8 @@
 import {createApp, inject} from 'vue'
 import './style.css'
 import App from './App.vue'
-import {PsrPortalMessageTypes, PsrPortalMessage} from "../package";
+import {PsrPortalMessage, PsrPortalMessageTypes} from "../package";
+import {SampleMessageService} from "./SampleMessageService";
 
 const app = createApp(App)
 app.use({
@@ -16,8 +17,10 @@ app.use({
         })
     }
 })
-app.use(new PsrPortalMessage({
-    debugging: true,
-    logger: () => inject<PsrPortalMessageTypes.LogService>("logService")!
-}))
+app.use(new PsrPortalMessage(() =>
+    new SampleMessageService({
+        debugging: true,
+        logService: inject<PsrPortalMessageTypes.LogService>("logService")
+    })
+))
 app.mount('#app')

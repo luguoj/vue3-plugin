@@ -1,82 +1,60 @@
 import {ref} from "vue";
-import {ElMessage, ElNotification} from "element-plus"
-import "element-plus/es/components/message/style/css"
-import "element-plus/es/components/notification/style/css"
-import {PromiseQueue} from "@psr-framework/typescript-utils"
 import {PsrPortalMessageTypes} from "../../types/PsrPortalMessageTypes";
 
-export class MessageService {
+export abstract class MessageService<M extends PsrPortalMessageTypes.MessageOptions> {
     readonly messages = ref<PsrPortalMessageTypes.Message[]>([])
-    readonly loggingQueue: PromiseQueue.Queue = new PromiseQueue.Queue()
     private readonly _debugging
-    private readonly _logService?: PsrPortalMessageTypes.LogService
 
-    constructor(options: { logService?: PsrPortalMessageTypes.LogService, debugging?: boolean }) {
-        this._logService = options.logService
-        this._debugging = !!options.debugging
+    protected constructor(debugging?: boolean) {
+        this._debugging = debugging
     }
 
     clear() {
         this.messages.value = []
     }
 
-    info(message: string, options?: PsrPortalMessageTypes.MessageOptions) {
-        this.message(message, {
-            notify: true,
-            log: true,
+    info(message: string, options?: M) {
+        this.message('info', message, {
+            ...this._infoOptions(),
             ...options,
-            level: 'info'
         })
     }
 
-    success(message: string, options?: PsrPortalMessageTypes.MessageOptions) {
-        this.message(message, {
-            toast: true,
-            log: true,
+    success(message: string, options?: M) {
+        this.message('success', message, {
+            ...this._successOptions(),
             ...options,
-            level: 'success'
         })
     }
 
-    warn(message: string, options?: PsrPortalMessageTypes.MessageOptions) {
-        this.message(message, {
-            toast: true,
-            log: true,
-            ...options,
-            level: 'warn'
+    warn(message: string, options?: M) {
+        this.message('warn', message, {
+            ...this._warnOptions(),
+            ...options
         })
     }
 
-    error(message: string, options?: PsrPortalMessageTypes.MessageOptions) {
-        this.message(message, {
-            toast: true,
-            log: true,
+    error(message: string, options?: M) {
+        this.message('error', message, {
+            ...this._errorOptions(),
             ...options,
-            level: 'error'
         })
     }
 
-    debug(message: string, options?: PsrPortalMessageTypes.MessageOptions) {
-        this.message(message, {
-            console: true,
-            log: true,
-            ...options,
-            level: 'debug'
-        })
+    debug(message: string, options?: M) {
+        if (this._debugging) {
+            this.message('debug', message, {
+                ...this._debugOptions(),
+                ...options
+            })
+        }
     }
+
 
     message(
+        level: PsrPortalMessageTypes.MessageLevel,
         message: string,
-        {
-            data,
-            toast,
-            notify,
-            console,
-            log,
-            level
-        }: PsrPortalMessageTypes.MessageOptions & {
-            level: PsrPortalMessageTypes.MessageLevel
-        }
+        options: M
     ) {
         const stackStrs = (new Error()).stack?.split("\n")
         let owner: PsrPortalMessageTypes.MessageOwner | undefined
@@ -91,60 +69,32 @@ export class MessageService {
         const msgObj: PsrPortalMessageTypes.Message = {
             time: new Date(),
             message,
-            data,
+            data: options.data,
             owner,
             level
         }
         this.messages.value.push(msgObj)
-        if (toast) {
-            this.toastOut(msgObj)
-        }
-        if (notify) {
-            this.notifyOut(msgObj)
-        }
-        if (console) {
+        if (options.console || this._debugging) {
             this.consoleOut(msgObj)
         }
-        if (log) {
-            this.log(msgObj)
-        }
+        this._sendMessage(level, msgObj, options)
     }
 
-    private toastOut({message, level}: PsrPortalMessageTypes.Message) {
-        switch (level) {
-            case "info":
-            case "debug":
-                ElMessage({message})
-                break
-            case "success":
-                ElMessage({message, type: 'success'})
-                break
-            case "warn":
-                ElMessage({message, type: 'warning'})
-                break
-            case "error":
-                ElMessage({message, type: 'error'})
-                break
-        }
-    }
+    protected abstract _sendMessage(
+        level: PsrPortalMessageTypes.MessageLevel,
+        msgObj: PsrPortalMessageTypes.Message,
+        options: M
+    ): void
 
-    private notifyOut({message, level}: PsrPortalMessageTypes.Message) {
-        switch (level) {
-            case "info":
-            case "debug":
-                ElNotification({title: '消息', message, type: 'info'})
-                break
-            case "success":
-                ElNotification({title: '成功', message, type: 'success'})
-                break
-            case "warn":
-                ElNotification({title: '警告', message, type: 'warning'})
-                break
-            case "error":
-                ElNotification({title: '错误', message, type: 'error'})
-                break
-        }
-    }
+    protected abstract _infoOptions(): M
+
+    protected abstract _successOptions(): M
+
+    protected abstract _warnOptions(): M
+
+    protected abstract _errorOptions(): M
+
+    protected abstract _debugOptions(): M
 
     private consoleOut({message, level, owner, data}: PsrPortalMessageTypes.Message) {
         let msg = message
@@ -170,14 +120,4 @@ export class MessageService {
                 break
         }
     }
-
-    private log(message: PsrPortalMessageTypes.Message) {
-        if (this._logService) {
-            const logService = this._logService
-            this.loggingQueue.enqueue<boolean>((resolve: PromiseQueue.ResolveCallback<boolean>, reject: PromiseQueue.RejectCallback) => {
-                return logService(message).then(resolve).catch(reject)
-            }).then()
-        }
-    }
-
 }

@@ -1,7 +1,7 @@
 import {ref} from "vue";
 import {PsrPortalMessageTypes} from "../../types/PsrPortalMessageTypes";
 
-export abstract class MessageService<M extends PsrPortalMessageTypes.MessageOptions> {
+export class MessageService<M extends PsrPortalMessageTypes.MessageOptions> {
     readonly messages = ref<PsrPortalMessageTypes.Message[]>([])
     private readonly _debugging
 
@@ -50,7 +50,6 @@ export abstract class MessageService<M extends PsrPortalMessageTypes.MessageOpti
         }
     }
 
-
     message(
         level: PsrPortalMessageTypes.MessageLevel,
         message: string,
@@ -80,21 +79,32 @@ export abstract class MessageService<M extends PsrPortalMessageTypes.MessageOpti
         this._sendMessage(level, msgObj, options)
     }
 
-    protected abstract _sendMessage(
+    protected _sendMessage(
         level: PsrPortalMessageTypes.MessageLevel,
         msgObj: PsrPortalMessageTypes.Message,
         options: M
-    ): void
+    ): void {
+    }
 
-    protected abstract _infoOptions(): M
+    protected _infoOptions(): M {
+        return {} as M
+    }
 
-    protected abstract _successOptions(): M
+    protected _successOptions(): M {
+        return {} as M
+    }
 
-    protected abstract _warnOptions(): M
+    protected _warnOptions(): M {
+        return {} as M
+    }
 
-    protected abstract _errorOptions(): M
+    protected _errorOptions(): M {
+        return {} as M
+    }
 
-    protected abstract _debugOptions(): M
+    protected _debugOptions(): M {
+        return {} as M
+    }
 
     private consoleOut({message, level, owner, data}: PsrPortalMessageTypes.Message) {
         let msg = message

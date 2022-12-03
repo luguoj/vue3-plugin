@@ -3,10 +3,10 @@ import {ElContainer, ElHeader, ElMain} from "element-plus"
 import "element-plus/es/components/container/style/css"
 import "element-plus/es/components/header/style/css"
 import "element-plus/es/components/main/style/css"
-import {PsrPortalMessage, PsrPortalMessageTypes} from "../package";
 import {PsrMessageList} from "./components/message-list";
+import {PsrLogger} from "../..";
 
-const msg: PsrPortalMessageTypes.MessageService<any> = PsrPortalMessage.useMessage()
+const msg = PsrLogger.useLog()
 
 function clear() {
   msg.clear()

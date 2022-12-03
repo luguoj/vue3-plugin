@@ -1,74 +1,51 @@
 import {ElMessage, ElNotification} from "element-plus"
 import "element-plus/es/components/message/style/css"
 import "element-plus/es/components/notification/style/css"
-import {PromiseQueue} from "@psr-framework/typescript-utils"
-import {PsrPortalMessageTypes} from "../package";
+import {PsrLogger, PsrLoggerTypes} from "../..";
 
-export interface MessageOptions extends PsrPortalMessageTypes.MessageOptions {
+export interface LogOptions extends PsrLoggerTypes.LogOptions {
     toast?: boolean
     notify?: boolean
     log?: boolean
 }
 
-export class SampleMessageService extends PsrPortalMessageTypes.MessageService<MessageOptions> {
-    readonly loggingQueue: PromiseQueue.Queue = new PromiseQueue.Queue()
-    private readonly _logService?: PsrPortalMessageTypes.LogService
-
-    constructor(options: { logService?: PsrPortalMessageTypes.LogService, debugging?: boolean }) {
-        super(options.debugging)
-        this._logService = options.logService
+function optionsByLevel(level: PsrLoggerTypes.LogLevel): LogOptions {
+    switch (level) {
+        case "info":
+            return {
+                notify: true,
+                log: true,
+            }
+        case "debug":
+            return {log: true}
+        case "success":
+            return {
+                toast: true,
+                log: true,
+            }
+        case "warn":
+            return {
+                toast: true,
+                log: true,
+            }
+        case "error":
+            return {
+                toast: true,
+                log: true,
+            }
     }
+}
 
-    _sendMessage(
-        level: PsrPortalMessageTypes.MessageLevel,
-        msgObj: PsrPortalMessageTypes.Message,
-        {toast, notify, log}: MessageOptions
-    ) {
-        if (toast) {
-            this.toastOut(msgObj)
-        }
-        if (notify) {
-            this.notifyOut(msgObj)
-        }
-        if (log) {
-            this.log(msgObj)
-        }
+const logApi: PsrLoggerTypes.Subscriber<LogOptions> = (logObj, {log}) => {
+    if (log) {
+        setTimeout(() => {
+            console.log('message saved:%o', logObj)
+        }, 1000)
     }
-
-    protected _infoOptions(): MessageOptions {
-        return {
-            notify: true,
-            log: true,
-        };
-    }
-
-    protected _successOptions(): MessageOptions {
-        return {
-            toast: true,
-            log: true,
-        };
-    }
-
-    protected _warnOptions(): MessageOptions {
-        return {
-            toast: true,
-            log: true,
-        };
-    }
-
-    protected _errorOptions(): MessageOptions {
-        return {
-            toast: true,
-            log: true,
-        };
-    }
-
-    protected _debugOptions(): MessageOptions {
-        return {log: true};
-    }
-
-    private toastOut({message, level}: PsrPortalMessageTypes.Message) {
-        switch (level) {
+}
+const toastOut: PsrLoggerTypes.Subscriber<LogOptions> = ({message}, {toast, topic}) => {
+    if (toast) {
+        switch (topic) {
             case "info":
             case "debug":
                 ElMessage({message})
@@ -84,9 +61,10 @@ export class SampleMessageService extends PsrPortalMessageTypes.MessageService<M
                 break
         }
     }
-
-    private notifyOut({message, level}: PsrPortalMessageTypes.Message) {
-        switch (level) {
+}
+const notifyOut: PsrLoggerTypes.Subscriber<LogOptions> = ({message}, {notify, topic}) => {
+    if (notify) {
+        switch (topic) {
             case "info":
             case "debug":
                 ElNotification({title: '消息', message, type: 'info'})
@@ -102,14 +80,10 @@ export class SampleMessageService extends PsrPortalMessageTypes.MessageService<M
                 break
         }
     }
-
-    private log(message: PsrPortalMessageTypes.Message) {
-        if (this._logService) {
-            const logService = this._logService
-            this.loggingQueue.enqueue<boolean>((resolve: PromiseQueue.ResolveCallback<boolean>, reject: PromiseQueue.RejectCallback) => {
-                return logService(message).then(resolve).catch(reject)
-            }).then()
-        }
-    }
-
 }
+
+export const logger = PsrLogger.create({
+    debugging: true,
+    optionsByLevel,
+    subscribers: [toastOut, notifyOut, logApi]
+})

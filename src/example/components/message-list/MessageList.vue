@@ -4,13 +4,13 @@
       <el-timeline-item
           v-for="(message,index) in messages" :key="index"
           :timestamp="getTimestamp(message.time)"
-          :type="getType(message.level)"
-          :icon="getIcon(message.level)"
+          :type="getType(message.topic)"
+          :icon="getIcon(message.topic)"
           placement="top"
           center
           size="large"
       >
-        <el-card :class="`message-card-${message.level}`">
+        <el-card :class="`message-card-${message.topic}`">
           {{ message.message }}
         </el-card>
       </el-timeline-item>

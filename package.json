@@ -1,5 +1,5 @@
 {
-  "name": "@psr-framework/portal-lib-message",
+  "name": "@psr-framework/vue3-plugin-messenger",
   "private": true,
   "version": "1.2.1",
   "type": "module",

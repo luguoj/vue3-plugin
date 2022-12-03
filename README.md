@@ -1,3 +1,3 @@
-# portal-lib-message
+# vue3-plugin-messenger
 
-门户库 - 消息
+vue3插件 消息服务

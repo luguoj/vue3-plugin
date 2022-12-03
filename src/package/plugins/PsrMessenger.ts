@@ -5,11 +5,11 @@ import {PsrMessengerTypes} from "../types/PsrMessengerTypes";
 const injectKey = Symbol('messenger')
 
 export class PsrMessenger {
-    private static _rootMessenger: PsrMessenger
+    private static _rootInstance: PsrMessenger
     private readonly _messageServices: Record<string, MessageService<any, any>> = {}
 
     static create(): PsrMessenger {
-        return PsrMessenger._rootMessenger = new PsrMessenger()
+        return PsrMessenger._rootInstance = new PsrMessenger()
     }
 
     static defineMessage<
@@ -24,7 +24,7 @@ export class PsrMessenger {
     }
 
     private static getMessenger(): PsrMessenger {
-        return inject<PsrMessenger>(injectKey) || PsrMessenger._rootMessenger
+        return inject<PsrMessenger>(injectKey) || PsrMessenger._rootInstance
     }
 
     install(app: App) {

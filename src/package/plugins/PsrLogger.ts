@@ -6,7 +6,7 @@ import {PsrLoggerTypes} from "../types/PsrLoggerTypes";
 const injectKey = Symbol('logger')
 
 export class PsrLogger {
-    private static _rootLogger: PsrLogger
+    private static _rootInstance: PsrLogger
     private readonly _logServices: LogService<any>
 
     private constructor(
@@ -31,7 +31,7 @@ export class PsrLogger {
             subscribers?: PsrMessengerTypes.Subscriber<any, any>[]
         }
     ): PsrLogger {
-        return PsrLogger._rootLogger = new PsrLogger(debugging, optionsByLevel, subscribers)
+        return PsrLogger._rootInstance = new PsrLogger(debugging, optionsByLevel, subscribers)
     }
 
     public static useLog(): LogService<any> {
@@ -39,7 +39,7 @@ export class PsrLogger {
     }
 
     private static getLogger(): PsrLogger {
-        return inject<PsrLogger>(injectKey) || PsrLogger._rootLogger
+        return inject<PsrLogger>(injectKey) || PsrLogger._rootInstance
     }
 
 

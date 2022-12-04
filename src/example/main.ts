@@ -3,6 +3,7 @@ import './style.css'
 import App from './App.vue'
 import {createPinia} from "pinia";
 import {createPsrPiniaPersist} from "../..";
+import {AsyncStorage} from "./asyncStorage";
 
 const app = createApp(App)
 
@@ -17,23 +18,7 @@ pinia.use(createPsrPiniaPersist({
     afterRestore: () => {
         console.log("afterRestore")
     },
-    storage: {
-        getItem: (key) => {
-            return new Promise((resolve) => {
-                setTimeout(() => {
-                    resolve(localStorage.getItem(key))
-                }, 5000)
-            })
-        },
-        setItem: (key, value) => {
-            return new Promise((resolve) => {
-                setTimeout(() => {
-                    localStorage.setItem(key, value)
-                    resolve(true)
-                }, 1000)
-            })
-        }
-    }
+    storage: new AsyncStorage()
 }))
 app.use(pinia)
 

@@ -47,11 +47,10 @@ export function createPsrPiniaPersist(
         persistOptionsArr.forEach((persistence) => {
             const {beforeRestore, afterRestore} = persistence
             beforeRestore(context)
-            restoreQueue.enqueue((resolve, reject) => {
-                restore(store, persistence).then(resolve).catch(reject)
+            restoreQueue.enqueue<void>(resolve => {
+                restore(store, persistence).finally(() => resolve())
             }).finally(() => {
                 afterRestore(context)
-
             })
             store.$subscribe(
                 (
@@ -76,21 +75,21 @@ export function createPsrPiniaPersist(
         }
 
         store.$restore = ({runHooks = true} = {}) => {
+            let last: Promise<any> | undefined = undefined
             persistOptionsArr.forEach((persistence) => {
                 const {beforeRestore, afterRestore} = persistence
                 if (runHooks) {
                     beforeRestore(context)
                 }
-                restoreQueue.enqueue((resolve, reject) => {
-                    restore(store, persistence).then(resolve).catch(reject)
+                last = restoreQueue.enqueue<void>(resolve => {
+                    restore(store, persistence).finally(() => resolve())
                 }).finally(() => {
                     if (runHooks) {
                         afterRestore(context)
                     }
-
                 })
-
             })
+            return last || Promise.resolve()
         }
     }
 }
@@ -107,17 +106,17 @@ function restore(
     store: Store,
     {storage, serializer, key, debug}: Persistence,
 ) {
-    return new Promise((resolve, reject) => {
+    return new Promise<void>((resolve, reject) => {
         try {
             const fromStorage = storage.getItem(key)
             if (fromStorage instanceof Promise) {
                 fromStorage.then(value => {
                     doRestore(store, value, serializer)
-                    resolve(true)
+                    resolve()
                 })
             } else {
                 doRestore(store, fromStorage, serializer)
-                resolve(true)
+                resolve()
             }
         } catch (error) {
             if (debug) {

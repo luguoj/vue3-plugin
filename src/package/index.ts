@@ -10,7 +10,7 @@ declare module 'pinia' {
     }
 
     export interface PiniaCustomProperties {
-        $restore: (opts?: { runHooks?: boolean }) => void
+        $restore: (opts?: { runHooks?: boolean }) => Promise<void>
         $persist: () => void
     }
 }

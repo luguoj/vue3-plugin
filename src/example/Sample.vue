@@ -1,5 +1,6 @@
 <template>
   <button @click="increment">{{ count }}</button>
+  <button @click="restore">restore</button>
 </template>
 
 <script setup lang="ts">
@@ -10,6 +11,10 @@ const store = useSample2Store()
 
 const {count} = storeToRefs(store)
 const {increment} = store
+
+function restore() {
+  store.$restore()
+}
 </script>
 
 <style scoped>

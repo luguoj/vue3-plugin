@@ -1,4 +1,4 @@
-import {App, inject} from "vue";
+import {App, getCurrentInstance, inject} from "vue";
 import {MessageService} from "../services/message/MessageService";
 import {PsrMessengerTypes} from "../types/PsrMessengerTypes";
 
@@ -20,18 +20,20 @@ export class PsrMessenger {
         T extends string = string,
         M extends PsrMessengerTypes.MessageOptions<T> = PsrMessengerTypes.MessageOptions<T>
     >(key: string, ...subscribers: PsrMessengerTypes.Subscriber<T, M>[]): MessageService<T, M> {
-        return PsrMessenger.getMessenger()._messageServices[key] = new MessageService<T, M>().subscribe(...subscribers)
+        return PsrMessenger.getInstance()._messageServices[key] = new MessageService<T, M>().subscribe(...subscribers)
     }
 
     static useMessage<
         T extends string = string,
         M extends PsrMessengerTypes.MessageOptions<T> = PsrMessengerTypes.MessageOptions<T>
     >(key: string) {
-        return PsrMessenger.getMessenger()._messageServices[key]
+        return PsrMessenger.getInstance()._messageServices[key]
     }
 
-    private static getMessenger(): PsrMessenger {
-        return inject<PsrMessenger>(injectKey) || PsrMessenger._activeInstance
+    private static getInstance(): PsrMessenger {
+        if (getCurrentInstance())
+            return inject<PsrMessenger>(injectKey) || PsrMessenger._activeInstance
+        else return PsrMessenger._activeInstance
     }
 
     install(app: App) {

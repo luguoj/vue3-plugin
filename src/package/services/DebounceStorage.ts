@@ -2,7 +2,7 @@ import {PsrPiniaPersistTypes} from "../types/PsrPiniaPersistTypes";
 import {PromiseQueue} from "@psr-framework/typescript-utils";
 
 export abstract class DebounceStorage implements PsrPiniaPersistTypes.Storage {
-    debounceTimer: number | undefined
+    debounceTimer: NodeJS.Timer | undefined
     queue = new PromiseQueue.Queue()
     private readonly _delay: number
 

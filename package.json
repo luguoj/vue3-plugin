@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "devDependencies": {
+    "@psr-framework/typescript-utils": "git+https://gitee.com/psr-platform/typescript-utils.git#1.4.1",
     "@vitejs/plugin-vue": "^3.2.0",
     "primeicons": "^6.0.1",
     "primevue": "^3.20.0",

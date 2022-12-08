@@ -6,9 +6,9 @@
       scrollDirection="both"
       :resizableColumns="true"
       columnResizeMode="expand"
-      :filters="context.filters"
+      :filters="tableContext.filters"
       filterMode="lenient"
-      :value="context.rootNodes"
+      :value="tableContext.rootNodes"
   >
     <slot/>
   </TreeTable>
@@ -19,7 +19,7 @@ import TreeTable from "primevue/treetable";
 import {PsrPFilterTreeTableContext} from "./PsrPFilterTreeTableContext";
 
 const props = defineProps<{
-  context: PsrPFilterTreeTableContext<any>
+  tableContext: PsrPFilterTreeTableContext<any>
 }>()
 </script>
 

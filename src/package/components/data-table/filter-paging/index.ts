@@ -1,4 +1,4 @@
-import PsrPFilterPagingDataTable from "./PsrPFilterPagingDataTable.vue";
+import PsrPFilterPagingDataTable from "./FilterPagingDataTable.vue";
 
 export {PsrPFilterPagingDataTable}
 

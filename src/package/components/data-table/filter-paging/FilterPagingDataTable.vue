@@ -12,13 +12,13 @@
       paginatorTemplate="CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown"
       currentPageReportTemplate="{first} - {last} / {totalRecords}"
       :lazy="true"
-      v-model:first="context.pageable.offset"
-      :rows="context.pageable.limit"
+      v-model:first="tableContext.pageable.offset"
+      :rows="tableContext.pageable.limit"
       @page="onDataTableEvent"
       @sort="onDataTableEvent"
-      :value="context.data.content"
-      :totalRecords="context.data.totalElements"
-      v-model:filters="context.filters"
+      :value="tableContext.data.content"
+      :totalRecords="tableContext.data.totalElements"
+      v-model:filters="tableContext.filters"
       filterDisplay="row"
       stripedRows
       showGridlines
@@ -28,8 +28,8 @@
     </template>
     <template #paginatorstart>
       <Dropdown
-          v-model="context.pageable.limit"
-          :options="context.limitSelectOptions"
+          v-model="tableContext.pageable.limit"
+          :options="tableContext.limitSelectOptions"
           optionLabel="limit"
           optionValue="limit"
           placeholder="Select a City"
@@ -49,7 +49,7 @@ import Dropdown from "primevue/dropdown";
 import {PsrPFilterPagingDataTableContext} from "./PsrPFilterPagingDataTableContext";
 
 const props = defineProps<{
-  context: PsrPFilterPagingDataTableContext<any>
+  tableContext: PsrPFilterPagingDataTableContext<any>
 }>()
 const tableRef = ref<DataTable>()
 
@@ -58,16 +58,16 @@ function handleExport() {
 }
 
 function onDataTableEvent(event: any) {
-  props.context.pageable.offset = event.first
-  props.context.pageable.limit = event.rows
+  props.tableContext.pageable.offset = event.first
+  props.tableContext.pageable.limit = event.rows
   if (event.sortField) {
-    props.context.pageable.sort = event.sortField
-    props.context.pageable.dir = event.sortOrder > 0 ? 'ASC' : 'DESC'
+    props.tableContext.pageable.sort = event.sortField
+    props.tableContext.pageable.dir = event.sortOrder > 0 ? 'ASC' : 'DESC'
   } else {
-    delete props.context.pageable.sort
-    delete props.context.pageable.dir
+    delete props.tableContext.pageable.sort
+    delete props.tableContext.pageable.dir
   }
-  props.context.load()
+  props.tableContext.load()
 }
 
 </script>

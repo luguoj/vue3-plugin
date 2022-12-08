@@ -8,8 +8,8 @@
       scrollDirection="both"
       :resizableColumns="true"
       columnResizeMode="expand"
-      :value="context.data"
-      v-model:filters="context.filters"
+      :value="tableContext.data"
+      v-model:filters="tableContext.filters"
       filterDisplay="row"
       stripedRows
       showGridlines
@@ -26,7 +26,7 @@ import DataTable from "primevue/datatable";
 import {PsrPFilterDataTableContext} from "./PsrPFilterDataTableContext";
 
 const props = defineProps<{
-  context: PsrPFilterDataTableContext<any>
+  tableContext: PsrPFilterDataTableContext<any>
 }>()
 </script>
 

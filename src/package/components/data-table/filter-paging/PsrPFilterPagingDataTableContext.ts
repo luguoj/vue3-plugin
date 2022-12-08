@@ -1,12 +1,12 @@
-import {DataTableFilterMeta} from "primevue/datatable";
+import {DataTableFilterMetaData} from "primevue/datatable";
 
 import {reactive, watch} from "vue";
 import {FilterOptions, PagingTypes} from "@psr-framework/typescript-utils"
-import {buildFilterOptions} from "../../../services/buildFilterOptions";
+import {buildFilterOptions} from "./buildFilterOptions";
 
 export class PsrPFilterPagingDataTableContext<E> {
     loadDataHandler: (filter: Record<string, FilterOptions.ValueRange[]>, pageable: PagingTypes.Pageable) => Promise<PagingTypes.Page<E>>
-    defaultFilters: () => DataTableFilterMeta
+    defaultFilters: () => Record<string, DataTableFilterMetaData>
 
     pageable: PagingTypes.Pageable = {
         offset: 0,
@@ -19,11 +19,11 @@ export class PsrPFilterPagingDataTableContext<E> {
         totalPages: 0
     }
     loading: boolean = false
-    filters: DataTableFilterMeta
+    filters: Record<string, DataTableFilterMetaData>
 
     constructor(
         loadDataHandler: (filter: Record<string, FilterOptions.ValueRange[]>, pageable: PagingTypes.Pageable) => Promise<PagingTypes.Page<E>>,
-        defaultFilters: () => DataTableFilterMeta
+        defaultFilters: () => Record<string, DataTableFilterMetaData>
     ) {
         this.loadDataHandler = loadDataHandler
         this.defaultFilters = defaultFilters
@@ -34,7 +34,7 @@ export class PsrPFilterPagingDataTableContext<E> {
     static create<E>(
         options: {
             loadDataHandler: (filter: Record<string, FilterOptions.ValueRange[]>, pageable: PagingTypes.Pageable) => Promise<PagingTypes.Page<E>>,
-            defaultFilters: () => DataTableFilterMeta
+            defaultFilters: () => Record<string, DataTableFilterMetaData>
         }
     ) {
         return reactive(new PsrPFilterPagingDataTableContext(

@@ -1,7 +1,7 @@
 <template>
   <button @click="handleCreate">create</button>
   <button @click="handleModify">modify</button>
-  <psr-el-create-update-from-dialog :dialog-model="model">
+  <psr-el-create-update-from-dialog :dialog-context="context">
     <template #default="{formData,creating}">
       <el-form-item label="id">
         <el-input v-model="formData.id" :disabled="!creating"/>
@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import {PsrCreateUpdateFormDialogModel, PsrElCreateUpdateFromDialog} from "../package"
+import {PsrCreateUpdateFormDialogContext, PsrElCreateUpdateFromDialog} from "../package"
 import {ElFormItem, ElInput} from "element-plus"
 import "element-plus/es/components/form-item/style/css"
 import "element-plus/es/components/input/style/css"
@@ -25,7 +25,7 @@ interface Data {
   name: string
 }
 
-const model = PsrCreateUpdateFormDialogModel.create<Data>({
+const context = PsrCreateUpdateFormDialogContext.create<Data>({
   defaultData: () => {
     return {id: '', name: ''}
   },
@@ -34,11 +34,11 @@ const model = PsrCreateUpdateFormDialogModel.create<Data>({
 })
 
 function handleCreate() {
-  model.show()
+  context.show()
 }
 
 function handleModify() {
-  model.show({id: 'test', name: 'test'})
+  context.show({id: 'test', name: 'test'})
 }
 
 </script>

@@ -2,7 +2,7 @@
   <el-dialog
       :title="creating?'创建':'编辑'"
       :before-close="beforeClose"
-      :model-value="dialogModel.visible">
+      :model-value="dialogContext.visible">
     <el-form :model="formData" label-width="auto">
       <slot :formData="formData" :creating="creating"/>
     </el-form>
@@ -27,10 +27,10 @@ import "element-plus/es/components/message/style/css"
 import "element-plus/es/components/message-box/style/css"
 import {PsrElAsyncActionButton} from "../../button/async-action";
 import {isEqual} from "lodash";
-import {PsrCreateUpdateFormDialogModel} from "./PsrCreateUpdateFormDialogModel";
+import {PsrCreateUpdateFormDialogContext} from "./PsrCreateUpdateFormDialogContext";
 
 const props = defineProps<{
-  dialogModel: PsrCreateUpdateFormDialogModel<any>
+  dialogContext: PsrCreateUpdateFormDialogContext<any>
 }>()
 
 const emits = defineEmits<{
@@ -39,12 +39,12 @@ const emits = defineEmits<{
 
 const originalData = ref<any>({})
 const formData = ref<any>({})
-const creating = computed(() => !originalData.value[props.dialogModel.idProperty])
+const creating = computed(() => !originalData.value[props.dialogContext.idProperty])
 const formDirty = computed(() => {
   return !isEqual(formData.value, originalData.value)
 })
 
-watch(() => props.dialogModel.data, data => {
+watch(() => props.dialogContext.data, data => {
   const dataRaw = toRaw(data)
   for (const dataRawKey in dataRaw) {
     originalData.value[dataRawKey] = dataRaw[dataRawKey]
@@ -53,8 +53,8 @@ watch(() => props.dialogModel.data, data => {
 }, {immediate: true})
 
 function hide() {
-  props.dialogModel.visible = false
-  props.dialogModel.data = props.dialogModel.defaultData()
+  props.dialogContext.visible = false
+  props.dialogContext.data = props.dialogContext.defaultData()
 }
 
 function handleChanged(data: any) {
@@ -62,15 +62,15 @@ function handleChanged(data: any) {
     message: '保存成功.',
     type: 'success',
   })
-  props.dialogModel.data = data
+  props.dialogContext.data = data
   emits('dialogDataChanged', data)
 }
 
 function handleSubmit() {
   if (creating.value) {
-    return props.dialogModel.createHandler(formData.value).then(handleChanged)
+    return props.dialogContext.createHandler(formData.value).then(handleChanged)
   } else {
-    return props.dialogModel.updateHandler(formData.value).then(handleChanged)
+    return props.dialogContext.updateHandler(formData.value).then(handleChanged)
   }
 }
 

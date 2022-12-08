@@ -1,7 +1,7 @@
 import {reactive} from "vue";
 
 
-export class PsrCreateUpdateFormDialogModel<E> {
+export class PsrCreateUpdateFormDialogContext<E> {
     idProperty: keyof E
     defaultData: () => E
     createHandler: (data: E) => Promise<E>
@@ -33,7 +33,7 @@ export class PsrCreateUpdateFormDialogModel<E> {
         createHandler: (data: E) => Promise<E>,
         updateHandler: (data: E) => Promise<E>
     }) {
-        return reactive(new PsrCreateUpdateFormDialogModel<E>(
+        return reactive(new PsrCreateUpdateFormDialogContext<E>(
             options.idProperty || 'id' as keyof E,
             options.defaultData,
             options.createHandler,

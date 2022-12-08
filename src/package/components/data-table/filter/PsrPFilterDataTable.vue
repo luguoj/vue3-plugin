@@ -30,6 +30,8 @@ const props = defineProps<{
 }>()
 </script>
 
-<style scoped>
-
+<style>
+.p-datatable-scrollable .p-datatable-thead {
+  z-index: 2 !important;
+}
 </style>

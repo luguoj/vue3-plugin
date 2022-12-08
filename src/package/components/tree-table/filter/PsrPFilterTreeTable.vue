@@ -23,6 +23,12 @@ const props = defineProps<{
 }>()
 </script>
 
-<style scoped>
+<style>
+.p-treetable.p-treetable-sm .p-treetable-header {
+  padding: 0.5rem;
+}
 
+.p-treetable-scrollable .p-treetable-thead {
+  z-index: 2 !important;
+}
 </style>

@@ -1,7 +1,7 @@
 import {ElMessage, ElNotification} from "element-plus"
 import "element-plus/es/components/message/style/css"
 import "element-plus/es/components/notification/style/css"
-import {PsrLogger, PsrLoggerTypes} from "../..";
+import {PsrLogger, PsrLoggerTypes} from "../package";
 
 export interface LogOptions extends PsrLoggerTypes.LogOptions {
     toast?: boolean
@@ -9,7 +9,7 @@ export interface LogOptions extends PsrLoggerTypes.LogOptions {
     log?: boolean
 }
 
-function optionsByLevel(level: PsrLoggerTypes.LogLevel): LogOptions {
+function optionsByLevel(level: PsrLoggerTypes.LogLevel): LogOptions | undefined {
     switch (level) {
         case "info":
             return {
@@ -36,7 +36,7 @@ function optionsByLevel(level: PsrLoggerTypes.LogLevel): LogOptions {
     }
 }
 
-const logApi: PsrLoggerTypes.Subscriber<LogOptions> = (logObj, {log}) => {
+const logApi: PsrLoggerTypes.Subscriber<LogOptions> = (logObj: PsrLoggerTypes.Log, {log}) => {
     if (log) {
         setTimeout(() => {
             console.log('message saved:%o', logObj)

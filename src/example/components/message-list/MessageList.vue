@@ -27,7 +27,7 @@ import "element-plus/es/components/timeline-item/style/css"
 import "element-plus/es/components/card/style/css"
 import {CircleCloseFilled, InfoFilled, QuestionFilled, SuccessFilled, WarningFilled} from "@element-plus/icons-vue"
 import moment from "moment";
-import {PsrLogger, PsrLoggerTypes} from "../../../..";
+import {PsrLogger, PsrLoggerTypes} from "../../../package";
 
 
 const scrollbarRef = ref<ScrollbarInstance>()
@@ -52,7 +52,7 @@ function scrollToBottom() {
     })
 }
 
-function getType(level: PsrLoggerTypes.LogLevel) {
+function getType(level?: PsrLoggerTypes.LogLevel) {
   switch (level) {
     case "info":
       return "info"
@@ -67,7 +67,7 @@ function getType(level: PsrLoggerTypes.LogLevel) {
   }
 }
 
-function getIcon(level: PsrLoggerTypes.LogLevel) {
+function getIcon(level?: PsrLoggerTypes.LogLevel) {
   switch (level) {
     case "info":
       return InfoFilled

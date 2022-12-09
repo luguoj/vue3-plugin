@@ -4,7 +4,7 @@ import "element-plus/es/components/container/style/css"
 import "element-plus/es/components/header/style/css"
 import "element-plus/es/components/main/style/css"
 import {PsrMessageList} from "./components/message-list";
-import {PsrLogger} from "../..";
+import {PsrLogger} from "../package";
 
 const msg = PsrLogger.useLog()
 

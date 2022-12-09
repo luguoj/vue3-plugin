@@ -1,6 +1,6 @@
 {
   "name": "@psr-framework/vue3-plugin-pinia-persist",
-  "version": "1.2.2",
+  "version": "1.2.5",
   "type": "module",
   "scripts": {
     "dev": "vite --host",

@@ -23,10 +23,10 @@
 
 <script setup lang="ts">
 import DataTable from "primevue/datatable";
-import {PsrPFilterDataTableContext} from "./PsrPFilterDataTableContext";
+import {PsrPrmFilterDataTableContext} from "./PsrPrmFilterDataTableContext";
 
 const props = defineProps<{
-  tableContext: PsrPFilterDataTableContext<any>
+  tableContext: PsrPrmFilterDataTableContext<any>
 }>()
 </script>
 

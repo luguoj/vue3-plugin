@@ -2,7 +2,7 @@ import {DataTableFilterMeta} from "primevue/datatable";
 import {reactive} from "vue";
 import {UnwrapNestedRefs} from "@vue/reactivity";
 
-export class PsrPFilterDataTableContext<E> {
+export class PsrPrmFilterDataTableContext<E> {
     loadDataHandler: () => Promise<E[]>
     defaultFilters: () => DataTableFilterMeta
 
@@ -24,8 +24,8 @@ export class PsrPFilterDataTableContext<E> {
             loadDataHandler: () => Promise<E[]>,
             defaultFilters: () => DataTableFilterMeta
         }
-    ): UnwrapNestedRefs<PsrPFilterDataTableContext<E>> {
-        return reactive(new PsrPFilterDataTableContext(
+    ): UnwrapNestedRefs<PsrPrmFilterDataTableContext<E>> {
+        return reactive(new PsrPrmFilterDataTableContext(
             options.loadDataHandler,
             options.defaultFilters
         ))

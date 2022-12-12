@@ -16,10 +16,10 @@
 
 <script setup lang="ts">
 import TreeTable from "primevue/treetable";
-import {PsrPFilterTreeTableContext} from "./PsrPFilterTreeTableContext";
+import {PsrPrmFilterTreeTableContext} from "./PsrPrmFilterTreeTableContext";
 
 const props = defineProps<{
-  tableContext: PsrPFilterTreeTableContext<any>
+  tableContext: PsrPrmFilterTreeTableContext<any>
 }>()
 </script>
 

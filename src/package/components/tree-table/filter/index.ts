@@ -1,5 +1,5 @@
-import PsrPFilterTreeTable from "./FilterTreeTable.vue";
+import PsrPrmFilterTreeTable from "./FilterTreeTable.vue";
 
-export {PsrPFilterTreeTable}
+export {PsrPrmFilterTreeTable}
 
-export * from "./PsrPFilterTreeTableContext";
+export * from "./PsrPrmFilterTreeTableContext";

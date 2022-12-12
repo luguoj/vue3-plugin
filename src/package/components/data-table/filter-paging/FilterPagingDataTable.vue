@@ -46,10 +46,10 @@
 import {ref} from "vue";
 import DataTable from "primevue/datatable";
 import Dropdown from "primevue/dropdown";
-import {PsrPFilterPagingDataTableContext} from "./PsrPFilterPagingDataTableContext";
+import {PsrPrmFilterPagingDataTableContext} from "./PsrPrmFilterPagingDataTableContext";
 
 const props = defineProps<{
-  tableContext: PsrPFilterPagingDataTableContext<any>
+  tableContext: PsrPrmFilterPagingDataTableContext<any>
 }>()
 const tableRef = ref<DataTable>()
 

@@ -5,7 +5,7 @@ import {FilterOptions, PagingTypes} from "@psr-framework/typescript-utils"
 import {buildFilterOptions} from "./buildFilterOptions";
 import {UnwrapNestedRefs} from "@vue/reactivity";
 
-export class PsrPFilterPagingDataTableContext<E> {
+export class PsrPrmFilterPagingDataTableContext<E> {
     loadDataHandler: (filter: Record<string, FilterOptions.ValueRange[]>, pageable: PagingTypes.Pageable) => Promise<PagingTypes.Page<E>>
     defaultFilters: () => Record<string, DataTableFilterMetaData>
 
@@ -37,8 +37,8 @@ export class PsrPFilterPagingDataTableContext<E> {
             loadDataHandler: (filter: Record<string, FilterOptions.ValueRange[]>, pageable: PagingTypes.Pageable) => Promise<PagingTypes.Page<E>>,
             defaultFilters: () => Record<string, DataTableFilterMetaData>
         }
-    ): UnwrapNestedRefs<PsrPFilterPagingDataTableContext<E>> {
-        return reactive(new PsrPFilterPagingDataTableContext(
+    ): UnwrapNestedRefs<PsrPrmFilterPagingDataTableContext<E>> {
+        return reactive(new PsrPrmFilterPagingDataTableContext(
             options.loadDataHandler,
             options.defaultFilters
         ))

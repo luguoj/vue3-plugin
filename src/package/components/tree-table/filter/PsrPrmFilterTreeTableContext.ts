@@ -35,7 +35,7 @@ function extractData<E>(
 }
 
 
-export class PsrPFilterTreeTableContext<E> {
+export class PsrPrmFilterTreeTableContext<E> {
     loadDataHandler: () => Promise<E[] | undefined>
     defaultFilters: () => { [key: string | 'global']: any }
     filters: { [key: string | 'global']: any }
@@ -67,8 +67,8 @@ export class PsrPFilterTreeTableContext<E> {
             childrenProperty?: keyof E
             keyProperty?: keyof E
         }
-    ): UnwrapNestedRefs<PsrPFilterTreeTableContext<E>> {
-        return reactive(new PsrPFilterTreeTableContext(
+    ): UnwrapNestedRefs<PsrPrmFilterTreeTableContext<E>> {
+        return reactive(new PsrPrmFilterTreeTableContext(
             options.loadDataHandler,
             options.defaultFilters,
             options.childrenProperty,

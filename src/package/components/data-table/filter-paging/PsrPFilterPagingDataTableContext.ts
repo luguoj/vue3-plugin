@@ -3,6 +3,7 @@ import {DataTableFilterMetaData} from "primevue/datatable";
 import {reactive, watch} from "vue";
 import {FilterOptions, PagingTypes} from "@psr-framework/typescript-utils"
 import {buildFilterOptions} from "./buildFilterOptions";
+import {UnwrapNestedRefs} from "@vue/reactivity";
 
 export class PsrPFilterPagingDataTableContext<E> {
     loadDataHandler: (filter: Record<string, FilterOptions.ValueRange[]>, pageable: PagingTypes.Pageable) => Promise<PagingTypes.Page<E>>
@@ -36,7 +37,7 @@ export class PsrPFilterPagingDataTableContext<E> {
             loadDataHandler: (filter: Record<string, FilterOptions.ValueRange[]>, pageable: PagingTypes.Pageable) => Promise<PagingTypes.Page<E>>,
             defaultFilters: () => Record<string, DataTableFilterMetaData>
         }
-    ) {
+    ): UnwrapNestedRefs<PsrPFilterPagingDataTableContext<E>> {
         return reactive(new PsrPFilterPagingDataTableContext(
             options.loadDataHandler,
             options.defaultFilters

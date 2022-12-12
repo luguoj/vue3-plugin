@@ -1,4 +1,5 @@
 import {reactive} from "vue";
+import {UnwrapNestedRefs} from "@vue/reactivity";
 
 interface TreeNode<E> {
     key: string,
@@ -66,7 +67,7 @@ export class PsrPFilterTreeTableContext<E> {
             childrenProperty?: keyof E
             keyProperty?: keyof E
         }
-    ) {
+    ): UnwrapNestedRefs<PsrPFilterTreeTableContext<E>> {
         return reactive(new PsrPFilterTreeTableContext(
             options.loadDataHandler,
             options.defaultFilters,

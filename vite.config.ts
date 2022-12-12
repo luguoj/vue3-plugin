@@ -13,7 +13,7 @@ export default defineConfig({
     build: {
         lib: {
             entry: resolve(__dirname, 'src/index.ts'),
-            name: 'PsrDesktopLayout',
+            name: 'PsrPrimevueExtension',
             fileName: 'index'
         },
         rollupOptions: {

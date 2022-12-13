@@ -7,4 +7,4 @@ export * from "./components/container/toolbar"
 
 export * from "./components/dialog/create-update-form"
 
-export * from "./services"
+export * from "./directives/vHScrollOnWheel"

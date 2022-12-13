@@ -29,10 +29,10 @@
     <template #paginatorstart>
       <Dropdown
           v-model="tableContext.pageable.limit"
-          :options="tableContext.limitSelectOptions"
+          :options="limitSelectOptions"
           optionLabel="limit"
           optionValue="limit"
-          placeholder="Select a City"
+          placeholder="选择分页大小"
       />
     </template>
     <template #paginatorend>
@@ -43,7 +43,7 @@
 </template>
 
 <script setup lang="ts">
-import {ref} from "vue";
+import {computed, ref} from "vue";
 import DataTable from "primevue/datatable";
 import Dropdown from "primevue/dropdown";
 import {PsrPrmFilterPagingDataTableContext} from "./PsrPrmFilterPagingDataTableContext";
@@ -56,6 +56,8 @@ const tableRef = ref<DataTable>()
 function handleExport() {
   tableRef.value?.exportCSV();
 }
+
+const limitSelectOptions = computed(() => props.tableContext.limitSelectOptions.map(limit => ({limit})))
 
 function onDataTableEvent(event: any) {
   props.tableContext.pageable.offset = event.first

@@ -2,11 +2,11 @@
 import {shallowRef} from "vue";
 import {ElScrollbar, ScrollbarInstance} from "element-plus"
 import "element-plus/es/components/scrollbar/style/css"
-import {vPsrHScrollOnWheel} from "../package";
+import {vPsrElHScrollOnWheel} from "../package";
 
 const scrollbarRef = shallowRef<ScrollbarInstance>()
 
-vPsrHScrollOnWheel
+vPsrElHScrollOnWheel
 </script>
 
 <template>
@@ -20,7 +20,7 @@ vPsrHScrollOnWheel
   </div>
   <h3>H scrolling</h3>
   <div style="width: 200px;height: 100px;border:var(--el-border);">
-    <el-scrollbar always ref="scrollbarRef" v-psr-h-scroll-on-wheel>
+    <el-scrollbar always ref="scrollbarRef" v-psr-el-h-scroll-on-wheel>
       <div>
         asdfasdfasdfasdfasdfasdfasdfasdfasdfasfasdfasdfasdfasdfasdfasdasdfasdfasdfasdfasdfasdfasdfasdfasdfasfasdfasdfasdfasdfasdfasdasdfasdfasdfasdfasdfasdfasdfasdfasdfasfasdfasdfasdfasdfasdfasdasdfasdfasdfasdfasdfasdfasdfasdfasdfasfasdfasdfasdfasdfasdfasdasdfasdfasdfasdfasdfasdfasdfasdfasdfasfasdfasdfasdfasdfasdfasdasdfasdfasdfasdfasdfasdfasdfasdfasdfasfasdfasdfasdfasdfasdfasdasdfasdfasdfasdfasdfasdfasdfasdfasdfasfasdfasdfasdfasdfasdfasdasdfasdfasdfasdfasdfasdfasdfasdfasdfasfasdfasdfasdfasdfasdfasdasdfasdfasdfasdfasdfasdfasdfasdfasdfasfasdfasdfasdfasdfasdfasdasdfasdfasdfasdfasdfasdfasdfasdfasdfasfasdfasdfasdfasdfasdfasdasdfasdfasdfasdfasdfasdfasdfasdfasdfasfasdfasdfasdfasdfasdfasd
       </div>

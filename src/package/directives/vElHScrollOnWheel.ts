@@ -1,6 +1,6 @@
 import {Directive} from "vue";
 
-export const vPsrHScrollOnWheel: Directive<HTMLDivElement, boolean | undefined> = {
+export const vPsrElHScrollOnWheel: Directive<HTMLDivElement, boolean | undefined> = {
     mounted(el, value) {
         if (value && el.classList.contains('el-scrollbar')) {
             const wrapRef = el.getElementsByClassName('el-scrollbar__wrap')[0]

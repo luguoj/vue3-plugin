@@ -1,8 +1,8 @@
 import {App} from "vue";
-import {PsrVue3DragResize} from '../components/drag-resize'
+import {PsrDragResize} from '../components/drag-resize'
 
-export const PsrVue3DragResizePlugin = {
+export const PsrDragResizePlugin = {
     install(app: App) {
-        app.component('PsrVue3DragResize', PsrVue3DragResize)
+        app.component('PsrDragResize', PsrDragResize)
     }
 }

@@ -1,5 +1,5 @@
-import PsrVue3DragResize from './DragResize.vue'
+import PsrDragResize from './DragResize.vue'
 
 export {
-    PsrVue3DragResize
+    PsrDragResize
 }

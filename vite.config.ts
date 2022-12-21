@@ -14,7 +14,7 @@ export default defineConfig({
         lib: {
             entry: resolve(__dirname, 'src/package/index.ts'),
             name: 'PsrDragResize',
-            fileName: 'vue3-plugin-drag-resize'
+            fileName: 'index'
         },
         rollupOptions: {
             // 确保外部化处理那些你不想打包进库的依赖

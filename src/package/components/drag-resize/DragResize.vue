@@ -20,7 +20,7 @@
 </template>
 <script lang="ts">
 export default {
-  name: "PsrVue3DragResize"
+  name: "PsrDragResize"
 }
 </script>
 <script setup lang="ts">

@@ -2,10 +2,12 @@ import {resolve} from 'path'
 import {defineConfig} from 'vite'
 import vue from '@vitejs/plugin-vue'
 import dts from 'vite-plugin-dts'
+import libCss from "vite-plugin-libcss"
 
 export default defineConfig({
     plugins: [
         vue(),
+        libCss(),
         dts({
             exclude: ["src/example/**/*.vue", "src/example/**/*.ts"],
         })
@@ -26,5 +28,5 @@ export default defineConfig({
                 }
             }
         }
-    },
+    }
 })

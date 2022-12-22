@@ -2,11 +2,16 @@ import {resolve} from 'path'
 import {defineConfig} from 'vite'
 import vue from '@vitejs/plugin-vue'
 import dts from 'vite-plugin-dts'
+import libCss from "vite-plugin-libcss"
 
 export default defineConfig({
-    plugins: [vue(), dts({
-        exclude: ["example/**/*.ts", "example/**/*.vue"],
-    })],
+    plugins: [
+        vue(),
+        libCss(),
+        dts({
+            exclude: ["example/**/*.ts", "example/**/*.vue"],
+        })
+    ],
     build: {
         lib: {
             entry: resolve(__dirname, 'src/index.ts'),

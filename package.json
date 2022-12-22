@@ -1,6 +1,6 @@
 {
   "name": "@psr-framework/vue3-plugin-drag-resize",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "author": "zhoudingding",
   "description": "vue3.x 拖拽缩放组件",
   "type": "module",

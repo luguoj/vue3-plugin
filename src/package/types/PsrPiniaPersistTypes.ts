@@ -1,13 +1,9 @@
 import {type PiniaPluginContext, type StateTree} from 'pinia'
-import {DebounceStorage as _DebounceStorage} from "../services/DebounceStorage";
 
 export namespace PsrPiniaPersistTypes {
     export interface Storage {
         getItem: (key: string) => string | null | Promise<string | null>
         setItem: (key: string, value: string) => void
-    }
-
-    export abstract class DebounceStorage extends _DebounceStorage {
     }
 
     export interface Serializer {

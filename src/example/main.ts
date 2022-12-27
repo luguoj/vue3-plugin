@@ -3,7 +3,7 @@ import './style.css'
 import App from './App.vue'
 import {createPinia} from "pinia";
 import {createPsrPiniaPersist} from "../package";
-import {AsyncStorage} from "./asyncStorage";
+import {asyncStorage} from "./asyncStorage";
 
 const app = createApp(App)
 
@@ -18,7 +18,7 @@ pinia.use(createPsrPiniaPersist({
     afterRestore: () => {
         console.log("afterRestore")
     },
-    storage: new AsyncStorage()
+    storage: asyncStorage
 }))
 app.use(pinia)
 

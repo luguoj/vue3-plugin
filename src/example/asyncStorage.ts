@@ -1,25 +1,21 @@
-import {PsrPiniaPersistTypes} from "../package";
+import {createDebounceStore} from "../package";
 
-export class AsyncStorage extends PsrPiniaPersistTypes.DebounceStorage {
-    constructor() {
-        super(1000);
-    }
-
-    getItem(key: string): Promise<string | null> {
+export const asyncStorage = createDebounceStore(
+    1000,
+    (key) => {
         return new Promise((resolve) => {
             setTimeout(() => {
                 resolve(localStorage.getItem(key))
             }, 5000)
         })
-    }
-
-    _setItem(key: string, value: string) {
+    },
+    (key, value) => {
         return new Promise<void>(resolve => {
             setTimeout(() => {
                 console.log('saved')
-                localStorage.setItem(key, value)
+                localStorage.setItem(key, value || '')
                 resolve()
             }, 1000)
         })
     }
-}
+)

@@ -1,6 +1,6 @@
-import {createDebounceStore} from "../package";
+import {createDebounceStorage} from "../package";
 
-export const asyncStorage = createDebounceStore(
+export const asyncStorage = createDebounceStorage(
     1000,
     (key) => {
         return new Promise((resolve) => {

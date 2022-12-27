@@ -1,7 +1,7 @@
 import {PsrPiniaPersistTypes} from "../types/PsrPiniaPersistTypes";
 import {PromiseQueue} from "@psr-framework/typescript-utils";
 
-export function createDebounceStore(
+export function createDebounceStorage(
     delay: number,
     getItemFn: (key: string) => string | Promise<string | null> | null,
     setItemFn: (key: string, value: string) => void | Promise<void>

@@ -13,7 +13,8 @@
       currentPageReportTemplate="{first} - {last} / {totalRecords}"
       :lazy="true"
       v-model:first="tableContext.pageable.offset"
-      :rows="tableContext.pageable.limit"
+      v-model:rows="tableContext.pageable.limit"
+      :rows-per-page-options="tableContext.limitSelectOptions"
       @page="onDataTableEvent"
       @sort="onDataTableEvent"
       :value="tableContext.data.content"
@@ -27,13 +28,7 @@
       没有数据.
     </template>
     <template #paginatorstart>
-      <Dropdown
-          v-model="tableContext.pageable.limit"
-          :options="limitSelectOptions"
-          optionLabel="limit"
-          optionValue="limit"
-          placeholder="选择分页大小"
-      />
+      <slot name="paginatorstart"/>
     </template>
     <template #paginatorend>
       <slot name="paginatorend"/>
@@ -43,9 +38,8 @@
 </template>
 
 <script setup lang="ts">
-import {computed, ref} from "vue";
+import {ref} from "vue";
 import DataTable from "primevue/datatable";
-import Dropdown from "primevue/dropdown";
 import {PsrPrmFilterPagingDataTableContext} from "./PsrPrmFilterPagingDataTableContext";
 
 const props = defineProps<{
@@ -56,8 +50,6 @@ const tableRef = ref<DataTable>()
 function handleExport() {
   tableRef.value?.exportCSV();
 }
-
-const limitSelectOptions = computed(() => props.tableContext.limitSelectOptions.map(limit => ({limit})))
 
 function onDataTableEvent(event: any) {
   props.tableContext.pageable.offset = event.first

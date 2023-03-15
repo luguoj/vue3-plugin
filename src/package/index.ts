@@ -1,3 +1,3 @@
-import LeaderLine from "./components/LeaderLine.vue";
+import PsrLeaderLine from "./components/LeaderLine.vue";
 
-export {LeaderLine}
+export {PsrLeaderLine}

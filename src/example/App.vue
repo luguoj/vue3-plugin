@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {LeaderLine} from "../package";
+import {PsrLeaderLine} from "../package";
 import {onMounted, ref} from "vue";
 
 const elFrom = ref()
@@ -29,7 +29,7 @@ const lineOptions = {
     <div id="div-from" style="height: 20px;width: 20px;border:solid" ref="elFrom"/>
     <div id="div-to" style="height: 20px;width: 20px;border:solid;position: absolute;left:300px;top:300px;" ref="elTo"/>
     <div id="div-to2" style="height: 20px;width: 20px;border:solid;position: absolute;left:0px;top:300px;" ref="elTo2"/>
-    <LeaderLine :leader-line-start="start" :leader-line-end="end" :leader-line-options="lineOptions"/>
+    <psr-leader-line :leader-line-start="start" :leader-line-end="end" :leader-line-options="lineOptions"/>
   </div>
 </template>
 

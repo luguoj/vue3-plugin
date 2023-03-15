@@ -49,9 +49,9 @@ watchEffect(() => {
 
 function fixPosition() {
   if (canvasRef.value) {
-    canvasRef.value.style.transform = 'translate(-' +
-        (canvasRef.value.parentElement!.getBoundingClientRect().left + scrollX) + 'px, -' +
-        (canvasRef.value.parentElement!.getBoundingClientRect().top + scrollY) + 'px)'
+    canvasRef.value.style.transform = 'translate(' +
+        (-canvasRef.value.parentElement!.getBoundingClientRect().left - scrollX) + 'px, ' +
+        (-canvasRef.value.parentElement!.getBoundingClientRect().top - scrollY) + 'px)'
   }
   if (line.value) {
     line.value.position()

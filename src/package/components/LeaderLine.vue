@@ -80,11 +80,11 @@ function drawLine() {
     }
     let endElement: PsrLeaderLineTypes.Element | PsrLeaderLineTypes.AnchorAttachment = props.leaderLineEnd
     if (props.leaderLinePointAnchorEnd) {
-      startElement = LeaderLine.pointAnchor(props.leaderLineEnd, props.leaderLinePointAnchorEnd)
+      endElement = LeaderLine.pointAnchor(props.leaderLineEnd, props.leaderLinePointAnchorEnd)
     } else if (props.leaderLineAreaAnchorEnd) {
-      startElement = LeaderLine.areaAnchor(props.leaderLineEnd, props.leaderLineAreaAnchorEnd)
+      endElement = LeaderLine.areaAnchor(props.leaderLineEnd, props.leaderLineAreaAnchorEnd)
     } else if (props.leaderLineHoverAnchorEnd) {
-      startElement = LeaderLine.mouseHoverAnchor(props.leaderLineEnd, props.leaderLineHoverAnchorEnd.showEffectName, props.leaderLineHoverAnchorEnd)
+      endElement = LeaderLine.mouseHoverAnchor(props.leaderLineEnd, props.leaderLineHoverAnchorEnd.showEffectName, props.leaderLineHoverAnchorEnd)
     }
     const leaderLine = new LeaderLine(
         startElement,

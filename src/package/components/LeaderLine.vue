@@ -7,24 +7,30 @@
 <script lang="ts" setup>
 import {onMounted, ref, watchEffect} from "vue";
 import LeaderLine from "leader-line-new";
+import {PsrLeaderLineTypes} from "../types";
 
 (LeaderLine as any).positionByWindowResize = false
 
 const props = defineProps<{
-  leaderLineStart?: Element
-  leaderLineEnd?: Element,
-  leaderLineOptions?: LeaderLine.Options
+  leaderLineStart?: PsrLeaderLineTypes.Element
+  leaderLineEnd?: PsrLeaderLineTypes.Element,
+  leaderLinePointAnchorStart?: Omit<PsrLeaderLineTypes.PointAnchorOptions, 'element'>,
+  leaderLinePointAnchorEnd?: Omit<PsrLeaderLineTypes.PointAnchorOptions, 'element'>,
+  leaderLineAreaAnchorStart?: Omit<PsrLeaderLineTypes.AreaAnchorOptions, 'element'>,
+  leaderLineAreaAnchorEnd?: Omit<PsrLeaderLineTypes.AreaAnchorOptions, 'element'>,
+  leaderLineHoverAnchorStart?: Omit<PsrLeaderLineTypes.MouseHoverAnchorOptions, 'element'>,
+  leaderLineHoverAnchorEnd?: Omit<PsrLeaderLineTypes.MouseHoverAnchorOptions, 'element'>,
+  leaderLineOptions?: PsrLeaderLineTypes.Options
 }>()
 
 const canvasRef = ref<HTMLDivElement>()
-const line = ref<LeaderLine>()
-
+const line = ref<[LeaderLine, HTMLElement]>()
 const observer = new MutationObserver(function (mutations) {
-  mutations.forEach(function (mutation) {
-    if (mutation.type === 'attributes' && mutation.attributeName === 'style' && line.value) {
-      fixPosition()
-    }
-  });
+  if (mutations.find(
+      mutation => (mutation.type === 'attributes' && mutation.attributeName === 'style' && line.value)
+  )) {
+    fixPosition()
+  }
 });
 
 onMounted(() => {
@@ -35,15 +41,7 @@ onMounted(() => {
 watchEffect(() => {
   eraseLine()
   if (props.leaderLineStart && props.leaderLineEnd && canvasRef.value) {
-    observer.observe(props.leaderLineStart, {attributes: true})
-    observer.observe(props.leaderLineEnd, {attributes: true})
-    line.value = new LeaderLine(
-        props.leaderLineStart,
-        props.leaderLineEnd,
-        props.leaderLineOptions
-    ) as any
-    const svg = document.getElementById(`leader-line-${(line.value as any)._id}-line-path`)!.parentElement!.parentElement!
-    canvasRef.value.appendChild(svg)
+    drawLine()
   }
 })
 
@@ -54,17 +52,48 @@ function fixPosition() {
         (-canvasRef.value.parentElement!.getBoundingClientRect().top - scrollY) + 'px)'
   }
   if (line.value) {
-    line.value.position()
+    line.value[0].position()
   }
 }
 
 function eraseLine() {
   if (line.value) {
     observer.disconnect()
-    const svg = document.getElementById(`leader-line-${(line.value as any)._id}-line-path`)!.parentElement!.parentElement!
     if (canvasRef.value) {
-      canvasRef.value?.removeChild(svg)
+      canvasRef.value?.removeChild(line.value[1])
     }
+    line.value = undefined
+  }
+}
+
+function drawLine() {
+  if (props.leaderLineStart && props.leaderLineEnd && canvasRef.value) {
+    observer.observe(props.leaderLineStart, {attributes: true})
+    observer.observe(props.leaderLineEnd, {attributes: true})
+    let startElement: PsrLeaderLineTypes.Element | PsrLeaderLineTypes.AnchorAttachment = props.leaderLineStart
+    if (props.leaderLinePointAnchorStart) {
+      startElement = LeaderLine.pointAnchor(props.leaderLineStart, props.leaderLinePointAnchorStart)
+    } else if (props.leaderLineAreaAnchorStart) {
+      startElement = LeaderLine.areaAnchor(props.leaderLineStart, props.leaderLineAreaAnchorStart)
+    } else if (props.leaderLineHoverAnchorStart) {
+      startElement = LeaderLine.mouseHoverAnchor(props.leaderLineStart, props.leaderLineHoverAnchorStart.showEffectName, props.leaderLineHoverAnchorStart)
+    }
+    let endElement: PsrLeaderLineTypes.Element | PsrLeaderLineTypes.AnchorAttachment = props.leaderLineEnd
+    if (props.leaderLinePointAnchorEnd) {
+      startElement = LeaderLine.pointAnchor(props.leaderLineEnd, props.leaderLinePointAnchorEnd)
+    } else if (props.leaderLineAreaAnchorEnd) {
+      startElement = LeaderLine.areaAnchor(props.leaderLineEnd, props.leaderLineAreaAnchorEnd)
+    } else if (props.leaderLineHoverAnchorEnd) {
+      startElement = LeaderLine.mouseHoverAnchor(props.leaderLineEnd, props.leaderLineHoverAnchorEnd.showEffectName, props.leaderLineHoverAnchorEnd)
+    }
+    const leaderLine = new LeaderLine(
+        startElement,
+        endElement,
+        props.leaderLineOptions
+    )
+    const svg = document.getElementById(`leader-line-${(leaderLine as any)._id}-line-path`)!.parentElement!.parentElement!
+    canvasRef.value.appendChild(svg)
+    line.value = [leaderLine, svg]
   }
 }
 </script>

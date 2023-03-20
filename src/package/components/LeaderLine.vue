@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts" setup>
-import {onMounted, ref, watchEffect} from "vue";
+import {onBeforeUnmount, onMounted, ref, watchEffect} from "vue";
 import LeaderLine from "leader-line-new";
 import {PsrLeaderLineTypes} from "../types";
 
@@ -33,9 +33,18 @@ const observer = new MutationObserver(function (mutations) {
   }
 });
 
+let fixPosInt: NodeJS.Timeout;
+
 onMounted(() => {
   fixPosition()
-  setInterval(fixPosition, 100)
+  fixPosInt = setInterval(fixPosition, 100)
+})
+
+onBeforeUnmount(() => {
+  if (fixPosInt) {
+    clearInterval(fixPosInt)
+    eraseLine()
+  }
 })
 
 watchEffect(() => {

@@ -25,14 +25,6 @@ const props = defineProps<{
 
 const canvasRef = ref<HTMLDivElement>()
 const line = ref<[LeaderLine, HTMLElement]>()
-const observer = new MutationObserver(function (mutations) {
-  if (mutations.find(
-      mutation => (mutation.type === 'attributes' && mutation.attributeName === 'style' && line.value)
-  )) {
-    fixPosition()
-  }
-});
-
 let fixPosInt: NodeJS.Timeout;
 
 onMounted(() => {
@@ -67,7 +59,6 @@ function fixPosition() {
 
 function eraseLine() {
   if (line.value) {
-    observer.disconnect()
     if (canvasRef.value) {
       canvasRef.value?.removeChild(line.value[1])
     }
@@ -77,8 +68,6 @@ function eraseLine() {
 
 function drawLine() {
   if (props.leaderLineStart && props.leaderLineEnd && canvasRef.value) {
-    observer.observe(props.leaderLineStart, {attributes: true})
-    observer.observe(props.leaderLineEnd, {attributes: true})
     let startElement: PsrLeaderLineTypes.Element | PsrLeaderLineTypes.AnchorAttachment = props.leaderLineStart
     if (props.leaderLinePointAnchorStart) {
       startElement = LeaderLine.pointAnchor(props.leaderLineStart, props.leaderLinePointAnchorStart)

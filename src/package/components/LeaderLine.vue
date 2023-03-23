@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts" setup>
-import {onBeforeUnmount, onMounted, ref, watchEffect} from "vue";
+import {onMounted, onUnmounted, ref, watchEffect} from "vue";
 import LeaderLine from "leader-line-new";
 import {PsrLeaderLineTypes} from "../types";
 
@@ -28,23 +28,25 @@ const line = ref<[LeaderLine, HTMLElement]>()
 let fixPosInt: NodeJS.Timeout;
 
 onMounted(() => {
-  fixPosition()
-  fixPosInt = setInterval(fixPosition, 100)
+  init()
 })
 
-onBeforeUnmount(() => {
-  if (fixPosInt) {
-    clearInterval(fixPosInt)
-    eraseLine()
-  }
+onUnmounted(() => {
+  eraseLine()
 })
 
 watchEffect(() => {
   eraseLine()
   if (props.leaderLineStart && props.leaderLineEnd && canvasRef.value) {
     drawLine()
+    init()
   }
 })
+
+function init() {
+  fixPosition()
+  fixPosInt = setInterval(fixPosition, 100)
+}
 
 function fixPosition() {
   if (canvasRef.value) {
@@ -58,6 +60,9 @@ function fixPosition() {
 }
 
 function eraseLine() {
+  if (fixPosInt) {
+    clearInterval(fixPosInt)
+  }
   if (line.value) {
     if (canvasRef.value) {
       canvasRef.value?.removeChild(line.value[1])

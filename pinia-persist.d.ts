@@ -1,8 +1,8 @@
 import "pinia"
 import {StateTree} from "pinia";
-import {PsrPiniaPersistTypes} from "./package";
+import {PsrPiniaPersistTypes} from "./src";
 
-export declare module 'pinia' {
+declare module 'pinia' {
     export interface DefineStoreOptionsBase<S extends StateTree, Store> {
         persist?: boolean | PsrPiniaPersistTypes.Options | PsrPiniaPersistTypes.Options[]
     }

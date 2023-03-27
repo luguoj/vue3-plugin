@@ -28,3 +28,14 @@ export namespace PsrPiniaPersistTypes {
         key?: (storeKey: string) => string
     }
 }
+
+declare module 'pinia' {
+    export interface DefineStoreOptionsBase<S extends StateTree, Store> {
+        persist?: boolean | PsrPiniaPersistTypes.Options | PsrPiniaPersistTypes.Options[]
+    }
+
+    export interface PiniaCustomProperties {
+        $restore: (opts?: { runHooks?: boolean }) => Promise<void>
+        $persist: () => void
+    }
+}

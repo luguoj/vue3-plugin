@@ -1,6 +1,6 @@
 {
   "name": "@psr-framework/vue3-plugin-utils",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -14,7 +14,7 @@
     "@vitejs/plugin-vue": "^4.1.0",
     "sass": "^1.60.0",
     "sass-loader": "^13.2.1",
-    "typescript": "^5.0.2",
+    "typescript": "^4.9.5",
     "vite": "^4.2.1",
     "vite-plugin-dts": "^2.1.0",
     "vite-plugin-libcss": "^1.0.6",

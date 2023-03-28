@@ -28,8 +28,7 @@
   "files": [
     "package.json",
     "README.md",
-    "dist",
-    "src/package"
+    "dist"
   ],
   "main": "./dist/index.umd.cjs",
   "module": "./dist/index.js",

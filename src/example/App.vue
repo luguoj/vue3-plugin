@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {PsrLeaderLine, PsrLeaderLineTypes} from "../package";
 import {onMounted, ref} from "vue";
+import P1 from "./p1.vue"
 
 const elFrom = ref()
 const elTo = ref()
@@ -10,10 +11,11 @@ const end = ref()
 onMounted(() => {
   start.value = elFrom.value
   end.value = elTo.value
+  // new LeaderLine(elFrom.value, elTo.value)
 })
 
 function handle() {
-  end.value = elTo2.value
+  flag.value = !flag.value
 }
 
 const lineOptions: PsrLeaderLineTypes.Options = {
@@ -22,24 +24,14 @@ const lineOptions: PsrLeaderLineTypes.Options = {
   }
 }
 
-const anchorOptions: PsrLeaderLineTypes.PointAnchorOptions = {
+const anchorOptions: PsrLeaderLineTypes.PointAnchorOptions = {}
 
-}
+const flag = ref(true)
 </script>
 
 <template>
   <button @click="handle">switch</button>
-  <div style="height: 100%;width: 100%;position: relative">
-    <div id="div-from" style="height: 20px;width: 20px;border:solid" ref="elFrom"/>
-    <div id="div-to" style="height: 20px;width: 20px;border:solid;position: absolute;left:300px;top:300px;" ref="elTo"/>
-    <div id="div-to2" style="height: 20px;width: 20px;border:solid;position: absolute;left:0px;top:300px;" ref="elTo2"/>
-    <psr-leader-line
-        :leader-line-start="start"
-        :leader-line-end="end"
-        :leader-line-options="lineOptions"
-        :leader-line-point-anchor-start="anchorOptions"
-    />
-  </div>
+  <p1 v-if="flag"></p1>
 </template>
 
 <style scoped>

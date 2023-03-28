@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts" setup>
-import {computed, onUnmounted, ref, watch} from "vue";
+import {computed, markRaw, onUnmounted, ref, watch} from "vue";
 import LeaderLine from "leader-line-new";
 import {PsrLeaderLineTypes} from "../types";
 
@@ -91,7 +91,7 @@ function drawLine() {
     )
     const svg = document.getElementById(`leader-line-${(leaderLine as any)._id}-line-path`)!.parentElement!.parentElement!
     canvasEl.appendChild(svg)
-    line.value = [leaderLine, svg]
+    line.value = [markRaw(leaderLine), markRaw(svg)]
     fixPosition()
     fixPosInt = setInterval(fixPosition, 100)
   }

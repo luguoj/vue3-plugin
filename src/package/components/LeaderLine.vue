@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts" setup>
-import {onMounted, onUnmounted, ref, watchEffect} from "vue";
+import {computed, onUnmounted, ref, watch} from "vue";
 import LeaderLine from "leader-line-new";
 import {PsrLeaderLineTypes} from "../types";
 
@@ -27,37 +27,25 @@ const canvasRef = ref<HTMLDivElement>()
 const line = ref<[LeaderLine, HTMLElement]>()
 let fixPosInt: NodeJS.Timeout;
 
-onMounted(() => {
-  init()
-})
-
 onUnmounted(() => {
   eraseLine()
 })
 
-watchEffect(() => {
+const leaderLinePoints = computed(() => ({start: props.leaderLineStart, end: props.leaderLineEnd}))
+watch(leaderLinePoints, leaderLinePoints => {
   eraseLine()
-  if (props.leaderLineStart && props.leaderLineEnd && canvasRef.value) {
-    drawLine()
-    init()
+  if (leaderLinePoints.start && leaderLinePoints.end) {
+    const drawInt = setInterval(() => {
+      if (ifPointElAttached()) {
+        try {
+          drawLine()
+        } finally {
+          clearInterval(drawInt)
+        }
+      }
+    }, 100)
   }
 })
-
-function init() {
-  fixPosition()
-  fixPosInt = setInterval(fixPosition, 100)
-}
-
-function fixPosition() {
-  if (canvasRef.value) {
-    canvasRef.value.style.transform = 'translate(' +
-        (-canvasRef.value.parentElement!.getBoundingClientRect().left - scrollX) + 'px, ' +
-        (-canvasRef.value.parentElement!.getBoundingClientRect().top - scrollY) + 'px)'
-  }
-  if (line.value) {
-    line.value[0].position()
-  }
-}
 
 function eraseLine() {
   if (fixPosInt) {
@@ -69,6 +57,12 @@ function eraseLine() {
     }
     line.value = undefined
   }
+}
+
+function ifPointElAttached() {
+  return props.leaderLineStart && props.leaderLineEnd
+      && !(props.leaderLineStart.compareDocumentPosition(document) & Node.DOCUMENT_POSITION_DISCONNECTED)
+      && !(props.leaderLineEnd.compareDocumentPosition(document) & Node.DOCUMENT_POSITION_DISCONNECTED)
 }
 
 function drawLine() {
@@ -89,14 +83,28 @@ function drawLine() {
     } else if (props.leaderLineHoverAnchorEnd) {
       endElement = LeaderLine.mouseHoverAnchor(props.leaderLineEnd, props.leaderLineHoverAnchorEnd.showEffectName, props.leaderLineHoverAnchorEnd)
     }
+    const canvasEl = canvasRef.value
     const leaderLine = new LeaderLine(
         startElement,
         endElement,
         props.leaderLineOptions
     )
     const svg = document.getElementById(`leader-line-${(leaderLine as any)._id}-line-path`)!.parentElement!.parentElement!
-    canvasRef.value.appendChild(svg)
+    canvasEl.appendChild(svg)
     line.value = [leaderLine, svg]
+    fixPosition()
+    fixPosInt = setInterval(fixPosition, 100)
+  }
+}
+
+function fixPosition() {
+  if (canvasRef.value) {
+    canvasRef.value.style.transform = 'translate(' +
+        (-canvasRef.value.parentElement!.getBoundingClientRect().left - scrollX) + 'px, ' +
+        (-canvasRef.value.parentElement!.getBoundingClientRect().top - scrollY) + 'px)'
+  }
+  if (line.value && ifPointElAttached()) {
+    line.value[0].position()
   }
 }
 </script>

@@ -21,6 +21,8 @@ const props = defineProps<{
   leaderLineHoverAnchorStart?: Omit<PsrLeaderLineTypes.MouseHoverAnchorOptions, 'element'>,
   leaderLineHoverAnchorEnd?: Omit<PsrLeaderLineTypes.MouseHoverAnchorOptions, 'element'>,
   leaderLineOptions?: PsrLeaderLineTypes.Options
+  leaderLineHide?: boolean
+  leaderLineShowEffect?: { name: PsrLeaderLineTypes.ShowEffectName, options?: PsrLeaderLineTypes.AnimationOptions }
 }>()
 
 const canvasRef = ref<HTMLDivElement>()
@@ -44,6 +46,15 @@ watch(leaderLinePoints, leaderLinePoints => {
         }
       }
     }, 100)
+  }
+})
+watch(() => props.leaderLineHide, hide => {
+  if (line.value) {
+    if (hide) {
+      line.value[0].hide(props.leaderLineShowEffect?.name, props.leaderLineShowEffect?.options)
+    } else {
+      line.value[0].show(props.leaderLineShowEffect?.name, props.leaderLineShowEffect?.options)
+    }
   }
 })
 
@@ -87,7 +98,10 @@ function drawLine() {
     const leaderLine = new LeaderLine(
         startElement,
         endElement,
-        props.leaderLineOptions
+        {
+          ...props.leaderLineOptions,
+          hide: !!props.leaderLineHide
+        }
     )
     const svg = document.getElementById(`leader-line-${(leaderLine as any)._id}-line-path`)!.parentElement!.parentElement!
     canvasEl.appendChild(svg)

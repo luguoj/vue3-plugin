@@ -11,6 +11,7 @@
     "vue": "^3.2.47"
   },
   "devDependencies": {
+    "@types/backbone": "^1.4.15",
     "@types/node": "^18.15.11",
     "@vitejs/plugin-vue": "^4.1.0",
     "jointjs": "^3.6.5",

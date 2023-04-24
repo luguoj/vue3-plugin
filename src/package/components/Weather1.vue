@@ -3,7 +3,7 @@
         <div :style="{width:designSize.width*scale+'px',height:designSize.height*scale+'px'}"
              style="position: relative;top: 50%;left: 50%;transform: translateX(-50%) translateY(-50%)">
             <iframe
-                    style="transform-origin: top left"
+                    style="transform-origin: top left;color-scheme: light"
                     :style="{scale}"
                     width="150" height="60" frameborder="0" scrolling="no" hspace="0" allowtransparency="true"
                     :src="`https://i.tianqi.com/?c=code&a=getcode&id=84&color=${colorStyleRef}&icon=1`"

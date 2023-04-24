@@ -1,4 +1,4 @@
-# Vue 3 + TypeScript + Vite 插件模板项目
+# vue3 插件 天气
 
 package.json
 修改description为插件描述

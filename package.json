@@ -1,5 +1,5 @@
 {
-  "name": "@psr-framework/vue3-plugin-template",
+  "name": "@psr-framework/vue3-plugin-weather",
   "version": "0.0.0",
   "type": "module",
   "scripts": {

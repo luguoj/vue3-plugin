@@ -24,7 +24,8 @@ export default defineConfig({
       external: [
         'vue',
         'element-plus',
-        '@element-plus/icons-vue'
+        '@element-plus/icons-vue',
+        '@antv/g6'
       ],
       output: {
         globals: {

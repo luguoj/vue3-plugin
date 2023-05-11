@@ -1,30 +1,25 @@
 import {AnimationHandler} from "./AnimationHandler.ts";
-import {ModelConfig} from "@antv/g6-core/lib/types";
-import {IGroup, IShape} from "@antv/g-base";
+import {Item} from "@antv/g6-core/lib/types";
 
 export type LineGrowthAniCfg = {
     duration: number
     repeat: boolean
 }
 
-export class LineGrowthHandler implements AnimationHandler<LineGrowthAniCfg> {
-    aniCfg: LineGrowthAniCfg
-
+export class LineGrowthHandler extends AnimationHandler<LineGrowthAniCfg> {
     constructor(aniCfg?: Partial<LineGrowthAniCfg>) {
-        this.aniCfg = {
-            duration: 2000,
-            repeat: false,
-            ...aniCfg
-        }
+        super(
+            'line-growth',
+            () => ({
+                duration: 2000,
+                repeat: false,
+            }),
+            aniCfg);
     }
 
-    handle(
-        cfg?: ModelConfig,
-        group?: IGroup,
-        rst?: IShape
-    ) {
+    start(item: Item) {
         const {duration, repeat} = this.aniCfg
-        const shape = group!.get('children')[0];
+        const shape = this.group!.get('children')[0];
         shape.animate(
             (ratio: number) => {
                 const length = shape.getTotalLength();
@@ -40,5 +35,11 @@ export class LineGrowthHandler implements AnimationHandler<LineGrowthAniCfg> {
                 duration, // 一次动画持续时长
             },
         );
+    }
+
+    stop(item: Item) {
+        const shape = this.group!.get('children')[0];
+        shape.stopAnimate();
+        shape.attr('lineDash', null);
     }
 }

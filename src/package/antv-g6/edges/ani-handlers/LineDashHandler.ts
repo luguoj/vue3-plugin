@@ -1,32 +1,26 @@
-import {ModelConfig} from "@antv/g6-core/lib/types";
-import {IGroup, IShape} from "@antv/g-base";
+import {Item} from "@antv/g6-core/lib/types";
 import {AnimationHandler} from "./AnimationHandler.ts";
-
 
 export type LineDashAniCfg = {
     lineDash: number[]
     duration: number
 }
 
-export class LineDashHandler implements AnimationHandler<LineDashAniCfg> {
-    aniCfg: LineDashAniCfg
-
+export class LineDashHandler extends AnimationHandler<LineDashAniCfg> {
     constructor(aniCfg?: Partial<LineDashAniCfg>) {
-        this.aniCfg = {
-            lineDash: [4, 2, 1, 2],
-            duration: 3000,
-            ...aniCfg
-        }
+        super(
+            'line-dash',
+            () => ({
+                lineDash: [4, 2, 1, 2],
+                duration: 3000,
+            }),
+            aniCfg);
     }
 
-    handle(
-        cfg?: ModelConfig,
-        group?: IGroup,
-        rst?: IShape
-    ) {
+    start(item: Item) {
         const {lineDash, duration} = this.aniCfg
         // 获得该边的第一个图形，这里是边的 path
-        const shape = group!.get('children')[0];
+        const shape = this.group!.get('children')[0];
         let index = 0;
         // 边 path 图形的动画
         shape.animate(
@@ -47,5 +41,11 @@ export class LineDashHandler implements AnimationHandler<LineDashAniCfg> {
                 duration, // 一次动画的时长
             },
         );
+    }
+
+    stop(item: Item) {
+        const shape = this.group!.get('children')[0];
+        shape.stopAnimate();
+        shape.attr('lineDash', null);
     }
 }

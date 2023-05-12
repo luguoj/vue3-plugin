@@ -7,7 +7,7 @@ const defaultGraphCfg: () => PsrAntvG6Types.GraphOptions = () => ({
     fitView: true,
     fitViewPadding: 50,
     // 渲染模式
-    renderer: 'canvas',
+    renderer: 'svg',
     layout: {
         // 层级布局
         type: "dagre",

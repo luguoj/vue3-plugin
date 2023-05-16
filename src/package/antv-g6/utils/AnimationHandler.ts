@@ -1,39 +1,18 @@
-import {Item, ModelConfig} from "@antv/g6-core/lib/types";
-import {IGroup, IShape} from "@antv/g-base";
-import {PsrAntvG6Types} from "../../types";
-import {IShapeBase} from "@antv/g6";
+import {Item} from "@antv/g6-core/lib/types";
+import {ShapeExtensionHandler} from "./ShapeExtensionHandler.ts";
 
-export abstract class AnimationHandler<AniCfg = never> {
-    type: PsrAntvG6Types.EdgeAnimationType | PsrAntvG6Types.CircleAnimationType
-    aniCfg: AniCfg
+export abstract class AnimationHandler<CFG> extends ShapeExtensionHandler<CFG> {
     running: boolean = false
-    shape: IShapeBase | any
-    cfg?: ModelConfig
-    group?: IGroup
-    rst?: IShape
 
-    protected constructor(type: PsrAntvG6Types.EdgeAnimationType | PsrAntvG6Types.CircleAnimationType, defaultCfg: () => AniCfg, cfg?: Partial<AniCfg>) {
-        this.type = type
-        this.aniCfg = {
-            ...defaultCfg(),
-            ...cfg
-        }
-    }
-
-    init(shape: IShapeBase | any, cfg?: ModelConfig, group?: IGroup, rst?: IShape): void {
-        this.shape = shape
-        this.cfg = cfg
-        this.group = group
-        this.rst = rst
-    }
-
-    onStateChanged(item: Item, enabled: boolean) {
-        if (enabled && !this.running) {
-            this.start(item)
-            this.running = true
-        } else if (!enabled && this.running) {
-            this.stop(item)
-            this.running = false
+    onStateChanged(name?: string, value?: string | boolean, item?: Item) {
+        if (name === this.type) {
+            if (value && !this.running) {
+                this.start(item!)
+                this.running = true
+            } else if (!value && this.running) {
+                this.stop(item!)
+                this.running = false
+            }
         }
     }
 

@@ -1,5 +1,15 @@
 import {Item} from "@antv/g6-core/lib/types";
 import {AnimationHandler} from "../../utils/AnimationHandler.ts";
+import {ShapeExtensionHandler, ShapeExtensionHandlerBuilder} from "../../utils/ShapeExtensionHandler.ts";
+
+export const LineDashBuilder: ShapeExtensionHandlerBuilder<LineDashAniCfg> = {
+    type() {
+        return 'line-dash'
+    },
+    build(cfg?: Partial<LineDashAniCfg>): ShapeExtensionHandler<LineDashAniCfg> {
+        return new LineDashHandler(this.type(), cfg)
+    }
+}
 
 export type LineDashAniCfg = {
     lineDash: number[]
@@ -7,18 +17,15 @@ export type LineDashAniCfg = {
 }
 
 export class LineDashHandler extends AnimationHandler<LineDashAniCfg> {
-    constructor(aniCfg?: Partial<LineDashAniCfg>) {
-        super(
-            'line-dash',
-            () => ({
-                lineDash: [4, 2, 1, 2],
-                duration: 3000,
-            }),
-            aniCfg);
+    defaultCfg(): LineDashAniCfg {
+        return {
+            lineDash: [4, 2, 1, 2],
+            duration: 3000,
+        }
     }
 
     start(item: Item) {
-        const {lineDash, duration} = this.aniCfg
+        const {lineDash, duration} = this.extensionCfg
         // 获得该边的第一个图形，这里是边的 path
         const shape = this.group!.get('children')[0];
         let index = 0;

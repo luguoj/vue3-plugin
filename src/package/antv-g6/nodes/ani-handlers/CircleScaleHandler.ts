@@ -1,24 +1,31 @@
 import {AnimationHandler} from "../../utils/AnimationHandler.ts";
 import {Item} from "@antv/g6-core/lib/types";
+import {ShapeExtensionHandler, ShapeExtensionHandlerBuilder} from "../../utils/ShapeExtensionHandler.ts";
 
+export const CircleScaleBuilder: ShapeExtensionHandlerBuilder<CircleScaleAniCfg> = {
+    type() {
+        return 'circle-scale'
+    },
+    build(cfg?: Partial<CircleScaleAniCfg>): ShapeExtensionHandler<CircleScaleAniCfg> {
+        return new CircleScaleHandler(this.type(), cfg)
+    }
+}
 export type CircleScaleAniCfg = {
     diffSize: number
     duration: number
 }
 
 export class CircleScaleHandler extends AnimationHandler<CircleScaleAniCfg> {
-    constructor(aniCfg?: Partial<CircleScaleAniCfg>) {
-        super(
-            'circle-scale',
-            () => ({
-                diffSize: 10,
-                duration: 3000
-            }),
-            aniCfg);
+
+    defaultCfg(): CircleScaleAniCfg {
+        return {
+            diffSize: 10,
+            duration: 3000
+        }
     }
 
     start(item: Item) {
-        const {duration, diffSize} = this.aniCfg
+        const {duration, diffSize} = this.extensionCfg
         const shapeBase = this.group!.get('children')[0];
         shapeBase.animate(
             (ratio: number) => {

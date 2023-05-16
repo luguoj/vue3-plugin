@@ -2,21 +2,28 @@ import {AnimationHandler} from "../../utils/AnimationHandler.ts";
 import {Item} from "@antv/g6-core/lib/types";
 import {IShape} from "@antv/g-base";
 import {NodeConfig} from "@antv/g6";
+import {ShapeExtensionHandler, ShapeExtensionHandlerBuilder} from "../../utils/ShapeExtensionHandler.ts";
 
+export const CircleShadowBuilder: ShapeExtensionHandlerBuilder<CircleShadowAniCfg> = {
+    type() {
+        return 'circle-shadow'
+    },
+    build(cfg?: Partial<CircleShadowAniCfg>): ShapeExtensionHandler<CircleShadowAniCfg> {
+        return new CircleShadowHandler(this.type(), cfg)
+    }
+}
 export type CircleShadowAniCfg = {
     duration: number
     diffSize: number
 }
 
 export class CircleShadowHandler extends AnimationHandler<CircleShadowAniCfg> {
-    constructor(aniCfg?: Partial<CircleShadowAniCfg>) {
-        super(
-            'circle-shadow',
-            () => ({
-                duration: 3000,
-                diffSize: 10
-            }),
-            aniCfg);
+
+    defaultCfg(): CircleShadowAniCfg {
+        return {
+            duration: 3000,
+            diffSize: 10
+        }
     }
 
     back1: IShape | undefined
@@ -24,7 +31,7 @@ export class CircleShadowHandler extends AnimationHandler<CircleShadowAniCfg> {
     back3: IShape | undefined
 
     start(item: Item) {
-        const {duration, diffSize} = this.aniCfg
+        const {duration, diffSize} = this.extensionCfg
         const {shape, group} = this
         const {style: defaultStyle} = shape.mergeStyle || shape.getOptions(shape.cfg) as NodeConfig;
         const {fill} = defaultStyle

@@ -2,6 +2,16 @@ import {Util} from "@antv/g6"
 import {Item} from "@antv/g6-core/lib/types";
 import {IShape} from "@antv/g-base";
 import {AnimationHandler} from "../../utils/AnimationHandler.ts";
+import {ShapeExtensionHandler, ShapeExtensionHandlerBuilder} from "../../utils/ShapeExtensionHandler.ts";
+
+export const ArrowRunningBuilder: ShapeExtensionHandlerBuilder<ArrowRunningAniCfg> = {
+    type() {
+        return 'arrow-running'
+    },
+    build(cfg?: Partial<ArrowRunningAniCfg>): ShapeExtensionHandler<ArrowRunningAniCfg> {
+        return new ArrowRunningHandler(this.type(), cfg)
+    }
+}
 
 export type ArrowRunningAniCfg = {
     stroke: string
@@ -11,22 +21,20 @@ export type ArrowRunningAniCfg = {
 }
 
 export class ArrowRunningHandler extends AnimationHandler<ArrowRunningAniCfg> {
-    constructor(aniCfg?: Partial<ArrowRunningAniCfg>) {
-        super(
-            'arrow-running',
-            () => ({
-                stroke: "#3370ff",
-                fill: "#fff",
-                duration: 3000,
-                repeat: true
-            }),
-            aniCfg);
+
+    defaultCfg(): ArrowRunningAniCfg {
+        return {
+            stroke: "#3370ff",
+            fill: "#fff",
+            duration: 3000,
+            repeat: true
+        };
     }
 
     arrow?: IShape
 
     start(item: Item) {
-        const {stroke, fill, duration, repeat} = this.aniCfg
+        const {stroke, fill, duration, repeat} = this.extensionCfg
         // 获得当前边的第一个图形，这里是边本身的 path
         const shape = this.group!.get('children')[0];
         // 添加箭头

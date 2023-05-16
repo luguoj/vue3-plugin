@@ -1,6 +1,16 @@
 import {Item} from "@antv/g6-core/lib/types";
 import {IShape} from "@antv/g-base";
 import {AnimationHandler} from "../../utils/AnimationHandler.ts";
+import {ShapeExtensionHandler, ShapeExtensionHandlerBuilder} from "../../utils/ShapeExtensionHandler.ts";
+
+export const CircleRunningBuilder: ShapeExtensionHandlerBuilder<CircleRunningAniCfg> = {
+    type() {
+        return 'circle-running'
+    },
+    build(cfg?: Partial<CircleRunningAniCfg>): ShapeExtensionHandler<CircleRunningAniCfg> {
+        return new CircleRunningHandler(this.type(), cfg)
+    }
+}
 
 export type CircleRunningAniCfg = {
     radius: number
@@ -11,23 +21,20 @@ export type CircleRunningAniCfg = {
 }
 
 export class CircleRunningHandler extends AnimationHandler<CircleRunningAniCfg> {
-    constructor(aniCfg?: Partial<CircleRunningAniCfg>) {
-        super(
-            'circle-running',
-            () => ({
-                radius: 3,
-                stroke: "#3370ff",
-                fill: "#fff",
-                duration: 3000,
-                repeat: true
-            }),
-            aniCfg);
+    defaultCfg(): CircleRunningAniCfg {
+        return {
+            radius: 3,
+            stroke: "#3370ff",
+            fill: "#fff",
+            duration: 3000,
+            repeat: true
+        }
     }
 
     circle?: IShape
 
     start(item: Item) {
-        const {radius, stroke, fill, duration, repeat} = this.aniCfg
+        const {radius, stroke, fill, duration, repeat} = this.extensionCfg
         // 获得当前边的第一个图形，这里是边本身的 path
         const shape = this.group!.get('children')[0];
         // 边 path 的起点位置

@@ -1,5 +1,15 @@
 import {AnimationHandler} from "../../utils/AnimationHandler.ts";
 import {Item} from "@antv/g6-core/lib/types";
+import {ShapeExtensionHandler, ShapeExtensionHandlerBuilder} from "../../utils/ShapeExtensionHandler.ts";
+
+export const LineGrowthBuilder: ShapeExtensionHandlerBuilder<LineGrowthAniCfg> = {
+    type() {
+        return 'line-growth'
+    },
+    build(cfg?: Partial<LineGrowthAniCfg>): ShapeExtensionHandler<LineGrowthAniCfg> {
+        return new LineGrowthHandler(this.type(), cfg)
+    }
+}
 
 export type LineGrowthAniCfg = {
     duration: number
@@ -7,18 +17,16 @@ export type LineGrowthAniCfg = {
 }
 
 export class LineGrowthHandler extends AnimationHandler<LineGrowthAniCfg> {
-    constructor(aniCfg?: Partial<LineGrowthAniCfg>) {
-        super(
-            'line-growth',
-            () => ({
-                duration: 2000,
-                repeat: false,
-            }),
-            aniCfg);
+
+    defaultCfg(): LineGrowthAniCfg {
+        return {
+            duration: 2000,
+            repeat: false,
+        };
     }
 
     start(item: Item) {
-        const {duration, repeat} = this.aniCfg
+        const {duration, repeat} = this.extensionCfg
         const shape = this.group!.get('children')[0];
         shape.animate(
             (ratio: number) => {

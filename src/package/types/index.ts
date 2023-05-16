@@ -27,7 +27,7 @@ export namespace PsrAntvG6Types {
         | 'cubic-horizontal'
         | 'loop'
 
-    export  type EdgeAnimationType = 'circle-running' | 'arrow-running' | 'line-dash' | 'line-growth'
+    export type EdgeAnimationType = 'circle-running' | 'arrow-running' | 'line-dash' | 'line-growth'
 
     export type CircleAnimationType = 'circle-scale' | 'circle-shadow'
 

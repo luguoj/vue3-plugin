@@ -28,7 +28,7 @@ export class ElOverlayHandler extends ShapeExtensionHandler<ElOverlayCfg> {
     init(shape: any, cfg?: ModelConfig, group?: IGroup, rst?: IShape) {
         super.init(shape, cfg, group, rst);
         const me: IShapeBase | any = this.shape
-        const style = this.getVueShapeStyle(cfg!);
+        const style = this.getElStyle(cfg!);
         group!.addShape('dom', {
             attrs: style,
             className: `${me.type}-keyShape`,
@@ -44,7 +44,7 @@ export class ElOverlayHandler extends ShapeExtensionHandler<ElOverlayCfg> {
         }
     }
 
-    getVueShapeStyle(cfg: ModelConfig): ShapeAttrs {
+    getElStyle(cfg: ModelConfig): ShapeAttrs {
         const me: IShapeBase | any = this.shape
         const {style: defaultStyle} = me.mergeStyle || me.getOptions(cfg) as NodeConfig;
         // 如果设置了color，则覆盖默认的stroke属性
@@ -52,13 +52,10 @@ export class ElOverlayHandler extends ShapeExtensionHandler<ElOverlayCfg> {
         const size = me.getSize!(cfg);
         const width = style.width || size[0];
         const height = style.height || size[1];
-        console.log('create shape')
         return {
-            x: -width / 2,
-            y: -height / 2,
             width,
             height,
-            style: 'pointer-events:none;',
+            style: `pointer-events:none;transform:translateX(${-width / 2}px) translateY(${-height / 2}px)`,
             ...style,
             html: (attr: { data: any }) => {
                 const el: HTMLElement = document.createElement(this.extensionCfg.tag)

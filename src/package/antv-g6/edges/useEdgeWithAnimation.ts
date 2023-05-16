@@ -19,7 +19,7 @@ export function useEdgeWithAnimation(options: {
         {
             afterDraw(cfg, group, rst) {
                 for (const hAni of hAnis) {
-                    hAni.init(cfg, group, rst)
+                    hAni.init(this, cfg, group, rst)
                 }
             },
             setState(name?: string, value?: string | boolean, item?: Item) {

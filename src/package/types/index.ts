@@ -29,6 +29,8 @@ export namespace PsrAntvG6Types {
 
     export  type EdgeAnimationType = 'circle-running' | 'arrow-running' | 'line-dash' | 'line-growth'
 
+    export type CircleAnimationType = 'circle-scale' | 'circle-shadow'
+
     export namespace AnimationConfig {
         export type CircleRunning = Partial<CircleRunningAniCfg>
         export type LineDash = Partial<LineDashAniCfg>

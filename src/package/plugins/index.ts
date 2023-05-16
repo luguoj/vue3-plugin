@@ -2,6 +2,7 @@ import {App, ComponentOptions, getCurrentInstance, inject} from "vue";
 import {useEdgeWithAnimation, useGraph} from "../antv-g6";
 import {PsrAntvG6Types} from "../types";
 import {useVueNode} from "../antv-g6/nodes/useVueNode.ts";
+import {useCircleWithAnimation} from "../antv-g6/nodes/useCircleWithAnimation.ts";
 
 const injectKey = 'psr-antv-g6'
 
@@ -27,6 +28,18 @@ export class PsrAntvG6 {
         return useVueNode({
             id: this.getInstance().nextShapeId++,
             component: options.component
+        })
+    }
+
+    static useCircleWithAnimation(options: {
+        animations: {
+            type: PsrAntvG6Types.CircleAnimationType,
+            cfg?: any
+        }[]
+    }) {
+        return useCircleWithAnimation({
+            id: this.getInstance().nextShapeId++,
+            ...options
         })
     }
 

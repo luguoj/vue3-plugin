@@ -4,4 +4,4 @@ import App from './App.vue'
 import './style.css'
 import {PsrAntvG6} from "../package";
 
-createApp(App).use(new PsrAntvG6()).mount('#app')
+createApp(App).use(PsrAntvG6.create()).mount('#app')

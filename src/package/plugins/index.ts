@@ -1,6 +1,7 @@
-import {App, getCurrentInstance, inject} from "vue";
+import {App, ComponentOptions, getCurrentInstance, inject} from "vue";
 import {useEdgeWithAnimation, useGraph} from "../antv-g6";
 import {PsrAntvG6Types} from "../types";
+import {useVueNode} from "../antv-g6/nodes/useVueNode.ts";
 
 const injectKey = 'psr-antv-g6'
 
@@ -19,6 +20,13 @@ export class PsrAntvG6 {
         return useEdgeWithAnimation({
             id: this.getInstance().nextShapeId++,
             ...options
+        })
+    }
+
+    static useVueNode(options: { component: ComponentOptions }) {
+        return useVueNode({
+            id: this.getInstance().nextShapeId++,
+            component: options.component
         })
     }
 

@@ -1,7 +1,6 @@
-import {App, ComponentOptions, getCurrentInstance, inject} from "vue";
+import {App, getCurrentInstance, inject} from "vue";
 import {useGraph} from "../antv-g6/graph/useGraph.ts";
 import {PsrAntvG6Types} from "../types";
-import {useVueNode} from "../antv-g6/nodes/useVueNode.ts";
 import {ShapeExtensionHandlerBuilder} from "../antv-g6/utils/ShapeExtensionHandler.ts";
 import {useShapeWithExtensions} from "../antv-g6/utils/useShapeWithExtensions.ts";
 import {ArrowRunningBuilder} from "../antv-g6/edges/ani-handlers/ArrowRunningHandler.ts";
@@ -10,10 +9,13 @@ import {LineDashBuilder} from "../antv-g6/edges/ani-handlers/LineDashHandler.ts"
 import {LineGrowthBuilder} from "../antv-g6/edges/ani-handlers/LineGrowthHandler.ts";
 import {CircleScaleBuilder} from "../antv-g6/nodes/ani-handlers/CircleScaleHandler.ts";
 import {CircleShadowBuilder} from "../antv-g6/nodes/ani-handlers/CircleShadowHandler.ts";
+import {ElOverlayBuilder} from "../antv-g6/nodes/ElOverlayHandler.ts";
 
 const injectKey = 'psr-antv-g6'
 const builderRaws: ShapeExtensionHandlerBuilder<any>[] = [
-    ArrowRunningBuilder, CircleRunningBuilder, LineDashBuilder, LineGrowthBuilder, CircleScaleBuilder, CircleShadowBuilder
+    ArrowRunningBuilder, CircleRunningBuilder, LineDashBuilder, LineGrowthBuilder, // 边动画
+    CircleScaleBuilder, CircleShadowBuilder, // 节点动画
+    ElOverlayBuilder // 节点覆盖层
 ]
 const builders: Record<string, ShapeExtensionHandlerBuilder<any>> = {}
 for (const builderRaw of builderRaws) {
@@ -53,13 +55,6 @@ export class PsrAntvG6 {
             extendShape: options.extendShape,
             extensions: options.extensions,
             builders
-        })
-    }
-
-    static useVueNode(options: { component: ComponentOptions }) {
-        return useVueNode({
-            id: this.getInstance().nextShapeId++,
-            component: options.component
         })
     }
 

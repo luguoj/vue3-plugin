@@ -1,5 +1,5 @@
 import {Item} from "@antv/g6-core/lib/types";
-import {AnimationHandler} from "./AnimationHandler.ts";
+import {AnimationHandler} from "../../utils/AnimationHandler.ts";
 
 export type LineDashAniCfg = {
     lineDash: number[]

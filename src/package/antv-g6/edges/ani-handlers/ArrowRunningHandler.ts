@@ -1,7 +1,7 @@
 import {Util} from "@antv/g6"
 import {Item} from "@antv/g6-core/lib/types";
 import {IShape} from "@antv/g-base";
-import {AnimationHandler} from "./AnimationHandler.ts";
+import {AnimationHandler} from "../../utils/AnimationHandler.ts";
 
 export type ArrowRunningAniCfg = {
     stroke: string

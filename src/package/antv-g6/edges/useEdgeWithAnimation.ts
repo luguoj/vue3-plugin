@@ -1,7 +1,7 @@
 import {registerEdge} from "@antv/g6";
 import {buildAnimation} from "./buildAnimation.ts";
 import {PsrAntvG6Types} from "../../types";
-import {AnimationHandler} from "./ani-handlers/AnimationHandler.ts";
+import {AnimationHandler} from "../utils/AnimationHandler.ts";
 import {Item} from "@antv/g6-core/lib/types";
 
 export function useEdgeWithAnimation(options: {

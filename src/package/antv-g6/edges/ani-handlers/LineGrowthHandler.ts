@@ -1,4 +1,4 @@
-import {AnimationHandler} from "./AnimationHandler.ts";
+import {AnimationHandler} from "../../utils/AnimationHandler.ts";
 import {Item} from "@antv/g6-core/lib/types";
 
 export type LineGrowthAniCfg = {

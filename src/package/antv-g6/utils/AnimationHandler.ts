@@ -1,6 +1,6 @@
 import {Item, ModelConfig} from "@antv/g6-core/lib/types";
 import {IGroup, IShape} from "@antv/g-base";
-import {PsrAntvG6Types} from "../../../types";
+import {PsrAntvG6Types} from "../../types";
 
 export abstract class AnimationHandler<AniCfg = never> {
     type: PsrAntvG6Types.EdgeAnimationType

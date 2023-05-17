@@ -13,14 +13,20 @@ import {ElOverlayBuilder} from "../antv-g6/nodes/ElOverlayHandler.ts";
 import {SvgOverlayBuilder} from "../antv-g6/nodes/SvgOverlayHandler.ts";
 
 const injectKey = 'psr-antv-g6'
-const builderRaws: ShapeExtensionHandlerBuilder<any>[] = [
+const edgeExtBuilderRaws: ShapeExtensionHandlerBuilder<any>[] = [
     ArrowRunningBuilder, CircleRunningBuilder, LineDashBuilder, LineGrowthBuilder, // 边动画
+]
+const edgeExtBuilders: Record<string, ShapeExtensionHandlerBuilder<any>> = {}
+for (const builderRaw of edgeExtBuilderRaws) {
+    edgeExtBuilders[builderRaw.type()] = builderRaw
+}
+const nodeExtBuilderRaws: ShapeExtensionHandlerBuilder<any>[] = [
     CircleScaleBuilder, CircleShadowBuilder, // 节点动画
     ElOverlayBuilder, SvgOverlayBuilder, // 节点覆盖层
 ]
-const builders: Record<string, ShapeExtensionHandlerBuilder<any>> = {}
-for (const builderRaw of builderRaws) {
-    builders[builderRaw.type()] = builderRaw
+const nodeExtBuilders: Record<string, ShapeExtensionHandlerBuilder<any>> = {}
+for (const builderRaw of nodeExtBuilderRaws) {
+    nodeExtBuilders[builderRaw.type()] = builderRaw
 }
 
 export class PsrAntvG6 {
@@ -39,7 +45,7 @@ export class PsrAntvG6 {
             shapeType: 'node',
             extendShape: options.extendShape,
             extensions: options.extensions,
-            builders
+            builders: nodeExtBuilders
         })
     }
 
@@ -55,7 +61,7 @@ export class PsrAntvG6 {
             shapeType: 'edge',
             extendShape: options.extendShape,
             extensions: options.extensions,
-            builders
+            builders: edgeExtBuilders
         })
     }
 

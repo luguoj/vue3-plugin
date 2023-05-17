@@ -27,9 +27,22 @@ export namespace PsrAntvG6Types {
         | 'cubic-horizontal'
         | 'loop'
 
-    export type EdgeAnimationType = 'circle-running' | 'arrow-running' | 'line-dash' | 'line-growth'
+    export type NodeType =
+        'circle'
+        | 'rect'
+        | 'ellipse'
+        | 'diamond'
+        | 'triangle'
+        | 'star'
+        | 'image'
+        | 'modelRect'
+        | 'donut'
 
-    export type CircleAnimationType = 'circle-scale' | 'circle-shadow'
+    type EdgeAnimationType = 'circle-running' | 'arrow-running' | 'line-dash' | 'line-growth'
+    export type EdgeExtensionType = EdgeAnimationType
+    type NodeAnimationType = 'circle-scale' | 'circle-shadow'
+    type NodeOverlayType = 'svg-overlay' | 'el-overlay'
+    export type NodeExtensionType = NodeAnimationType | NodeOverlayType
 
     export namespace AnimationConfig {
         export type CircleRunning = Partial<CircleRunningAniCfg>

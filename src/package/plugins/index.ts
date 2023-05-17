@@ -28,9 +28,9 @@ export class PsrAntvG6 {
     private nextShapeId: number = 0
 
     static useNodeWithExtensions(options: {
-        extendShape?: any
+        extendShape?: PsrAntvG6Types.NodeType | string
         extensions: {
-            type: any,
+            type: PsrAntvG6Types.NodeExtensionType,
             cfg?: any
         }[]
     }) {
@@ -44,9 +44,9 @@ export class PsrAntvG6 {
     }
 
     static useEdgeWithExtensions(options: {
-        extendShape?: any
+        extendShape?: PsrAntvG6Types.EdgeType | string
         extensions: {
-            type: any,
+            type: PsrAntvG6Types.EdgeExtensionType,
             cfg?: any
         }[]
     }) {

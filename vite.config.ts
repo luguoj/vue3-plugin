@@ -24,6 +24,7 @@ export default defineConfig({
                 "@psr-framework/typescript-utils",
                 "primeicons",
                 "primevue",
+                "primeflex",
                 "vue"
             ],
             output: {

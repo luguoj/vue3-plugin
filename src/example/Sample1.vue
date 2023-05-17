@@ -105,7 +105,7 @@ watchEffect(() => {
             console.log('node:mouseenter')
             const node = ev.item;
             node1Data.compText = 'yes'
-            if ("getEdges" in node) {
+            if (node && "getEdges" in node) {
                 const edges = node.getEdges();
                 edges.forEach((edge) => _graph.setItemState(edge, 'line-growth', true));
             }
@@ -114,7 +114,7 @@ watchEffect(() => {
             console.log('node:mouseleave')
             const node = ev.item;
             node1Data.compText = 'no'
-            if ("getEdges" in node) {
+            if (node && "getEdges" in node) {
                 const edges = node.getEdges();
                 edges.forEach((edge) => _graph.setItemState(edge, 'line-growth', false));
             }

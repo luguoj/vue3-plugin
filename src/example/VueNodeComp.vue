@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-const props = withDefaults(defineProps<{
+withDefaults(defineProps<{
     compText?: string
     compNumber?:number
 }>(), {

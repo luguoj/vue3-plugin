@@ -117,4 +117,11 @@ export namespace PsrPrimeVueTypes {
         rotateRight?: string;
         rotateLeft?: string;
     }
+
+    export interface ZIndexOptions {
+        modal?: number;
+        overlay?: number;
+        menu?: number;
+        tooltip?: number;
+    }
 }

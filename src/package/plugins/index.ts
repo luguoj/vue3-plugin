@@ -1,4 +1,4 @@
-import {App, getCurrentInstance, inject} from "vue";
+import {App, ComponentOptions, defineCustomElement, getCurrentInstance, inject} from "vue";
 import {useGraph} from "../antv-g6/graph/useGraph.ts";
 import {PsrAntvG6Types} from "../types";
 import {ShapeExtensionHandlerBuilder} from "../antv-g6/utils/ShapeExtensionHandler.ts";
@@ -63,6 +63,14 @@ export class PsrAntvG6 {
             extensions: options.extensions,
             builders: edgeExtBuilders
         })
+    }
+
+    static useElWithComponent(options: {
+        component: ComponentOptions
+    }) {
+        const tag = `psr-antv-g6-el-${this.getInstance().nextShapeId++}`
+        customElements.define(tag, defineCustomElement(options.component))
+        return tag
     }
 
     static useGraph(options?: {

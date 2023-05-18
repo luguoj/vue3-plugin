@@ -10,7 +10,7 @@ export interface ShapeExtensionHandlerBuilder<CFG> {
 
 export abstract class ShapeExtensionHandler<CFG> {
     type: string
-    shape: IShapeBase | any
+    shape: IShapeBase | { psrShapeExtensionState: any } | any
     cfg?: ModelConfig
     group?: IGroup
     rst?: IShape
@@ -33,6 +33,7 @@ export abstract class ShapeExtensionHandler<CFG> {
         this.cfg = cfg
         this.group = group
         this.rst = rst
+        shape.psrShapeExtensionState = {}
     }
 
     onStateChanged(name?: string, value?: string | boolean, item?: Item) {

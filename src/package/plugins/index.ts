@@ -1,4 +1,4 @@
-import {App, ComponentOptions, defineCustomElement, getCurrentInstance, inject} from "vue";
+import {App, defineCustomElement, getCurrentInstance, inject} from "vue";
 import {useGraph} from "../antv-g6/graph/useGraph.ts";
 import {PsrAntvG6Types} from "../types";
 import {ShapeExtensionHandlerBuilder} from "../antv-g6/utils/ShapeExtensionHandler.ts";
@@ -11,6 +11,7 @@ import {CircleScaleBuilder} from "../antv-g6/nodes/ani-handlers/CircleScaleHandl
 import {CircleShadowBuilder} from "../antv-g6/nodes/ani-handlers/CircleShadowHandler.ts";
 import {ElOverlayBuilder} from "../antv-g6/nodes/ElOverlayHandler.ts";
 import {SvgOverlayBuilder} from "../antv-g6/nodes/SvgOverlayHandler.ts";
+import {ComponentOptionsBase} from "@vue/runtime-core";
 
 const injectKey = 'psr-antv-g6'
 const edgeExtBuilderRaws: ShapeExtensionHandlerBuilder<any>[] = [
@@ -66,7 +67,7 @@ export class PsrAntvG6 {
     }
 
     static useElWithComponent(options: {
-        component: ComponentOptions
+        component: ComponentOptionsBase<any, any, any, any, any, any, any, any>
     }) {
         const tag = `psr-antv-g6-el-${this.getInstance().nextShapeId++}`
         customElements.define(tag, defineCustomElement(options.component))

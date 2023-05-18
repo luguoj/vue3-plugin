@@ -1,4 +1,4 @@
-import {registerEdge, registerNode} from "@antv/g6";
+import {registerEdge, registerNode, Shape} from "@antv/g6";
 import {Item} from "@antv/g6-core/lib/types";
 import {ShapeExtensionHandler, ShapeExtensionHandlerBuilder} from "./ShapeExtensionHandler.ts";
 
@@ -18,14 +18,22 @@ export function useShapeWithExtensions(options: {
         ({type, cfg}) => options.builders[type]?.build(cfg)
     ).filter(handler => !!handler)
     const register = options.shapeType == 'node' ? registerNode : registerEdge
+    const shapeFactory = options.shapeType == 'node' ? Shape.Node : Shape.Edge
+    const extendShape = shapeFactory.getShape(options.extendShape)
     register(name,
         {
             afterDraw(cfg, group, rst) {
+                if (extendShape && extendShape.afterDraw) {
+                    extendShape.afterDraw(cfg, group, rst)
+                }
                 for (const handler of handlers) {
                     handler.init(this, cfg, group, rst)
                 }
             },
             setState(name?: string, value?: string | boolean, item?: Item) {
+                if (extendShape && extendShape.setState) {
+                    extendShape.setState(name, value, item)
+                }
                 for (const handler of handlers) {
                     handler.onStateChanged(name, value, item)
                 }

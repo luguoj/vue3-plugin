@@ -27,7 +27,7 @@ export class LineDashHandler extends AnimationHandler<LineDashAniCfg> {
     start(item: Item) {
         const {lineDash, duration} = this.extensionCfg
         // 获得该边的第一个图形，这里是边的 path
-        const shape = this.group!.get('children')[0];
+        const shape = item.getKeyShape()
         let index = 0;
         // 边 path 图形的动画
         shape.animate(
@@ -51,7 +51,7 @@ export class LineDashHandler extends AnimationHandler<LineDashAniCfg> {
     }
 
     stop(item: Item) {
-        const shape = this.group!.get('children')[0];
+        const shape = item.getKeyShape()
         shape.stopAnimate();
         shape.attr('lineDash', null);
     }

@@ -1,7 +1,6 @@
 import {AnimationHandler} from "../../utils/AnimationHandler.ts";
-import {Item} from "@antv/g6-core/lib/types";
+import {Item, ModelConfig} from "@antv/g6-core/lib/types";
 import {IShape} from "@antv/g-base";
-import {NodeConfig} from "@antv/g6";
 import {ShapeExtensionHandler, ShapeExtensionHandlerBuilder} from "../../utils/ShapeExtensionHandler.ts";
 
 export const CircleShadowBuilder: ShapeExtensionHandlerBuilder<CircleShadowAniCfg> = {
@@ -30,16 +29,16 @@ export class CircleShadowHandler extends AnimationHandler<CircleShadowAniCfg> {
     back2: IShape | undefined
     back3: IShape | undefined
 
-    start(item: Item) {
+    start(item: Item) {debugger
         const {duration, diffSize} = this.extensionCfg
-        const {shape, group} = this
-        const {style: defaultStyle} = shape.mergeStyle || shape.getOptions(shape.cfg) as NodeConfig;
-        const {fill} = defaultStyle
+        const group = item.getContainer()
+        const model = item.getModel() as ModelConfig
+        const fill = model.style?.fill || 'rgb(95, 149, 255)'
         let size: number = 0
-        if (this.cfg?.size instanceof Array) {
-            size = this.cfg.size[0]
+        if (model.size instanceof Array) {
+            size = model.size[0]
         } else {
-            size = this.cfg!.size || 20
+            size = model.size || 20
         }
         const r = size / 2;
         const back1 = this.back1 = group!.addShape('circle', {

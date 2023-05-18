@@ -35,11 +35,12 @@ export class ArrowRunningHandler extends AnimationHandler<ArrowRunningAniCfg> {
 
     start(item: Item) {
         const {stroke, fill, duration, repeat} = this.extensionCfg
+        const group = item.getContainer()
         // 获得当前边的第一个图形，这里是边本身的 path
-        const shape = this.group!.get('children')[0];
+        const shape = group.get('children')[0];
         // 添加箭头
         if (!this.arrow) {
-            this.arrow = this.group!.addShape("marker", {
+            this.arrow = group.addShape("marker", {
                 attrs: {
                     x: 16,
                     y: 0,

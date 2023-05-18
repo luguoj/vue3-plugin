@@ -1,6 +1,6 @@
 import {ShapeExtensionHandler, ShapeExtensionHandlerBuilder} from "../utils/ShapeExtensionHandler.ts";
 import {IShape} from "@antv/g-base";
-import {IGroup, IShapeBase, ModelConfig, NodeConfig} from "@antv/g6";
+import {IGroup, ModelConfig, NodeConfig, ShapeOptions} from "@antv/g6";
 import {watch} from "vue";
 import {ShapeAttrs} from "@antv/g-base/lib/types";
 import {mix} from "@antv/util";
@@ -25,14 +25,13 @@ export class ElOverlayHandler extends ShapeExtensionHandler<ElOverlayCfg> {
         }
     }
 
-    init(shape: any, cfg?: ModelConfig, group?: IGroup, rst?: IShape) {
+    init(shape: ShapeOptions, cfg?: ModelConfig, group?: IGroup, rst?: IShape) {
         super.init(shape, cfg, group, rst);
-        const me: IShapeBase | any = this.shape
-        const style = this.getElStyle(cfg!);
+        const style = this.getElStyle(shape, cfg!);
         group!.addShape('dom', {
             attrs: style,
-            className: `${me.type}-keyShape`,
-            name: `${me.type}-keyShape`,
+            className: `${shape.type}-keyShape`,
+            name: `${shape.type}-keyShape`,
             draggable: true,
         });
         if (cfg?.data) {
@@ -44,12 +43,11 @@ export class ElOverlayHandler extends ShapeExtensionHandler<ElOverlayCfg> {
         }
     }
 
-    getElStyle(cfg: ModelConfig): ShapeAttrs {
-        const me: IShapeBase | any = this.shape
-        const {style: defaultStyle} = me.mergeStyle || me.getOptions(cfg) as NodeConfig;
+    getElStyle(shape: ShapeOptions, cfg: ModelConfig): ShapeAttrs {
+        const {style: defaultStyle} = shape.mergeStyle || shape.getOptions(cfg) as NodeConfig;
         // 如果设置了color，则覆盖默认的stroke属性
         const style = mix({}, defaultStyle);
-        const size = me.getSize!(cfg);
+        const size = shape.getSize!(cfg);
         const width = style.width || size[0];
         const height = style.height || size[1];
         return {

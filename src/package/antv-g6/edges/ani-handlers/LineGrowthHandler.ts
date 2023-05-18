@@ -1,6 +1,7 @@
 import {AnimationHandler} from "../../utils/AnimationHandler.ts";
 import {Item} from "@antv/g6-core/lib/types";
 import {ShapeExtensionHandler, ShapeExtensionHandlerBuilder} from "../../utils/ShapeExtensionHandler.ts";
+import {IShapeBase} from "@antv/g6";
 
 export const LineGrowthBuilder: ShapeExtensionHandlerBuilder<LineGrowthAniCfg> = {
     type() {
@@ -27,7 +28,7 @@ export class LineGrowthHandler extends AnimationHandler<LineGrowthAniCfg> {
 
     start(item: Item) {
         const {duration, repeat} = this.extensionCfg
-        const shape = this.group!.get('children')[0];
+        const shape = item.getKeyShape() as IShapeBase | any
         shape.animate(
             (ratio: number) => {
                 const length = shape.getTotalLength();
@@ -46,7 +47,7 @@ export class LineGrowthHandler extends AnimationHandler<LineGrowthAniCfg> {
     }
 
     stop(item: Item) {
-        const shape = this.group!.get('children')[0];
+        const shape = item.getKeyShape()
         shape.stopAnimate();
         shape.attr('lineDash', null);
     }

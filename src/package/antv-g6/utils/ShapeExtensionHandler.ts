@@ -1,6 +1,6 @@
 import {Item, ModelConfig} from "@antv/g6-core/lib/types";
 import {IGroup, IShape} from "@antv/g-base";
-import {IShapeBase} from "@antv/g6";
+import {ShapeOptions} from "@antv/g6";
 
 export interface ShapeExtensionHandlerBuilder<CFG> {
     type(): string
@@ -10,10 +10,6 @@ export interface ShapeExtensionHandlerBuilder<CFG> {
 
 export abstract class ShapeExtensionHandler<CFG> {
     type: string
-    shape: IShapeBase | { psrShapeExtensionState: any } | any
-    cfg?: ModelConfig
-    group?: IGroup
-    rst?: IShape
     extensionCfg: CFG
 
     constructor(type: string, cfg?: Partial<CFG>) {
@@ -28,14 +24,16 @@ export abstract class ShapeExtensionHandler<CFG> {
         return {} as CFG
     }
 
-    init(shape: IShapeBase | any, cfg?: ModelConfig, group?: IGroup, rst?: IShape): void {
-        this.shape = shape
-        this.cfg = cfg
-        this.group = group
-        this.rst = rst
-        shape.psrShapeExtensionState = {}
+    init(shape: ShapeOptions | any, cfg?: ModelConfig, group?: IGroup, rst?: IShape): void {
     }
 
-    onStateChanged(name?: string, value?: string | boolean, item?: Item) {
+    onStateChanged(name?: string, value?: string | boolean, item?: Item | any) {
+        this.initItem(item)
+    }
+
+    initItem(item: Item | any) {
+        if (!item.psrShapeExtensionState) {
+            item.psrShapeExtensionState = {}
+        }
     }
 }

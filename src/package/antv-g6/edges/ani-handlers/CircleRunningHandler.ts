@@ -35,13 +35,14 @@ export class CircleRunningHandler extends AnimationHandler<CircleRunningAniCfg> 
 
     start(item: Item) {
         const {radius, stroke, fill, duration, repeat} = this.extensionCfg
+        const group = item.getContainer()
         // 获得当前边的第一个图形，这里是边本身的 path
-        const shape = this.group!.get('children')[0];
+        const shape = group.get('children')[0];
         // 边 path 的起点位置
         const startPoint = shape.getPoint(0);
         // 添加 circle 图形
         if (!this.circle) {
-            this.circle = this.group!.addShape('circle', {
+            this.circle = group.addShape('circle', {
                 attrs: {
                     x: startPoint.x,
                     y: startPoint.y,

@@ -1,6 +1,6 @@
 import {ShapeExtensionHandler, ShapeExtensionHandlerBuilder} from "../utils/ShapeExtensionHandler.ts";
 import {IShape} from "@antv/g-base";
-import {IGroup, IShapeBase, ModelConfig, NodeConfig} from "@antv/g6";
+import {IGroup, ModelConfig, NodeConfig, ShapeOptions} from "@antv/g6";
 
 export const SvgOverlayBuilder: ShapeExtensionHandlerBuilder<SvgOverlayCfg> = {
     type() {
@@ -28,10 +28,9 @@ export class SvgOverlayHandler extends ShapeExtensionHandler<SvgOverlayCfg> {
         }
     }
 
-    init(shape: any, cfg?: ModelConfig, group?: IGroup, rst?: IShape) {
+    init(shape: ShapeOptions, cfg?: ModelConfig, group?: IGroup, rst?: IShape) {
         super.init(shape, cfg, group, rst);
-        const me: IShapeBase | any = this.shape
-        const {style: defaultStyle} = me.mergeStyle || me.getOptions(me.cfg) as NodeConfig;
+        const {style: defaultStyle} = shape.mergeStyle || shape.getOptions(shape.cfg) as NodeConfig;
         const {paths, designSize, size, position} = this.extensionCfg
         const shapeSize = toVector(cfg?.size || 20)
         const _designSize = toVector(designSize)

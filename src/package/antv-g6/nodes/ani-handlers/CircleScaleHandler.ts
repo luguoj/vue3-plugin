@@ -1,5 +1,5 @@
 import {AnimationHandler} from "../../utils/AnimationHandler.ts";
-import {Item} from "@antv/g6-core/lib/types";
+import {Item, ModelConfig} from "@antv/g6-core/lib/types";
 import {ShapeExtensionHandler, ShapeExtensionHandlerBuilder} from "../../utils/ShapeExtensionHandler.ts";
 
 export const CircleScaleBuilder: ShapeExtensionHandlerBuilder<CircleScaleAniCfg> = {
@@ -26,15 +26,15 @@ export class CircleScaleHandler extends AnimationHandler<CircleScaleAniCfg> {
 
     start(item: Item) {
         const {duration, diffSize} = this.extensionCfg
-        const shapeBase = this.group!.get('children')[0];
+        const shapeBase = item.getKeyShape();
         shapeBase.animate(
             (ratio: number) => {
                 const diff = ratio <= 0.5 ? ratio * diffSize : (1 - ratio) * diffSize;
                 let size: number = 0
-                if (this.cfg?.size instanceof Array) {
-                    size = this.cfg.size[0]
+                if (item._cfg?.model?.size instanceof Array) {
+                    size = item._cfg?.model?.size[0]
                 } else {
-                    size = this.cfg!.size || 20
+                    size = item._cfg?.model?.size || 20
                 }
                 return {
                     r: size / 2 + diff,
@@ -49,12 +49,13 @@ export class CircleScaleHandler extends AnimationHandler<CircleScaleAniCfg> {
     }
 
     stop(item: Item) {
-        const shape = this.group!.get('children')[0];
+        const shape = item.getKeyShape();
+        const model = item.getModel() as ModelConfig
         let size: number = 0
-        if (this.cfg?.size instanceof Array) {
-            size = this.cfg.size[0]
+        if (model.size instanceof Array) {
+            size = model.size[0]
         } else {
-            size = this.cfg!.size || 20
+            size = model.size || 20
         }
         shape.stopAnimate();
         shape.attr('r', size);

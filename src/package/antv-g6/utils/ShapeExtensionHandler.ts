@@ -24,16 +24,9 @@ export abstract class ShapeExtensionHandler<CFG> {
         return {} as CFG
     }
 
-    init(shape: ShapeOptions | any, cfg?: ModelConfig, group?: IGroup, rst?: IShape): void {
+    init(shape: ShapeOptions | any, cfg: ModelConfig, group: IGroup, rst: IShape, state: any): void {
     }
 
-    onStateChanged(name?: string, value?: string | boolean, item?: Item | any) {
-        this.initItem(item)
-    }
-
-    initItem(item: Item | any) {
-        if (!item.psrShapeExtensionState) {
-            item.psrShapeExtensionState = {}
-        }
+    onStateChanged(name: string | undefined, value: string | boolean | undefined, item: Item | any, state: any) {
     }
 }

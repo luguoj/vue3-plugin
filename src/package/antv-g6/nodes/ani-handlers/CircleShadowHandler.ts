@@ -1,6 +1,8 @@
 import {AnimationHandler, AnimationState} from "../../utils/AnimationHandler.ts";
 import {Item, ModelConfig} from "@antv/g6-core/lib/types";
 import {ShapeExtensionHandler, ShapeExtensionHandlerBuilder} from "../../utils/ShapeExtensionHandler.ts";
+import {IShape} from "@antv/g-base";
+import {IGroup} from "@antv/g6";
 
 export const CircleShadowBuilder: ShapeExtensionHandlerBuilder<CircleShadowAniCfg> = {
     type() {
@@ -24,19 +26,17 @@ export class CircleShadowHandler extends AnimationHandler<CircleShadowAniCfg> {
         }
     }
 
-    start(item: Item, state: AnimationState) {
-        const {duration, diffSize} = this.extensionCfg
-        const group = item.getContainer()
-        const model = item.getModel() as ModelConfig
-        const fill = model.style?.fill || 'rgb(95, 149, 255)'
+    init(shape: any, cfg: ModelConfig, group: IGroup, rst: IShape, state: AnimationState) {
+        super.init(shape, cfg, group, rst, state);
+        const fill = cfg?.style?.fill || 'rgb(95, 149, 255)'
         let size: number = 0
-        if (model.size instanceof Array) {
-            size = model.size[0]
+        if (cfg?.size instanceof Array) {
+            size = cfg?.size[0]
         } else {
-            size = model.size || 20
+            size = cfg?.size || 20
         }
         const r = size / 2;
-        const back1 = state.back1 = group!.addShape('circle', {
+        state.back1 = group!.addShape('circle', {
             zIndex: -3,
             attrs: {
                 x: 0,
@@ -47,7 +47,7 @@ export class CircleShadowHandler extends AnimationHandler<CircleShadowAniCfg> {
             },
             name: 'back1-shape',
         });
-        const back2 = state.back2 = group!.addShape('circle', {
+        state.back2 = group!.addShape('circle', {
             zIndex: -2,
             attrs: {
                 x: 0,
@@ -58,7 +58,7 @@ export class CircleShadowHandler extends AnimationHandler<CircleShadowAniCfg> {
             },
             name: 'back2-shape',
         });
-        const back3 = state.back3 = group!.addShape('circle', {
+        state.back3 = group!.addShape('circle', {
             zIndex: -1,
             attrs: {
                 x: 0,
@@ -80,6 +80,21 @@ export class CircleShadowHandler extends AnimationHandler<CircleShadowAniCfg> {
             fragment.appendChild(child)
         }
         el.appendChild(fragment)
+    }
+
+    start(item: Item, state: AnimationState) {
+        const {duration, diffSize} = this.extensionCfg
+        const model = item.getModel() as ModelConfig
+        const back1 = state.back1
+        const back2 = state.back2
+        const back3 = state.back3
+        let size: number = 0
+        if (model.size instanceof Array) {
+            size = model.size[0]
+        } else {
+            size = model.size || 20
+        }
+        const r = size / 2;
         back1.animate(
             {
                 // Magnifying and disappearing
@@ -123,16 +138,16 @@ export class CircleShadowHandler extends AnimationHandler<CircleShadowAniCfg> {
 
     stop(item: Item, state: AnimationState) {
         if (state.back1) {
-            state.back1.remove(true)
-            state.back1 = undefined
+            state.back1.stopAnimate()
+            state.back1.setAttr('opacity', 0)
         }
         if (state.back2) {
-            state.back2.remove(true)
-            state.back2 = undefined
+            state.back2.stopAnimate()
+            state.back2.setAttr('opacity', 0)
         }
         if (state.back3) {
-            state.back3.remove(true)
-            state.back3 = undefined
+            state.back3.stopAnimate()
+            state.back3.setAttr('opacity', 0)
         }
     }
 }

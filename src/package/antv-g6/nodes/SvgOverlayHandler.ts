@@ -28,8 +28,8 @@ export class SvgOverlayHandler extends ShapeExtensionHandler<SvgOverlayCfg> {
         }
     }
 
-    init(shape: ShapeOptions, cfg?: ModelConfig, group?: IGroup, rst?: IShape) {
-        super.init(shape, cfg, group, rst);
+    init(shape: ShapeOptions, cfg: ModelConfig, group: IGroup, rst: IShape, state: any) {
+        super.init(shape, cfg, group, rst, state);
         const {style: defaultStyle} = shape.mergeStyle || shape.getOptions(shape.cfg) as NodeConfig;
         const {paths, designSize, size, position} = this.extensionCfg
         const shapeSize = toVector(cfg?.size || 20)

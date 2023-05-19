@@ -25,8 +25,8 @@ export class ElOverlayHandler extends ShapeExtensionHandler<ElOverlayCfg> {
         }
     }
 
-    init(shape: ShapeOptions, cfg?: ModelConfig, group?: IGroup, rst?: IShape) {
-        super.init(shape, cfg, group, rst);
+    init(shape: ShapeOptions, cfg: ModelConfig, group: IGroup, rst: IShape, state: any) {
+        super.init(shape, cfg, group, rst, state);
         const style = this.getElStyle(shape, cfg!);
         group!.addShape('dom', {
             attrs: style,

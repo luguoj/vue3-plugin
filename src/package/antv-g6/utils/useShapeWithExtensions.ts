@@ -26,16 +26,18 @@ export function useShapeWithExtensions(options: {
                 if (extendShape && extendShape.afterDraw) {
                     extendShape.afterDraw(cfg, group, rst)
                 }
+                const state: any = group!.cfg.item.psrShapeExtensionState = {}
                 for (const handler of handlers) {
-                    handler.init(this, cfg, group, rst)
+                    state[handler.type] = {}
+                    handler.init(this, cfg!, group!, rst!, state[handler.type])
                 }
             },
-            setState(name?: string, value?: string | boolean, item?: Item) {
+            setState(name?: string, value?: string | boolean, item?: Item | any) {
                 if (extendShape && extendShape.setState) {
                     extendShape.setState(name, value, item)
                 }
                 for (const handler of handlers) {
-                    handler.onStateChanged(name, value, item)
+                    handler.onStateChanged(name, value, item, item!.psrShapeExtensionState[handler.type])
                 }
             }
         },

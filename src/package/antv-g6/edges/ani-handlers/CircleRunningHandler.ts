@@ -1,6 +1,5 @@
 import {Item} from "@antv/g6-core/lib/types";
-import {IShape} from "@antv/g-base";
-import {AnimationHandler} from "../../utils/AnimationHandler.ts";
+import {AnimationHandler, AnimationState} from "../../utils/AnimationHandler.ts";
 import {ShapeExtensionHandler, ShapeExtensionHandlerBuilder} from "../../utils/ShapeExtensionHandler.ts";
 
 export const CircleRunningBuilder: ShapeExtensionHandlerBuilder<CircleRunningAniCfg> = {
@@ -31,9 +30,7 @@ export class CircleRunningHandler extends AnimationHandler<CircleRunningAniCfg> 
         }
     }
 
-    circle?: IShape
-
-    start(item: Item) {
+    start(item: Item, state: AnimationState) {
         const {radius, stroke, fill, duration, repeat} = this.extensionCfg
         const group = item.getContainer()
         // 获得当前边的第一个图形，这里是边本身的 path
@@ -41,8 +38,8 @@ export class CircleRunningHandler extends AnimationHandler<CircleRunningAniCfg> 
         // 边 path 的起点位置
         const startPoint = shape.getPoint(0);
         // 添加 circle 图形
-        if (!this.circle) {
-            this.circle = group.addShape('circle', {
+        if (!state.circle) {
+            state.circle = group.addShape('circle', {
                 attrs: {
                     x: startPoint.x,
                     y: startPoint.y,
@@ -55,7 +52,7 @@ export class CircleRunningHandler extends AnimationHandler<CircleRunningAniCfg> 
             });
         }
         // 对圆点添加动画
-        this.circle.animate(
+        state.circle.animate(
             (ratio: { x: any, y: any }) => {
                 // 每一帧的操作，入参 ratio：这一帧的比例值（Number）。返回值：这一帧需要变化的参数集（Object）。
                 // 根据比例值，获得在边 path 上对应比例的位置。
@@ -73,10 +70,10 @@ export class CircleRunningHandler extends AnimationHandler<CircleRunningAniCfg> 
         );
     }
 
-    stop() {
-        if (this.circle) {
-            this.circle.remove(true)
-            this.circle = undefined
+    stop(item: Item, state: AnimationState) {
+        if (state.circle) {
+            state.circle.remove(true)
+            state.circle = undefined
         }
     }
 }

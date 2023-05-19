@@ -1,6 +1,5 @@
-import {AnimationHandler} from "../../utils/AnimationHandler.ts";
+import {AnimationHandler, AnimationState} from "../../utils/AnimationHandler.ts";
 import {Item, ModelConfig} from "@antv/g6-core/lib/types";
-import {IShape} from "@antv/g-base";
 import {ShapeExtensionHandler, ShapeExtensionHandlerBuilder} from "../../utils/ShapeExtensionHandler.ts";
 
 export const CircleShadowBuilder: ShapeExtensionHandlerBuilder<CircleShadowAniCfg> = {
@@ -25,11 +24,7 @@ export class CircleShadowHandler extends AnimationHandler<CircleShadowAniCfg> {
         }
     }
 
-    back1: IShape | undefined
-    back2: IShape | undefined
-    back3: IShape | undefined
-
-    start(item: Item) {debugger
+    start(item: Item, state: AnimationState) {
         const {duration, diffSize} = this.extensionCfg
         const group = item.getContainer()
         const model = item.getModel() as ModelConfig
@@ -41,7 +36,7 @@ export class CircleShadowHandler extends AnimationHandler<CircleShadowAniCfg> {
             size = model.size || 20
         }
         const r = size / 2;
-        const back1 = this.back1 = group!.addShape('circle', {
+        const back1 = state.back1 = group!.addShape('circle', {
             zIndex: -3,
             attrs: {
                 x: 0,
@@ -52,7 +47,7 @@ export class CircleShadowHandler extends AnimationHandler<CircleShadowAniCfg> {
             },
             name: 'back1-shape',
         });
-        const back2 = this.back2 = group!.addShape('circle', {
+        const back2 = state.back2 = group!.addShape('circle', {
             zIndex: -2,
             attrs: {
                 x: 0,
@@ -63,7 +58,7 @@ export class CircleShadowHandler extends AnimationHandler<CircleShadowAniCfg> {
             },
             name: 'back2-shape',
         });
-        const back3 = this.back3 = group!.addShape('circle', {
+        const back3 = state.back3 = group!.addShape('circle', {
             zIndex: -1,
             attrs: {
                 x: 0,
@@ -126,18 +121,18 @@ export class CircleShadowHandler extends AnimationHandler<CircleShadowAniCfg> {
         ); // 3s delay
     }
 
-    stop(item: Item) {
-        if (this.back1) {
-            this.back1.remove(true)
-            this.back1 = undefined
+    stop(item: Item, state: AnimationState) {
+        if (state.back1) {
+            state.back1.remove(true)
+            state.back1 = undefined
         }
-        if (this.back2) {
-            this.back2.remove(true)
-            this.back2 = undefined
+        if (state.back2) {
+            state.back2.remove(true)
+            state.back2 = undefined
         }
-        if (this.back3) {
-            this.back3.remove(true)
-            this.back3 = undefined
+        if (state.back3) {
+            state.back3.remove(true)
+            state.back3 = undefined
         }
     }
 }

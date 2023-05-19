@@ -1,5 +1,5 @@
 import {Item} from "@antv/g6-core/lib/types";
-import {AnimationHandler} from "../../utils/AnimationHandler.ts";
+import {AnimationHandler, AnimationState} from "../../utils/AnimationHandler.ts";
 import {ShapeExtensionHandler, ShapeExtensionHandlerBuilder} from "../../utils/ShapeExtensionHandler.ts";
 
 export const LineDashBuilder: ShapeExtensionHandlerBuilder<LineDashAniCfg> = {
@@ -24,7 +24,7 @@ export class LineDashHandler extends AnimationHandler<LineDashAniCfg> {
         }
     }
 
-    start(item: Item) {
+    start(item: Item, state: AnimationState) {
         const {lineDash, duration} = this.extensionCfg
         // 获得该边的第一个图形，这里是边的 path
         const shape = item.getKeyShape()
@@ -50,7 +50,7 @@ export class LineDashHandler extends AnimationHandler<LineDashAniCfg> {
         );
     }
 
-    stop(item: Item) {
+    stop(item: Item, state: AnimationState) {
         const shape = item.getKeyShape()
         shape.stopAnimate();
         shape.attr('lineDash', null);

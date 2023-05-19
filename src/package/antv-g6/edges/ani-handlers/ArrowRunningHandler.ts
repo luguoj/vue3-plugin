@@ -1,7 +1,6 @@
 import {Util} from "@antv/g6"
 import {Item} from "@antv/g6-core/lib/types";
-import {IShape} from "@antv/g-base";
-import {AnimationHandler} from "../../utils/AnimationHandler.ts";
+import {AnimationHandler, AnimationState} from "../../utils/AnimationHandler.ts";
 import {ShapeExtensionHandler, ShapeExtensionHandlerBuilder} from "../../utils/ShapeExtensionHandler.ts";
 
 export const ArrowRunningBuilder: ShapeExtensionHandlerBuilder<ArrowRunningAniCfg> = {
@@ -31,16 +30,14 @@ export class ArrowRunningHandler extends AnimationHandler<ArrowRunningAniCfg> {
         };
     }
 
-    arrow?: IShape
-
-    start(item: Item) {
+    start(item: Item, state: AnimationState) {
         const {stroke, fill, duration, repeat} = this.extensionCfg
         const group = item.getContainer()
         // 获得当前边的第一个图形，这里是边本身的 path
         const shape = group.get('children')[0];
         // 添加箭头
-        if (!this.arrow) {
-            this.arrow = group.addShape("marker", {
+        if (!state.arrow) {
+            state.arrow = group.addShape("marker", {
                 attrs: {
                     x: 16,
                     y: 0,
@@ -59,7 +56,7 @@ export class ArrowRunningHandler extends AnimationHandler<ArrowRunningAniCfg> {
             });
         }
         // 对箭头添加动画
-        this.arrow.animate(
+        state.arrow.animate(
             (ratio: { x: any, y: any }) => {
                 const tmpPoint = shape.getPoint(ratio);
                 const pos = Util.getLabelPosition(shape, ratio);
@@ -84,10 +81,10 @@ export class ArrowRunningHandler extends AnimationHandler<ArrowRunningAniCfg> {
         );
     }
 
-    stop() {
-        if (this.arrow) {
-            this.arrow.remove(true)
-            this.arrow = undefined
+    stop(item: Item, state: AnimationState) {
+        if (state.arrow) {
+            state.arrow.remove(true)
+            state.arrow = undefined
         }
     }
 

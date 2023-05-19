@@ -1,4 +1,4 @@
-import {AnimationHandler} from "../../utils/AnimationHandler.ts";
+import {AnimationHandler, AnimationState} from "../../utils/AnimationHandler.ts";
 import {Item} from "@antv/g6-core/lib/types";
 import {ShapeExtensionHandler, ShapeExtensionHandlerBuilder} from "../../utils/ShapeExtensionHandler.ts";
 import {IShapeBase} from "@antv/g6";
@@ -26,7 +26,7 @@ export class LineGrowthHandler extends AnimationHandler<LineGrowthAniCfg> {
         };
     }
 
-    start(item: Item) {
+    start(item: Item, state: AnimationState) {
         const {duration, repeat} = this.extensionCfg
         const shape = item.getKeyShape() as IShapeBase | any
         shape.animate(
@@ -46,7 +46,7 @@ export class LineGrowthHandler extends AnimationHandler<LineGrowthAniCfg> {
         );
     }
 
-    stop(item: Item) {
+    stop(item: Item, state: AnimationState) {
         const shape = item.getKeyShape()
         shape.stopAnimate();
         shape.attr('lineDash', null);

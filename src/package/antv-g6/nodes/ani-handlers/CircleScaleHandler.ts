@@ -1,4 +1,4 @@
-import {AnimationHandler} from "../../utils/AnimationHandler.ts";
+import {AnimationHandler, AnimationState} from "../../utils/AnimationHandler.ts";
 import {Item, ModelConfig} from "@antv/g6-core/lib/types";
 import {ShapeExtensionHandler, ShapeExtensionHandlerBuilder} from "../../utils/ShapeExtensionHandler.ts";
 
@@ -24,7 +24,7 @@ export class CircleScaleHandler extends AnimationHandler<CircleScaleAniCfg> {
         }
     }
 
-    start(item: Item) {
+    start(item: Item, state: AnimationState) {
         const {duration, diffSize} = this.extensionCfg
         const shapeBase = item.getKeyShape();
         shapeBase.animate(
@@ -48,7 +48,7 @@ export class CircleScaleHandler extends AnimationHandler<CircleScaleAniCfg> {
         );
     }
 
-    stop(item: Item) {
+    stop(item: Item, state: AnimationState) {
         const shape = item.getKeyShape();
         const model = item.getModel() as ModelConfig
         let size: number = 0

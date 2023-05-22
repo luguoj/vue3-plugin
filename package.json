@@ -1,6 +1,6 @@
 {
   "name": "@psr-framework/vue3-plugin-antv-g6",
-  "version": "1.2.0",
+  "version": "1.2.2",
   "type": "module",
   "scripts": {
     "dev": "vite",

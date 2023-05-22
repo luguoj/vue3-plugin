@@ -20,25 +20,29 @@ export class LineDashHandler extends AnimationHandler<LineDashAniCfg> {
     defaultCfg(): LineDashAniCfg {
         return {
             lineDash: [4, 2, 1, 2],
-            duration: 3000,
+            duration: 500,
         }
     }
 
     start(item: Item, state: AnimationState) {
         const {lineDash, duration} = this.extensionCfg
+        let maxOffset = 0
+        for (const lineDashItem of lineDash) {
+            maxOffset += lineDashItem
+        }
         // 获得该边的第一个图形，这里是边的 path
         const shape = item.getKeyShape()
         let index = 0;
         // 边 path 图形的动画
         shape.animate(
-            () => {
+            (radio: number) => {
                 index++;
-                if (index > 9) {
+                if (index > maxOffset) {
                     index = 0;
                 }
                 const res = {
                     lineDash,
-                    lineDashOffset: -index,
+                    lineDashOffset: -radio*maxOffset,
                 };
                 // 返回需要修改的参数集，这里修改了 lineDash,lineDashOffset
                 return res;

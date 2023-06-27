@@ -2,7 +2,7 @@ import {App, defineCustomElement, getCurrentInstance, inject} from "vue";
 import {useGraph} from "../antv-g6/graph/useGraph.ts";
 import {PsrAntvG6Types} from "../types";
 import {ShapeExtensionHandlerBuilder} from "../antv-g6/utils/ShapeExtensionHandler.ts";
-import {useShapeWithExtensions} from "../antv-g6/utils/useShapeWithExtensions.ts";
+import {useShape, useShapeWithExtensions} from "../antv-g6/utils/useShapeWithExtensions.ts";
 import {ArrowRunningBuilder} from "../antv-g6/edges/ani-handlers/ArrowRunningHandler.ts";
 import {CircleRunningBuilder} from "../antv-g6/edges/ani-handlers/CircleRunningHandler.ts";
 import {LineDashBuilder} from "../antv-g6/edges/ani-handlers/LineDashHandler.ts";
@@ -12,6 +12,7 @@ import {CircleShadowBuilder} from "../antv-g6/nodes/ani-handlers/CircleShadowHan
 import {ElOverlayBuilder} from "../antv-g6/nodes/ElOverlayHandler.ts";
 import {SvgOverlayBuilder} from "../antv-g6/nodes/SvgOverlayHandler.ts";
 import {ComponentOptionsBase} from "@vue/runtime-core";
+import {ShapeDefine, ShapeOptions} from "@antv/g6-core/lib/interface/shape";
 
 const injectKey = 'psr-antv-g6'
 const edgeExtBuilderRaws: ShapeExtensionHandlerBuilder<any>[] = [
@@ -33,6 +34,30 @@ for (const builderRaw of nodeExtBuilderRaws) {
 export class PsrAntvG6 {
     private static _activeInstance: PsrAntvG6
     private nextShapeId: number = 0
+
+    static useNode(
+        definition: ShapeOptions | ShapeDefine,
+        extendShapeType?: string
+    ) {
+        return useShape(
+            this.getInstance().nextShapeId++,
+            'node',
+            definition,
+            extendShapeType
+        )
+    }
+
+    static useEdge(
+        definition: ShapeOptions,
+        extendShapeType?: string
+    ) {
+        return useShape(
+            this.getInstance().nextShapeId++,
+            'edge',
+            definition,
+            extendShapeType
+        )
+    }
 
     static useNodeWithExtensions(options: {
         extendShape?: PsrAntvG6Types.NodeType | string

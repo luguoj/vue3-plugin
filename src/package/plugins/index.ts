@@ -36,7 +36,7 @@ export class PsrAntvG6 {
     private nextShapeId: number = 0
 
     static useNode(
-        definition: ShapeOptions | ShapeDefine,
+        definition: (extendShape?: any) => ShapeOptions | ShapeDefine,
         extendShapeType?: string
     ) {
         return useShape(
@@ -48,7 +48,7 @@ export class PsrAntvG6 {
     }
 
     static useEdge(
-        definition: ShapeOptions,
+        definition: (extendShape?: any) => ShapeOptions,
         extendShapeType?: string
     ) {
         return useShape(

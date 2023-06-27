@@ -6,12 +6,14 @@ import {ShapeDefine, ShapeOptions} from "@antv/g6-core/lib/interface/shape";
 export function useShape(
     id: number,
     shapeType: 'node' | 'edge',
-    definition: ShapeOptions | ShapeDefine,
+    definition: (extendShape?: any) => ShapeOptions | ShapeDefine,
     extendShapeType?: string
 ) {
     const register = shapeType == 'node' ? registerNode : registerEdge
     const name = 'psr-shape-' + shapeType + '-' + id
-    register(name, definition, extendShapeType)
+    const shapeFactory = shapeType == 'node' ? Shape.Node : Shape.Edge
+    const _extendShape = extendShapeType && shapeFactory.getShape(extendShapeType)
+    register(name, definition(_extendShape), extendShapeType)
     return name
 }
 
@@ -29,11 +31,9 @@ export function useShapeWithExtensions(options: {
     const handlers: ShapeExtensionHandler<any>[] = extensions.map(
         ({type, cfg}) => options.builders[type]?.build(cfg)
     ).filter(handler => !!handler)
-    const shapeFactory = options.shapeType == 'node' ? Shape.Node : Shape.Edge
-    const _extendShape = shapeFactory.getShape(extendShape)
     return useShape(id,
         shapeType,
-        {
+        (_extendShape) => ({
             afterDraw(cfg, group, rst) {
                 if (_extendShape && _extendShape.afterDraw) {
                     _extendShape.afterDraw(cfg, group, rst)
@@ -52,7 +52,7 @@ export function useShapeWithExtensions(options: {
                     handler.onStateChanged(name, value, item, item!.psrShapeExtensionState[handler.type])
                 }
             }
-        },
+        }),
         extendShape
     );
 }

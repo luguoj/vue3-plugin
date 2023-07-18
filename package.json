@@ -8,9 +8,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@psr-framework/vue3-plugin-utils": "^1.1.0",
     "echarts": "^5.4.2",
-    "vue": "^3.3.4",
-    "vue3-resize": "^0.2.0"
+    "vue": "^3.3.4"
   },
   "devDependencies": {
     "@types/node": "^20.4.2",

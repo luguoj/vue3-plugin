@@ -1,20 +1,12 @@
 <template>
   <div>
-    <div style="height: 100%;width: 100%;" ref="echartsContainerRef"/>
-    <resize-observer @notify="handleResize"/>
+    <div v-psr-resize-observer="handleResize" style="height: 100%;width: 100%;" ref="echartsContainerRef"/>
   </div>
 </template>
 
-<script lang="ts">
-export default {
-  name: "PsrVue3Echarts"
-}
-
-</script>
 <script setup lang="ts">
-import 'vue3-resize/dist/vue3-resize.css'
-import {ResizeObserver} from 'vue3-resize'
-import {defineProps, ref, shallowRef, watchEffect} from "vue";
+import {ref, shallowRef, watchEffect} from "vue";
+import {vPsrResizeObserver} from "@psr-framework/vue3-plugin-utils";
 import * as echarts from "echarts";
 import {EChartsType} from "echarts/types/dist/echarts";
 import {ECBasicOption} from "echarts/types/dist/shared";

@@ -24,6 +24,10 @@ export default defineConfig({
                 "@psr-framework/typescript-utils",
                 "primeicons",
                 "primevue",
+                "primevue/datatable",
+                "primevue/treetable",
+                "primevue/api",
+                "primevue/config",
                 "primeflex",
                 "vue"
             ],

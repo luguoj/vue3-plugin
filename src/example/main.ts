@@ -1,6 +1,7 @@
 import {createApp} from 'vue'
-import './style.css'
+import '../package'
 import App from './App.vue'
+import './style.css'
 import {logger} from "./SampleMessageService";
 
 const app = createApp(App)

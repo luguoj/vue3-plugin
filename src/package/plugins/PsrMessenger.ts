@@ -26,7 +26,7 @@ export class PsrMessenger {
     static useMessage<
         T extends string = string,
         M extends PsrMessengerTypes.MessageOptions<T> = PsrMessengerTypes.MessageOptions<T>
-    >(key: string) {
+    >(key: string): MessageService<T, M> {
         return PsrMessenger.getInstance()._messageServices[key]
     }
 

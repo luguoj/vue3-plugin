@@ -132,8 +132,8 @@ const props = defineProps({
   z: {
     type: Number,
     default: 0,
-    validator(val: string | number) {
-      return val >= 0;
+    validator(val) {
+      return typeof val === 'number' && val >= 0;
     },
   },
   dragHandle: {
@@ -189,7 +189,6 @@ const styleMapping: any = {
   },
 };
 
-const fixAspectRatio = ref()
 const active = ref(false)
 const zIndex = ref()
 const parentWidth = ref()

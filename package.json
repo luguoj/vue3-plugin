@@ -3,35 +3,35 @@
   "version": "1.1.1",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "vue-tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "pub": "npm publish"
   },
   "dependencies": {
     "@psr-framework/vue3-plugin-utils": "^1.1.0",
-    "vue": "^3.2.47"
+    "vue": "^3.3.7"
   },
   "devDependencies": {
-    "@types/node": "^18.16.0",
-    "@vitejs/plugin-vue": "^4.1.0",
-    "sass": "^1.62.0",
-    "sass-loader": "^13.2.2",
-    "typescript": "^5.0.4",
-    "vite": "^4.3.1",
-    "vite-plugin-dts": "^2.3.0",
-    "vite-plugin-libcss": "^1.0.6",
-    "vue-tsc": "^1.4.4"
+    "@types/node": "^20.8.9",
+    "@vitejs/plugin-vue": "^4.4.0",
+    "sass": "^1.69.5",
+    "sass-loader": "^13.3.2",
+    "typescript": "^5.2.2",
+    "vite": "^4.5.0",
+    "vite-plugin-dts": "^3.6.1",
+    "vite-plugin-libcss": "^1.1.1",
+    "vue-tsc": "^1.8.22"
   },
   "author": "zhoudingding",
-  "description": "vue3.x 插件项目模板",
+  "description": "vue3.x 天气插件",
   "publishConfig": {
     "registry": "https://packages.aliyun.com/5ea982f438076f00011bc29a/npm/npm-registry/"
   },
   "files": [
     "package.json",
     "README.md",
-    "dist",
-    "src/package"
+    "dist"
   ],
   "main": "./dist/index.umd.cjs",
   "module": "./dist/index.js",

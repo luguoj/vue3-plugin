@@ -1,8 +1,8 @@
 import {createApp} from 'vue'
-import './style.css'
-import App from './App.vue'
-import {createPinia} from "pinia";
 import {createPsrPiniaPersist} from "../package";
+import App from './App.vue'
+import './style.css'
+import {createPinia} from "pinia";
 import {asyncStorage} from "./asyncStorage";
 
 const app = createApp(App)

@@ -5,21 +5,27 @@
   "scripts": {
     "dev": "vite --host",
     "build": "vue-tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "pub": "npm publish"
   },
   "dependencies": {
     "@psr-framework/typescript-utils": "^1.4.3",
     "pinia": "^2.0.33",
-    "vue": "^3.2.47"
+    "vue": "^3.3.7"
   },
   "devDependencies": {
-    "@types/node": "^18.15.10",
-    "@vitejs/plugin-vue": "^4.1.0",
-    "typescript": "^4.9.5",
-    "vite": "^4.2.1",
-    "vite-plugin-dts": "^2.1.0",
-    "vue-tsc": "^1.2.0"
+    "@types/node": "^20.8.9",
+    "@vitejs/plugin-vue": "^4.4.0",
+    "sass": "^1.69.5",
+    "sass-loader": "^13.3.2",
+    "typescript": "^5.2.2",
+    "vite": "^4.5.0",
+    "vite-plugin-dts": "^3.6.1",
+    "vite-plugin-libcss": "^1.1.1",
+    "vue-tsc": "^1.8.22"
   },
+  "author": "zhoudingding",
+  "description": "vue3.x pinia持久化插件",
   "publishConfig": {
     "registry": "https://packages.aliyun.com/5ea982f438076f00011bc29a/npm/npm-registry/"
   },

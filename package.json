@@ -9,8 +9,8 @@
     "pub": "npm publish"
   },
   "dependencies": {
-    "@psr-framework/typescript-utils": "^1.4.3",
-    "pinia": "^2.0.33",
+    "@psr-framework/typescript-utils": "^1.5.0",
+    "pinia": "^2.1.7",
     "vue": "^3.3.7"
   },
   "devDependencies": {

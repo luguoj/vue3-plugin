@@ -23,7 +23,10 @@ const edge2 = PsrAntvG6.useEdgeWithExtensions({
 const vueNode2 = PsrAntvG6.useNodeWithExtensions({
   extendShape: 'rect',
   extensions: [
-    {type: 'el-overlay', cfg: {tag: VueNodeTag}}
+    {type: 'el-overlay', cfg: {tag: VueNodeTag}},
+    {
+      type: 'circle-shadow'
+    }
   ]
 })
 
@@ -55,8 +58,6 @@ const svgNode2 = PsrAntvG6.useNodeWithExtensions({
   ]
 })
 
-console.log(edge1, edge2)
-
 const {
   ctGraphRef, ctMiniMapRef, graph
 } = PsrAntvG6.useGraph()
@@ -85,25 +86,28 @@ watchEffect(() => {
           id: '3',
           label: '3',
           size: [50, 25],
+          style: {
+            fill: 'red'
+          },
           type: circleNode1,
         }],
         edges: [{
           source: '1',
           target: '2',
-          type: 'test'
+          type: edge1
         }, {
           source: '2',
           target: '3',
-          type: edge2
+          type: edge1
         }, {
           source: '3',
           target: '1',
-          type: edge1
+          type: edge2
         }]
       })
       _graph.render()
-      _graph.setItemState('2', 'circle-scale', true)
-      _graph.setItemState('2', 'circle-shadow', true)
+      _graph.setItemState('1', 'circle-scale', true)
+      _graph.setItemState('3', 'circle-shadow', true)
     })
     _graph.on('node:mouseenter', (ev) => {
       console.log('node:mouseenter')
@@ -111,7 +115,7 @@ watchEffect(() => {
       node1Data.compText = 'yes'
       if (node && "getEdges" in node) {
         const edges = node.getEdges();
-        edges.forEach((edge) => _graph.setItemState(edge, 'line-growth', true));
+        edges.forEach((edge) => _graph.setItemState(edge, 'line-dash', true));
       }
     });
     _graph.on('node:mouseleave', (ev) => {
@@ -120,7 +124,7 @@ watchEffect(() => {
       node1Data.compText = 'no'
       if (node && "getEdges" in node) {
         const edges = node.getEdges();
-        edges.forEach((edge) => _graph.setItemState(edge, 'line-growth', false));
+        edges.forEach((edge) => _graph.setItemState(edge, 'line-dash', false));
       }
     });
   }

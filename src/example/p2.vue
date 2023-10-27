@@ -5,6 +5,7 @@
       :leader-line-start="elFrom"
       :leader-line-end="elTo"
       :leader-line-options="lineOptions"
+      :leader-line-area-anchor-start="anchorOptions"
   />
 </template>
 

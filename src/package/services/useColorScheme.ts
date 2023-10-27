@@ -1,7 +1,7 @@
 import {getCurrentInstance, onMounted, onUnmounted, ref, Ref} from "vue";
 
 export function usePsrColorScheme(): Ref<string> {
-    let updateInt: NodeJS.Timer | undefined
+    let updateInt: NodeJS.Timeout | undefined
     const vm = getCurrentInstance()
     const colorSchemeRef: Ref<string> = ref('')
     onMounted(() => {

@@ -47,9 +47,9 @@ const props = defineProps<{
 }>()
 const tableRef = ref<DataTable>()
 
-function handleExport() {
-  tableRef.value?.exportCSV();
-}
+// function handleExport() {
+//   tableRef.value?.exportCSV();
+// }
 
 function onDataTableEvent(event: any) {
   props.tableContext.pageable.offset = event.first

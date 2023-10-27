@@ -25,7 +25,7 @@
 import DataTable from "primevue/datatable";
 import {PsrPrmFilterDataTableContext} from "./PsrPrmFilterDataTableContext";
 
-const props = defineProps<{
+defineProps<{
   tableContext: PsrPrmFilterDataTableContext<any>
 }>()
 </script>

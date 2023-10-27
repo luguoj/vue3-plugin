@@ -18,7 +18,7 @@
 import TreeTable from "primevue/treetable";
 import {PsrPrmFilterTreeTableContext} from "./PsrPrmFilterTreeTableContext";
 
-const props = defineProps<{
+defineProps<{
   tableContext: PsrPrmFilterTreeTableContext<any>
 }>()
 </script>

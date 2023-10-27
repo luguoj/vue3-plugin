@@ -10,7 +10,6 @@ npm i @psr-framework/vue3-plugin-echarts
 ## 全局注册
 
 ```ts
-import "@psr-framework/vue3-plugin-echarts/style.css"
 import {PsrVue3EchartsPlugin} from "@psr-framework/vue3-plugin-echarts";
 
 const app = createApp(App).use(PsrVue3EchartsPlugin).mount('#app')
@@ -19,7 +18,6 @@ const app = createApp(App).use(PsrVue3EchartsPlugin).mount('#app')
 ## 按需注册
 
 ```ts
-import "@psr-framework/vue3-plugin-echarts/style.css"
 import {PsrVue3Echarts} from "@psr-framework/vue3-plugin-echarts";
 ```
 

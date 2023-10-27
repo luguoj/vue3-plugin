@@ -17,7 +17,7 @@ export default {
 </script>
 <script setup lang="ts">
 import {ref} from "vue";
-import {PsrVue3EchartsExpose, PsrVue3Echarts} from "../src";
+import {PsrVue3EchartsExpose, PsrVue3Echarts} from "../package";
 
 const isDark = ref(false)
 const options = ref<any>({})

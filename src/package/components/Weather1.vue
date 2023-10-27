@@ -15,7 +15,7 @@
 import {vPsrResizeObserver} from "@psr-framework/vue3-plugin-utils"
 import {computed, getCurrentInstance, onMounted, onUnmounted, Ref, ref} from "vue";
 
-let updateInt: NodeJS.Timer | undefined
+let updateInt: NodeJS.Timeout | undefined
 const vm = getCurrentInstance()
 const colorStyleRef: Ref<string> = ref('#2266b8')
 

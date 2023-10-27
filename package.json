@@ -12,10 +12,10 @@
     "vue": "^3.3.7"
   },
   "devDependencies": {
-    "@types/backbone": "^1.4.15",
+    "@types/backbone": "^1.4.17",
     "@types/node": "^20.8.9",
     "@vitejs/plugin-vue": "^4.4.0",
-    "jointjs": "^3.6.5",
+    "jointjs": "^3.7.6",
     "sass": "^1.69.5",
     "sass-loader": "^13.3.2",
     "typescript": "^5.2.2",

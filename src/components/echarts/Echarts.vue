@@ -29,11 +29,14 @@ watchEffect(() => {
     echartsRef.value = echarts.init(echartsContainerRef.value, props.chartDarkTheme ? 'dark' : 'light')
   }
 })
-
+let currentOptions: any
 watchEffect(() => {
   if (echartsRef.value) {
     if (props.chartOptions) {
-      echartsRef.value.setOption(props.chartOptions, true)
+      echartsRef.value.setOption(props.chartOptions, {
+        notMerge: currentOptions !== props.chartOptions
+      })
+      currentOptions = props.chartOptions
     } else {
       echartsRef.value.setOption({}, true)
     }

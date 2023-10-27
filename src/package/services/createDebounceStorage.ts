@@ -7,7 +7,7 @@ export function createDebounceStorage(
     setItemFn: (key: string, value: string) => void | Promise<void>
 ): PsrPiniaPersistTypes.Storage {
     const queue = new PromiseQueue.Queue()
-    let debounceTimer: NodeJS.Timer | null = null
+    let debounceTimer: NodeJS.Timeout | null = null
     return {
         getItem: getItemFn,
         setItem(key: string, value: string): void {

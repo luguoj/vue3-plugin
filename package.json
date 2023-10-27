@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "vite --host",
     "build": "vue-tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "publish": "npm publish"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.1.0",

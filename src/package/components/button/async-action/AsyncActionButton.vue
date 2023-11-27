@@ -1,6 +1,8 @@
 <template>
   <el-button @click="onClick" :loading="synchronizing">
-    <slot/>
+    <template #default v-if="$slots.default">
+      <slot/>
+    </template>
     <template #icon v-if="$slots.icon">
       <slot name="icon"/>
     </template>

@@ -1,7 +1,7 @@
 import PrimeVue, {PrimeVueLocaleOptions, PrimeVueZIndexOptions} from 'primevue/config';
 import "primeicons/primeicons.css"
 import "primeflex/primeflex.css"
-import "../styles/theme_light_dark.scss"
+import "../styles/themes/index.scss"
 import {App} from "vue";
 import {zhCN} from "../services/locales";
 import {filterMatchModeOptions} from "../services/filterMatchModeOptions";

@@ -1,19 +1,17 @@
-import PrimeVue from 'primevue/config';
-import "primevue/resources/primevue.min.css"
+import PrimeVue, {PrimeVueLocaleOptions, PrimeVueZIndexOptions} from 'primevue/config';
 import "primeicons/primeicons.css"
 import "primeflex/primeflex.css"
 import "../styles/theme_light_dark.scss"
 import {App} from "vue";
 import {zhCN} from "../services/locales";
 import {filterMatchModeOptions} from "../services/filterMatchModeOptions";
-import {PsrPrimeVueTypes} from "../types/PsrPrimeVueTypes";
 
 export function usePsrPrimeVue(options?: {
     ripple?: boolean
     inputStyle?: string
-    locale?: PsrPrimeVueTypes.LocaleOptions
+    locale?: PrimeVueLocaleOptions
     filterMatchModeOptions?: any
-    zIndex?: PsrPrimeVueTypes.ZIndexOptions
+    zIndex?: PrimeVueZIndexOptions
 }) {
     return {
         install(app: App) {

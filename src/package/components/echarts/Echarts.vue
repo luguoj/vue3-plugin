@@ -4,7 +4,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts" generic="T extends ECBasicOption">
 import {ref, shallowRef, watchEffect} from "vue";
 import {usePsrColorScheme, vPsrResizeObserver} from "@psr-framework/vue3-plugin-utils";
 import * as echarts from "echarts";
@@ -15,7 +15,7 @@ const echartsContainerRef = ref<HTMLDivElement>();
 const echartsRef = shallowRef<EChartsType>()
 const props = withDefaults(defineProps<{
   chartDarkTheme?: boolean
-  chartOptions?: ECBasicOption
+  chartOptions?: T
 }>(), {
   chartDarkTheme: false
 });

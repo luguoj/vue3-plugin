@@ -6,7 +6,7 @@
 
 <script setup lang="ts">
 import {ref, shallowRef, watchEffect} from "vue";
-import {vPsrResizeObserver} from "@psr-framework/vue3-plugin-utils";
+import {usePsrColorScheme, vPsrResizeObserver} from "@psr-framework/vue3-plugin-utils";
 import * as echarts from "echarts";
 import {EChartsType} from "echarts/types/dist/echarts";
 import {ECBasicOption} from "echarts/types/dist/shared";
@@ -20,13 +20,15 @@ const props = withDefaults(defineProps<{
   chartDarkTheme: false
 });
 
+const colorScheme = usePsrColorScheme()
+
 watchEffect(() => {
   if (echartsContainerRef.value) {
     if (echartsRef.value) {
       echartsRef.value.dispose()
       echartsRef.value = undefined
     }
-    echartsRef.value = echarts.init(echartsContainerRef.value, props.chartDarkTheme ? 'dark' : 'light')
+    echartsRef.value = echarts.init(echartsContainerRef.value, (props.chartDarkTheme || colorScheme.value == 'dark') ? 'dark' : 'light')
   }
 })
 let currentOptions: any

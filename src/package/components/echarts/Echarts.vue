@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts" generic="T extends ECBasicOption">
-import {ref, shallowRef, watchEffect} from "vue";
+import {ref, shallowRef, useAttrs, watch, watchEffect} from "vue";
 import {usePsrColorScheme, vPsrResizeObserver} from "@psr-framework/vue3-plugin-utils";
 import * as echarts from "echarts";
 import {EChartsType} from "echarts/types/dist/echarts";
@@ -53,6 +53,23 @@ function handleResize() {
 
 defineExpose({
   echarts: echartsRef
+})
+
+const attrs = useAttrs()
+// 获取所有监听器
+const chartEventListeners: Record<string, any> = Object
+    .keys(attrs)
+    .filter(key => key.startsWith('onChart'))
+    .reduce((acc: Record<string, any>, key) => {
+      acc[key.replace('onChart', '').toLowerCase()] = attrs[key]
+      return acc
+    }, {})
+watch(echartsRef, echarts => {
+  if (echarts) {
+    for (const key in chartEventListeners) {
+      echarts.on(key, chartEventListeners[key])
+    }
+  }
 })
 </script>
 <style lang="scss" scoped>

@@ -7,6 +7,7 @@
       :chart-dark-theme="isDark"
       :chart-options="options"
       ref="echartsRef"
+      @chart-click="console.log('chart-click',$event)"
   />
 </template>
 

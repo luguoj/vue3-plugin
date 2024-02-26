@@ -1,6 +1,6 @@
 {
   "name": "@psr-framework/vue3-plugin-element-plus-extension",
-  "version": "1.4.3",
+  "version": "1.4.4",
   "type": "module",
   "scripts": {
     "dev": "vite --host",

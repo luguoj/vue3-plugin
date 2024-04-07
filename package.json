@@ -1,6 +1,6 @@
 {
   "name": "@psr-framework/vue3-plugin-markdown",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "scripts": {
     "dev": "vite --host",
@@ -12,7 +12,7 @@
     "vue": "^3.3.10"
   },
   "devDependencies": {
-    "@psr-framework/vue3-plugin-utils": "^1.4.1",
+    "@psr-framework/vue3-plugin-utils": "^1.4.3",
     "@types/markdown-it": "^13.0.7",
     "@types/node": "^20.10.3",
     "@vitejs/plugin-vue": "^4.5.1",

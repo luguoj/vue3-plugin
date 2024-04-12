@@ -62,7 +62,6 @@ export const zhCN: PrimeVueLocaleOptions = {
     strong: 'Strong',
     passwordPrompt: '输入密码',
     emptyFilterMessage: '没有找到结果',
-    // @deprecated Use 'emptySearchMessage' option instead.
     searchMessage: '{0} 条可用的结果',
     selectionMessage: '已选择 {0} 个项目',
     emptySelectionMessage: '没有选择项目',

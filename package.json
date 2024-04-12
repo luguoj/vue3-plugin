@@ -12,12 +12,12 @@
     "vue": "^3.4.21"
   },
   "devDependencies": {
-    "@element-plus/icons-vue": "^2.1.0",
+    "@element-plus/icons-vue": "^2.3.1",
     "@types/node": "^20.12.7",
     "@vitejs/plugin-vue": "^5.0.4",
     "@vitejs/plugin-vue-jsx": "^3.1.0",
-    "element-plus": "^2.4.1",
-    "moment": "^2.29.4",
+    "element-plus": "^2.6.3",
+    "moment": "^2.30.1",
     "sass": "^1.74.1",
     "sass-loader": "^14.1.1",
     "typescript": "^5.4.5",

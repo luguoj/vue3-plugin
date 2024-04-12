@@ -12,8 +12,8 @@
     "vue": "^3.4.21"
   },
   "devDependencies": {
-    "@psr-framework/vue3-plugin-utils": "^1.4.3",
-    "@types/markdown-it": "^13.0.7",
+    "@psr-framework/vue3-plugin-utils": "^1.4.4",
+    "@types/markdown-it": "^14.0.0",
     "@types/node": "^20.12.7",
     "@vitejs/plugin-vue": "^5.0.4",
     "@vitejs/plugin-vue-jsx": "^3.1.0",

@@ -9,13 +9,13 @@
     "pub": "npm publish"
   },
   "dependencies": {
-    "vue": "^3.3.10"
+    "vue": "^3.4.21"
   },
   "devDependencies": {
     "@psr-framework/vue3-plugin-utils": "^1.4.3",
     "@types/markdown-it": "^13.0.7",
-    "@types/node": "^20.10.3",
-    "@vitejs/plugin-vue": "^4.5.1",
+    "@types/node": "^20.12.7",
+    "@vitejs/plugin-vue": "^5.0.4",
     "@vitejs/plugin-vue-jsx": "^3.1.0",
     "bootstrap": "5.3.3",
     "element-plus": "^2.6.3",
@@ -28,13 +28,13 @@
     "markdown-it-mark": "^4.0.0",
     "markdown-it-sub": "^2.0.0",
     "markdown-it-sup": "^2.0.0",
-    "sass": "^1.69.5",
-    "sass-loader": "^13.3.2",
-    "typescript": "^5.3.2",
-    "vite": "^5.0.5",
-    "vite-plugin-dts": "^3.6.4",
+    "sass": "^1.74.1",
+    "sass-loader": "^14.1.1",
+    "typescript": "^5.4.5",
+    "vite": "^5.2.8",
+    "vite-plugin-dts": "^3.8.1",
     "vite-plugin-libcss": "^1.1.1",
-    "vue-tsc": "^1.8.25"
+    "vue-tsc": "^2.0.12"
   },
   "author": "zhoudingding",
   "description": "vue3.x 插件项目模板",

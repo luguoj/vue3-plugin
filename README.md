@@ -1,4 +1,4 @@
-# Vue 3 + TypeScript + Vite 插件模板项目
+# Vue 3 插件
 
 package.json
 修改description为插件描述

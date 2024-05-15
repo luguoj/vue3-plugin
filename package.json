@@ -1,5 +1,5 @@
 {
-  "name": "@psr-framework/vue3-plugin-template",
+  "name": "@psr-framework/vue3-plugin",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
@@ -24,11 +24,12 @@
     "vue-tsc": "^2.0.12"
   },
   "author": "zhoudingding",
-  "description": "vue3.x 插件项目模板",
+  "description": "vue3.x 插件",
   "publishConfig": {
     "registry": "https://packages.aliyun.com/5ea982f438076f00011bc29a/npm/npm-registry/"
   },
   "files": [
+    "src/example",
     "package.json",
     "README.md",
     "dist"

@@ -6,7 +6,10 @@
     "dev": "vite --host",
     "build": "vue-tsc && vite build",
     "preview": "vite preview",
-    "pub": "npm publish"
+    "pub": "npm publish",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs"
   },
   "dependencies": {
     "vue": "^3.4.21"
@@ -21,6 +24,7 @@
     "vite": "^5.2.8",
     "vite-plugin-dts": "^3.8.1",
     "vite-plugin-libcss": "^1.1.1",
+    "vitepress": "^1.1.4",
     "vue-tsc": "^2.0.12"
   },
   "author": "zhoudingding",

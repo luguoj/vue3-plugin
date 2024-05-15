@@ -23,3 +23,7 @@ package-lock.json
 *.njsproj
 *.sln
 *.sw?
+
+# vitepress
+docs/.vitepress/dist
+docs/.vitepress/cache

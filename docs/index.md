@@ -5,14 +5,14 @@ layout: home
 hero:
   name: "PSR Vue3 Plugin"
   text: "PSR Vue3 插件"
-  tagline: My great project tagline
+  tagline: PSR框架前端Vue3插件库
   actions:
     - theme: brand
       text: Markdown Examples
-      link: /markdown-examples
+      link: /guide/markdown-examples
     - theme: alt
       text: API Examples
-      link: /api-examples
+      link: /guide/api-examples
 
 features:
   - title: Feature A

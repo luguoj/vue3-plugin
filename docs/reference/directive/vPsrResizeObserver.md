@@ -1,0 +1,3 @@
+vPsrResizeObserver
+
+用于监视元素大小变化

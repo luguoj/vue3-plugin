@@ -14,7 +14,7 @@ export default defineConfig({
     vite: {
         resolve: {
             alias: {
-                '@psr-framework/vue3-plugin': resolve('./src'),
+                "@psr-framework/vue3-plugin": resolve(__dirname, "../../src")
             }
         }
     },

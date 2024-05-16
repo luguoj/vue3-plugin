@@ -34,16 +34,21 @@ export default defineConfig({
             ],
             '/reference/': [
                 {
-                    text: '指令',
-                    items: [
-                        {text: 'vPsrMutationObserver', link: '/reference/directive/vPsrMutationObserver'},
-                        {text: 'vPsrResizeObserver', link: '/reference/directive/vPsrResizeObserver'},
-                    ]
-                },
-                {
-                    text: '服务',
-                    items: [
-                        {text: 'usePsrColorScheme', link: '/reference/service/usePsrColorScheme'},
+                    text:'公用模块',
+                    items:[
+                        {
+                            text: '指令',
+                            items: [
+                                {text: 'vPsrMutationObserver', link: '/reference/common/directives/vPsrMutationObserver'},
+                                {text: 'vPsrResizeObserver', link: '/reference/common/directives/vPsrResizeObserver'},
+                            ]
+                        },
+                        {
+                            text: '服务',
+                            items: [
+                                {text: 'usePsrColorScheme', link: '/reference/common/services/usePsrColorScheme'},
+                            ]
+                        }
                     ]
                 }
             ],

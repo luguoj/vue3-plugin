@@ -29,17 +29,29 @@ export default defineConfig({
 
         sidebar: {
             '/guide/': [
+                {
+                    text: 'pinia持久化',
+                    collapsed: false,
+                    items: [{
+                        text: '开始',
+                        link: '/guide/pinia-persist/'
+                    }]
+                },
                 {text: 'Markdown Examples', link: '/guide/markdown-examples'},
                 {text: 'Runtime API Examples', link: '/guide/api-examples'}
             ],
             '/reference/': [
                 {
-                    text:'公用模块',
-                    items:[
+                    text: '公用模块',
+                    collapsed: false,
+                    items: [
                         {
                             text: '指令',
                             items: [
-                                {text: 'vPsrMutationObserver', link: '/reference/common/directives/vPsrMutationObserver'},
+                                {
+                                    text: 'vPsrMutationObserver',
+                                    link: '/reference/common/directives/vPsrMutationObserver'
+                                },
                                 {text: 'vPsrResizeObserver', link: '/reference/common/directives/vPsrResizeObserver'},
                             ]
                         },

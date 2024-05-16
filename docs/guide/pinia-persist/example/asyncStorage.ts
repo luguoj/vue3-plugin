@@ -1,15 +1,14 @@
-import {createDebounceStorage} from "../package";
+import {createDebounceStorage, PsrPiniaPersistTypes} from "@psr-framework/vue3-plugin";
 
-export const asyncStorage = createDebounceStorage(
-    1000,
-    (key) => {
+export const storage: PsrPiniaPersistTypes.Storage = {
+    getItem: (key) => {
         return new Promise((resolve) => {
             setTimeout(() => {
                 resolve(localStorage.getItem(key))
-            }, 5000)
+            }, 1000)
         })
     },
-    (key, value) => {
+    setItem: (key, value) => {
         return new Promise<void>(resolve => {
             setTimeout(() => {
                 console.log('saved')
@@ -18,4 +17,9 @@ export const asyncStorage = createDebounceStorage(
             }, 1000)
         })
     }
+}
+
+export const asyncStorage = createDebounceStorage(
+    1000,
+    storage
 )

@@ -28,9 +28,11 @@ export default defineConfig({
         rollupOptions: {
             // 确保外部化处理那些你不想打包进库的依赖
             external: [
+                '@element-plus/icons-vue',
                 "@psr-framework/typescript-utils",
+                'element-plus',
                 "pinia",
-                'vue'
+                'vue',
             ],
             output: {
                 globals: {

@@ -1,6 +1,6 @@
 # Vue 3 插件
 
-## 工具库
+## 公共
 
 ### 指令
 
@@ -17,3 +17,5 @@
 ### 1. usePsrColorScheme
 
 可获取与color-scheme样式属性同步的响应式变量
+
+## pinia持久化

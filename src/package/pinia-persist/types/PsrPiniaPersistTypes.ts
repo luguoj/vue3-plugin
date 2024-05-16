@@ -3,7 +3,7 @@ import {type PiniaPluginContext, type StateTree} from 'pinia'
 export namespace PsrPiniaPersistTypes {
     export interface Storage {
         getItem: (key: string) => string | null | Promise<string | null>
-        setItem: (key: string, value: string) => void
+        setItem: (key: string, value: string) => void | Promise<void>
     }
 
     export interface Serializer {

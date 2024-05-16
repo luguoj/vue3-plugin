@@ -3,13 +3,12 @@ import {PromiseQueue} from "@psr-framework/typescript-utils";
 
 export function createDebounceStorage(
     delay: number,
-    getItemFn: (key: string) => string | Promise<string | null> | null,
-    setItemFn: (key: string, value: string) => void | Promise<void>
+    {getItem, setItem}: PsrPiniaPersistTypes.Storage
 ): PsrPiniaPersistTypes.Storage {
     const queue = new PromiseQueue.Queue()
     let debounceTimer: NodeJS.Timeout | null = null
     return {
-        getItem: getItemFn,
+        getItem,
         setItem(key: string, value: string): void {
             if (debounceTimer) {
                 clearTimeout(debounceTimer)
@@ -17,7 +16,7 @@ export function createDebounceStorage(
             }
             debounceTimer = setTimeout(() => {
                 queue.enqueue<void>(resolve => {
-                    const result = setItemFn(key, value)
+                    const result = setItem(key, value)
                     if (result instanceof Promise) {
                         result.finally(() => {
                             resolve()

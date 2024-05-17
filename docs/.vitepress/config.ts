@@ -52,13 +52,55 @@ export default defineConfig({
                                     text: 'vPsrMutationObserver',
                                     link: '/reference/common/directives/vPsrMutationObserver'
                                 },
-                                {text: 'vPsrResizeObserver', link: '/reference/common/directives/vPsrResizeObserver'},
+                                {
+                                    text: 'vPsrResizeObserver',
+                                    link: '/reference/common/directives/vPsrResizeObserver'
+                                },
                             ]
                         },
                         {
                             text: '服务',
                             items: [
-                                {text: 'usePsrColorScheme', link: '/reference/common/services/usePsrColorScheme'},
+                                {
+                                    text: 'usePsrColorScheme',
+                                    link: '/reference/common/services/usePsrColorScheme'
+                                },
+                            ]
+                        }
+                    ]
+                },
+                {
+                    text: 'ElementPlus扩展',
+                    collapsed: false,
+                    items: [
+                        {
+                            text: '组件',
+                            items: [
+                                {
+                                    text: '按钮',
+                                    link: '/reference/element-plus/components/buttons/'
+                                },
+                                {
+                                    text: '容器',
+                                    link: '/reference/element-plus/components/containers/'
+                                },
+                                {
+                                    text: '对话框',
+                                    link: '/reference/element-plus/components/dialogs/'
+                                },
+                                {
+                                    text: '下拉菜单',
+                                    link: '/reference/element-plus/components/dropdown/'
+                                }
+                            ]
+                        },
+                        {
+                            text: '指令',
+                            items: [
+                                {
+                                    text: 'vPsrElHScrollOnWheel',
+                                    link: '/reference/element-plus/directives/vPsrElHScrollOnWheel'
+                                }
                             ]
                         }
                     ]

@@ -1,6 +1,6 @@
 <template>
-  <button @click="handleCreate">create</button>
-  <button @click="handleModify">modify</button>
+  <el-button @click="handleCreate">create</el-button>
+  <el-button @click="handleModify">modify</el-button>
   <psr-el-create-update-form-dialog :dialog-context="context">
     <template #default="{formData,creating}">
       <el-form-item label="id">
@@ -16,33 +16,35 @@
 
 <script setup lang="ts">
 import {PsrCreateUpdateFormDialogContext, PsrElCreateUpdateFormDialog} from "@psr-framework/vue3-plugin";
-import {ElFormItem, ElInput} from "element-plus"
+import {ElButton, ElFormItem, ElInput} from "element-plus"
 import "element-plus/es/components/form-item/style/css"
 import "element-plus/es/components/input/style/css"
+import "element-plus/es/components/button/style/css"
 
+// 表单数据类型
 interface Data {
   id: string,
   name: string
 }
 
+// 表单对话框上下文
 const context = PsrCreateUpdateFormDialogContext.create<Data>({
-  defaultData: () => {
+  defaultData: () => { // 构造表单数据默认值
     return {id: '', name: ''}
   },
-  createHandler: (data: Data) => new Promise(resolve => setTimeout(() => resolve(data), 3000)),
-  updateHandler: (data: Data) => new Promise(resolve => setTimeout(() => resolve(data), 3000))
+  createHandler: (data: Data) => // 创建操作处理函数
+      new Promise(resolve => setTimeout(() => resolve(data), 3000)),
+  updateHandler: (data: Data) => // 修改操作处理函数
+      new Promise(resolve => setTimeout(() => resolve(data), 3000))
 })
 
+// 触发创建表单弹窗
 function handleCreate() {
   context.show()
 }
 
+// 触发修改表单弹窗
 function handleModify() {
   context.show({id: 'test', name: 'test'})
 }
-
 </script>
-
-<style scoped>
-
-</style>

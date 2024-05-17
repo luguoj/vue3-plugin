@@ -16,7 +16,7 @@ export default defineConfig({
         vueJsxPlugin(),
         libCss(),
         dts({
-            exclude: ["src/example/**/*.vue", "src/example/**/*.ts"],
+            exclude: ["src/example/**/*.vue", "src/example/**/*.ts", "docs"],
         })
     ],
     build: {

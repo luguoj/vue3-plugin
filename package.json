@@ -13,17 +13,19 @@
   },
   "dependencies": {
     "@element-plus/icons-vue": "2.3.1",
+    "@psr-framework/typescript-utils": "^1.6.1",
     "element-plus": "2.6.3",
+    "lodash": "^4.17.21",
     "pinia": "^2.1.7",
     "vue": "^3.4.21"
   },
   "devDependencies": {
-    "@psr-framework/typescript-utils": "^1.6.1",
     "@types/node": "^20.12.7",
     "@vitejs/plugin-vue": "^5.0.4",
     "@vitejs/plugin-vue-jsx": "^3.1.0",
     "@vitepress-demo-preview/component": "^2.3.2",
     "@vitepress-demo-preview/plugin": "^1.2.3",
+    "rollup-plugin-visualizer": "^5.12.0",
     "sass": "^1.74.1",
     "sass-loader": "^14.1.1",
     "typescript": "^5.4.5",

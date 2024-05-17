@@ -4,6 +4,7 @@ import {resolve} from "path";
 import dts from 'vite-plugin-dts'
 import libCss from "vite-plugin-libcss"
 import vueJsxPlugin from "@vitejs/plugin-vue-jsx";
+import {visualizer} from "rollup-plugin-visualizer";
 
 export default defineConfig({
     resolve: {
@@ -17,6 +18,12 @@ export default defineConfig({
         libCss(),
         dts({
             exclude: ["src/example/**/*.vue", "src/example/**/*.ts", "docs"],
+        }),
+        visualizer({
+            open: true,
+            gzipSize: true,
+            brotliSize: true,
+            filename: "rollup-stats.html"
         })
     ],
     build: {
@@ -31,6 +38,7 @@ export default defineConfig({
                 '@element-plus/icons-vue',
                 "@psr-framework/typescript-utils",
                 'element-plus',
+                'lodash',
                 "pinia",
                 'vue',
             ],

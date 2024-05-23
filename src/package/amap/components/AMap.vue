@@ -3,8 +3,8 @@ import {computed, ref} from "vue";
 import {PsrAMapContext} from "../plugins/PsrAMapContext.ts";
 
 const props = withDefaults(defineProps<{
-  mapViewMode: '2D' | '3D',
-  mapLogo: boolean,
+  mapViewMode?: '2D' | '3D',
+  mapLogo?: boolean,
 }>(), {
   mapViewMode: '2D',
   mapLogo: true,

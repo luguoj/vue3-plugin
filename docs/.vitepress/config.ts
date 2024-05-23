@@ -37,6 +37,10 @@ export default defineConfig({
                         link: '/guide/pinia-persist/'
                     }]
                 },
+                {
+                    text:'高德地图插件',
+                    link:'/guide/amap/'
+                },
                 {text: 'Markdown Examples', link: '/guide/markdown-examples'},
                 {text: 'Runtime API Examples', link: '/guide/api-examples'}
             ],

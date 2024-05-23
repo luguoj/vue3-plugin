@@ -1,4 +1,4 @@
-import {onBeforeUnmount} from "vue";
+import {onBeforeUnmount, onMounted} from "vue";
 
 export type ReadState = 'empty' | 'loading' | 'done'
 const readStates: ReadState[] = ['empty', 'loading', 'done']
@@ -9,42 +9,45 @@ export function useFileReader(options: {
     loadEnd?: (readState: ReadState, error?: DOMException) => void
     progress?: (loaded: number, total: number) => void
 }) {
-    const reader = new FileReader();
-    reader.addEventListener("load", function (e: ProgressEvent<FileReader>) {
-        if (e.target) {
-            try {
-                options.load && options.load(e.target.result)
-            } catch (err) {
-                console.log(err)
+    let reader: FileReader;
+    onMounted(() => {
+        reader = new FileReader();
+        reader.addEventListener("load", function (e: ProgressEvent<FileReader>) {
+            if (e.target) {
+                try {
+                    options.load && options.load(e.target.result)
+                } catch (err) {
+                    console.log(err)
+                }
             }
-        }
-    });
-    reader.addEventListener('loadstart', function (e: ProgressEvent<FileReader>) {
-        if (e.target) {
-            try {
-                options.loadStart && options.loadStart()
-            } catch (err) {
-                console.log(err)
+        });
+        reader.addEventListener('loadstart', function (e: ProgressEvent<FileReader>) {
+            if (e.target) {
+                try {
+                    options.loadStart && options.loadStart()
+                } catch (err) {
+                    console.log(err)
+                }
             }
-        }
-    })
-    reader.addEventListener('loadend', function (e: ProgressEvent<FileReader>) {
-        if (e.target) {
-            try {
-                options.loadEnd && options.loadEnd(readStates[e.target.readyState], e.target.error ? e.target.error : undefined)
-            } catch (err) {
-                console.log(err)
+        })
+        reader.addEventListener('loadend', function (e: ProgressEvent<FileReader>) {
+            if (e.target) {
+                try {
+                    options.loadEnd && options.loadEnd(readStates[e.target.readyState], e.target.error ? e.target.error : undefined)
+                } catch (err) {
+                    console.log(err)
+                }
             }
-        }
-    })
-    reader.addEventListener('progress', function (e: ProgressEvent<FileReader>) {
-        if (e.target) {
-            try {
-                options.progress && options.progress(e.loaded, e.total)
-            } catch (err) {
-                console.log(err)
+        })
+        reader.addEventListener('progress', function (e: ProgressEvent<FileReader>) {
+            if (e.target) {
+                try {
+                    options.progress && options.progress(e.loaded, e.total)
+                } catch (err) {
+                    console.log(err)
+                }
             }
-        }
+        })
     })
     onBeforeUnmount(() => {
         reader.abort()
@@ -58,5 +61,5 @@ export function useFileReader(options: {
         reader.readAsArrayBuffer(blob)
     }
 
-    return {reader, readAsText, readAsArrayBuffer}
+    return {readAsText, readAsArrayBuffer}
 }

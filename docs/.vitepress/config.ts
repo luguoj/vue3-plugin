@@ -16,7 +16,20 @@ export default defineConfig({
             alias: {
                 "@psr-framework/vue3-plugin": resolve(__dirname, "../../src")
             }
-        }
+        },
+        ssr: {
+            noExternal: [
+                '@element-plus/icons-vue',
+                '@pansy/amap-types',
+                "@psr-framework/typescript-utils",
+                '@types/three',
+                'element-plus',
+                'lodash',
+                'three',
+                "pinia",
+                'vue',
+            ]
+        },
     },
     title: "PSR Vue3 Plugin",
     description: "PSR Vue3 插件",
@@ -108,6 +121,10 @@ export default defineConfig({
                             ]
                         }
                     ]
+                },
+                {
+                    text:'高德地图插件',
+                    link:'/reference/amap/plugins/'
                 }
             ],
         },

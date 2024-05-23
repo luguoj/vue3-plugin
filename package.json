@@ -12,7 +12,6 @@
     "docs:preview": "vitepress preview docs"
   },
   "dependencies": {
-    "@amap/amap-jsapi-loader": "^1.0.1",
     "@element-plus/icons-vue": "2.3.1",
     "@pansy/amap-types": "^2.22.0",
     "@psr-framework/typescript-utils": "^1.6.1",
@@ -24,6 +23,7 @@
     "vue": "^3.4.21"
   },
   "devDependencies": {
+    "@amap/amap-jsapi-loader": "^1.0.1",
     "@types/node": "^20.12.7",
     "@vitejs/plugin-vue": "^5.0.4",
     "@vitejs/plugin-vue-jsx": "^3.1.0",

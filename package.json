@@ -14,12 +14,12 @@
   "dependencies": {
     "@amap/amap-jsapi-loader": "^1.0.1",
     "@element-plus/icons-vue": "2.3.1",
-    "@pansy/amap-types": "^2.17.0",
+    "@pansy/amap-types": "^2.22.0",
     "@psr-framework/typescript-utils": "^1.6.1",
-    "@types/three": "^0.144.0",
+    "@types/three": "^0.164.0",
     "element-plus": "2.6.3",
     "lodash": "^4.17.21",
-    "three": "^0.144.0",
+    "three": "^0.164.0",
     "pinia": "^2.1.7",
     "vue": "^3.4.21"
   },

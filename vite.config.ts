@@ -35,10 +35,14 @@ export default defineConfig({
         rollupOptions: {
             // 确保外部化处理那些你不想打包进库的依赖
             external: [
+                '@amap/amap-jsapi-loader',
                 '@element-plus/icons-vue',
+                '@pansy/amap-types',
                 "@psr-framework/typescript-utils",
+                '@types/three',
                 'element-plus',
                 'lodash',
+                'three',
                 "pinia",
                 'vue',
             ],

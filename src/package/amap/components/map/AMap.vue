@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import {PsrAMapTypes} from "../../types/PsrAMapTypes";
-import {useAMapCenterService, useAMapPitchService, useAMapRotationService, useAMapZoomService} from "./services";
+import {
+  useAMapCenterService,
+  useAMapFeaturesService,
+  useAMapPitchService,
+  useAMapRotationService,
+  useAMapZoomService
+} from "./services";
 import {computed, ref} from "vue";
 import {PsrAMapContext} from "@psr-framework/vue3-plugin";
 
@@ -9,12 +15,14 @@ const props = withDefaults(defineProps<{
   mapLogo?: boolean,
   mapMoveImmediately?: boolean,
   mapMoveDuration?: number,
-  mapZoomRange?: [number, number]
+  mapZoomRange?: [number, number],
+  mapFeatures?: AMap.Map.Feature[]
 }>(), {
   mapViewMode: '2D',
   mapLogo: true,
   mapMoveImmediately: false,
-  mapZoomRange: () => ([2, 20])
+  mapZoomRange: () => ([2, 20]),
+  mapFeatures: () => (['bg', 'point', 'road', 'building'])
 })
 // 移动中标识
 const movingFlagModel = defineModel<boolean>("mapMovingFlag", {default: false})
@@ -50,6 +58,7 @@ const mapRef = PsrAMapContext.useMap(
       zooms: props.mapZoomRange,
       rotation: rotationModel.value ? rotationModel.value : undefined,
       pitch: pitchModel.value ? pitchModel.value : undefined,
+      features: props.mapFeatures
     })
 )
 
@@ -61,6 +70,8 @@ useAMapZoomService(mapRef, props, zoomModel, zoomingFlagModel)
 useAMapRotationService(mapRef, props, rotationModel, rotatingFlagModel)
 // 俯仰角度
 useAMapPitchService(mapRef, props, pitchModel, pitchingFlagModel)
+// 地图特性
+useAMapFeaturesService(mapRef, props)
 </script>
 
 <template>

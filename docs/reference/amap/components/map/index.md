@@ -38,3 +38,9 @@ demo-preview=./RotationModel.vue
 demo-preview=./PitchModel.vue
 :::
 
+## 地图元素
+
+:::preview
+demo-preview=./FeaturesProp.vue
+:::
+

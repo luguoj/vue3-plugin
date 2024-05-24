@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {PsrAMapTypes} from "../../types/PsrAMapTypes";
-import {useAMapCenterService, useAMapZoomService} from "./services";
+import {useAMapCenterService, useAMapRotationService, useAMapZoomService} from "./services";
 import {computed, ref} from "vue";
 import {PsrAMapContext} from "@psr-framework/vue3-plugin";
 
@@ -20,10 +20,16 @@ movingFlagModel.value = false
 // 缩放中标识
 const zoomingFlagModel = defineModel<boolean>("mapZoomingFlag", {default: false})
 zoomingFlagModel.value = false
+// 旋转中标识
+const rotatingFlagModel = defineModel<boolean>("mapRotatingFlag", {default: false})
+rotatingFlagModel.value = false
 // 地图中心点
 const centerModel = defineModel<PsrAMapTypes.LngLat>("mapCenter")
 // 地图缩放等级
 const zoomModel = defineModel<number>("mapZoom")
+// 地图旋转
+const rotationModel = defineModel<number>("mapRotation")
+
 
 // 初始化
 const containerRef = ref<HTMLDivElement>()
@@ -35,6 +41,7 @@ const mapRef = PsrAMapContext.useMap(
     () => ({
       center: centerModel.value ? [centerModel.value.lng, centerModel.value.lat] : undefined,
       zoom: zoomModel.value ? zoomModel.value : undefined,
+      rotation: rotationModel.value ? rotationModel.value : undefined,
     })
 )
 
@@ -43,6 +50,8 @@ const mapRef = PsrAMapContext.useMap(
 useAMapCenterService(mapRef, props, centerModel, movingFlagModel)
 // 缩放等级
 useAMapZoomService(mapRef, props, zoomModel, zoomingFlagModel)
+// 旋转
+useAMapRotationService(mapRef, props, rotationModel, rotatingFlagModel)
 </script>
 
 <template>

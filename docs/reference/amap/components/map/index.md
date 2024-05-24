@@ -21,3 +21,12 @@ demo-preview=./CenterModel.vue
 :::preview
 demo-preview=./ZoomModel.vue
 :::
+
+## 旋转
+
+支持双向绑定
+
+:::preview
+demo-preview=./RotationModel.vue
+:::
+

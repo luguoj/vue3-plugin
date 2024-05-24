@@ -9,7 +9,7 @@ const zoomingFlag = ref<boolean>()
 <template>
   <div style="height: 400px;">
     <button @click="zoomingFlag = false;zoom=(zoom||0) - 0.3;">-</button>
-    <button @click="zoom=(zoom||0) + 0.3">+</button>
+    <button @click="zoomingFlag = false;zoom=(zoom||0) + 0.3">+</button>
     <psr-a-map
         style="height: 100%;"
         v-model:map-zoom="zoom"

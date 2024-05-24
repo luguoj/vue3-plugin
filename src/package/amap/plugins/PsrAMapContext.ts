@@ -1,26 +1,26 @@
 import {PsrAMapTypes} from "../types/PsrAMapTypes.ts";
-import {
-    App,
-    getCurrentInstance,
-    inject,
-    onMounted,
-    onUnmounted,
-    Ref,
-    shallowRef,
-    ShallowRef,
-    watch,
-    WatchStopHandle
-} from "vue";
+import {App, getCurrentInstance, inject, Ref, ShallowRef} from "vue";
+import {useMap} from "../services/useMap.ts";
 
 const injectKey = 'psr-a-map'
 
 export class PsrAMapContext {
     private static _activeInstance: PsrAMapContext
-    private readonly options: PsrAMapTypes.Options
-    private ready: Promise<any> | undefined
+    private readonly _options: PsrAMapTypes.Options
+    private _ready: Promise<any> | undefined
+
+    ready() {
+        if (!this._ready) {
+            this._ready = import("@amap/amap-jsapi-loader")
+                .then((AMapLoader) => {
+                    return AMapLoader.load(this._options)
+                })
+        }
+        return this._ready
+    }
 
     private constructor(options: PsrAMapTypes.Options) {
-        this.options = options
+        this._options = options
     }
 
     static create(options: PsrAMapTypes.Options) {
@@ -42,66 +42,7 @@ export class PsrAMapContext {
         optionsRef: Ref<PsrAMapTypes.MapOptions>,
         initOptions?: Omit<AMap.Map.Options, "viewMode"> | (() => Omit<AMap.Map.Options, "viewMode">)
     ): ShallowRef<AMap.Map | undefined> {
-        const map = shallowRef<AMap.Map>()
-        let viewMode: '2D' | '3D' = '2D'
-
-        function build(AMap: any, containerDiv: HTMLDivElement, options: PsrAMapTypes.MapOptions) {
-            viewMode = options?.viewMode || '2D'
-            const mapOptions =
-                typeof initOptions === 'function'
-                    ? {...initOptions(), ...options}
-                    : {...initOptions, ...options}
-            map.value = new AMap.Map(containerDiv, mapOptions)
-        }
-
-        // 销毁地图实例
-        function dispose() {
-            if (map.value) {
-                map.value.destroy()
-            }
-        }
-
-        // 组件装载时，创建容器监听器，选项监听器，创建地图实例
-        let containerWatcher: WatchStopHandle | undefined = undefined
-        let optionsWatcher: WatchStopHandle | undefined = undefined
-
-        function init(AMap: any) {
-            containerWatcher = watch(containerDivRef, (containerDiv, old) => {
-                if (old != containerDiv) {
-                    dispose()
-                }
-                if (containerDiv) {
-                    build(AMap, containerDiv, optionsRef.value)
-                }
-            }, {immediate: true})
-            optionsWatcher = watch(optionsRef, options => {
-                // 如果视图模式变更，需要重新初始化地图实例
-                if (options?.viewMode && options.viewMode != viewMode && containerDivRef.value) {
-                    dispose()
-                    build(AMap, containerDivRef.value, options)
-                }
-            }, {deep: true, immediate: true})
-        }
-
-        onMounted(() => {
-            const instance = this.getInstance()
-            if (!instance.ready) {
-                instance.ready = import("@amap/amap-jsapi-loader")
-                    .then((AMapLoader) => {
-                        return AMapLoader.load(instance.options)
-                    })
-            }
-            instance.ready.then((AMap) => {
-                init(AMap)
-            })
-        })
-        // 组件卸载时取消监听器，并销毁地图实例
-        onUnmounted(() => {
-            containerWatcher && containerWatcher()
-            optionsWatcher && optionsWatcher()
-            dispose()
-        })
-        return map
+        return useMap(PsrAMapContext.getInstance(), containerDivRef, optionsRef, initOptions)
     }
 
     install(app: App) {

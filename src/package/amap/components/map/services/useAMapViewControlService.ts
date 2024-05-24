@@ -4,7 +4,7 @@ export function useAMapViewControlService<V>(options: {
     mapRef: ShallowRef<AMap.Map | undefined>,
     valueModel: Ref<V | undefined>,
     transitionFlagModel: Ref<boolean>,
-    applyValueFn: (map: AMap.Map, newValue: V, immediately?: boolean) => void,
+    applyValueFn: (map: AMap.Map, newValue: V, immediately?: boolean) => boolean,
     getValueFn: (map: AMap.Map) => V,
     changeEvent: string,
     changeEndEvent: string
@@ -31,8 +31,7 @@ export function useAMapViewControlService<V>(options: {
     function apply(newValue: V, immediately = false) {
         const map = mapRef.value as any
         if (!transitionFlagModel.value && map) { // 如果不在变换过程中，则应用新值
-            transitionFlagModel.value = true
-            applyValueFn(map, newValue, immediately)
+            transitionFlagModel.value = applyValueFn(map, newValue, immediately)
         }
     }
 
@@ -52,10 +51,12 @@ export function useAMapViewControlService<V>(options: {
         }
         // 监听地图缩放事件，更新模型
         map && map.on(changeEvent, () => {
+            console.log(changeEvent)
             updateModel()
         })
         // 监听地图缩放结束事件，重置目标值
         map && map.on(changeEndEvent, () => {
+            console.log(changeEndEvent)
             transitionFlagModel.value = false
         })
     }, {immediate: true})

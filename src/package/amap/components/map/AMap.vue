@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import {PsrAMapTypes} from "../../types/PsrAMapTypes";
-import {useAMap, useAMapCenterService, useAMapZoomService} from "./services";
+import {useAMapCenterService, useAMapZoomService} from "./services";
+import {computed, ref} from "vue";
+import {PsrAMapContext} from "@psr-framework/vue3-plugin";
 
 const props = withDefaults(defineProps<{
   mapViewMode?: '2D' | '3D',
@@ -24,7 +26,19 @@ const centerModel = defineModel<PsrAMapTypes.LngLat>("mapCenter")
 const zoomModel = defineModel<number>("mapZoom")
 
 // 初始化
-const {containerRef, mapRef} = useAMap(props)
+const containerRef = ref<HTMLDivElement>()
+const mapRef = PsrAMapContext.useMap(
+    containerRef,
+    computed(() => ({
+      viewMode: props.mapViewMode
+    })),
+    () => ({
+      center: centerModel.value ? [centerModel.value.lng, centerModel.value.lat] : undefined,
+      zoom: zoomModel.value ? zoomModel.value : undefined,
+    })
+)
+
+
 // 中心点
 useAMapCenterService(mapRef, props, centerModel, movingFlagModel)
 // 缩放等级

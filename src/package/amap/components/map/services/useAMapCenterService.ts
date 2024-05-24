@@ -16,7 +16,11 @@ export function useAMapCenterService(
         valueModel,
         transitionFlagModel,
         applyValueFn: (map, newValue, immediately) => {
-            (map as any).setCenter([newValue.lng, newValue.lat], props.mapMoveImmediately || immediately, props.mapMoveDuration)
+            if (newValue.lng != map.getCenter().getLng() || newValue.lat != map.getCenter().getLat()) {
+                (map as any).setCenter([newValue.lng, newValue.lat], props.mapMoveImmediately || immediately, props.mapMoveDuration)
+                return true
+            }
+            return false
         },
         getValueFn: map => {
             const {lng, lat} = map.getCenter()

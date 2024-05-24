@@ -15,7 +15,11 @@ export function useAMapZoomService(
         valueModel,
         transitionFlagModel,
         applyValueFn: (map, newValue, immediately) => {
-            (map as any).setZoom(newValue, props.mapMoveImmediately || immediately, props.mapMoveDuration)
+            if (newValue != map.getZoom()) {
+                (map as any).setZoom(newValue, props.mapMoveImmediately || immediately, props.mapMoveDuration)
+                return true
+            }
+            return false
         },
         getValueFn: map => map.getZoom(),
         changeEvent: "zoomchange",

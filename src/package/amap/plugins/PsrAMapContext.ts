@@ -39,14 +39,19 @@ export class PsrAMapContext {
 
     public static useMap(
         containerDivRef: ShallowRef<HTMLDivElement | undefined>,
-        optionsRef: Ref<PsrAMapTypes.MapOptions>
+        optionsRef: Ref<PsrAMapTypes.MapOptions>,
+        initOptions?: Omit<AMap.Map.Options, "viewMode"> | (() => Omit<AMap.Map.Options, "viewMode">)
     ): ShallowRef<AMap.Map | undefined> {
         const map = shallowRef<AMap.Map>()
         let viewMode: '2D' | '3D' = '2D'
 
-        function build(AMap: any, containerDiv: HTMLDivElement, options: AMap.Map.Options | undefined) {
+        function build(AMap: any, containerDiv: HTMLDivElement, options: PsrAMapTypes.MapOptions) {
             viewMode = options?.viewMode || '2D'
-            map.value = new AMap.Map(containerDiv, options)
+            const mapOptions =
+                typeof initOptions === 'function'
+                    ? {...initOptions(), ...options}
+                    : {...initOptions, ...options}
+            map.value = new AMap.Map(containerDiv, mapOptions)
         }
 
         // 销毁地图实例

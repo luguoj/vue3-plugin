@@ -20,7 +20,7 @@ export function useAMapViewControlService<V>(options: {
     } = options
     // 目标值
     watch(valueModel, (newValue) => {
-        if (newValue) { // 如果新值有效，则应用新值
+        if (newValue != undefined) { // 如果新值有效，则应用新值
             apply(newValue)
         } else { // 如果新值无效，则使用地图参数更新值模型
             updateModel()
@@ -44,7 +44,7 @@ export function useAMapViewControlService<V>(options: {
 
     // 监听地图初始化
     watch(mapRef, map => {
-        if (valueModel.value) { // 如果模型有初始值，则应用初始值
+        if (valueModel.value != undefined) { // 如果模型有初始值，则应用初始值
             apply(valueModel.value, true)
         } else { // 如果新值无效，则使用地图默认参数更新值模型
             updateModel()

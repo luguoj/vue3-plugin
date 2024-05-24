@@ -1,6 +1,7 @@
 import {PsrAMapTypes} from "../types/PsrAMapTypes.ts";
 import {App, getCurrentInstance, inject, Ref, ShallowRef} from "vue";
 import {useMap} from "../services/useMap.ts";
+import {useInfoWindow} from "../services/useInfoWindow.ts";
 
 const injectKey = 'psr-a-map'
 
@@ -9,6 +10,7 @@ export class PsrAMapContext {
     private readonly _options: PsrAMapTypes.Options
     private _ready: Promise<any> | undefined
 
+    // 必须要在onMounted 中调用，否则会导致SSR构建时抛出异常
     ready() {
         if (!this._ready) {
             this._ready = import("@amap/amap-jsapi-loader")
@@ -43,6 +45,12 @@ export class PsrAMapContext {
         initOptions?: Omit<AMap.Map.Options, "viewMode"> | (() => Omit<AMap.Map.Options, "viewMode">)
     ): ShallowRef<AMap.Map | undefined> {
         return useMap(PsrAMapContext.getInstance(), containerDivRef, optionsRef, initOptions)
+    }
+
+    public static useInfoWindow(
+        initOptions?: AMap.InfoWindow.Options | (() => AMap.InfoWindow.Options)
+    ) {
+        return useInfoWindow(PsrAMapContext.getInstance(), initOptions)
     }
 
     install(app: App) {

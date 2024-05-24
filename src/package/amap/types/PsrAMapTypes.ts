@@ -1,4 +1,5 @@
 export namespace PsrAMapTypes {
+    // 插件选项
     export interface Options {
         key: string; // 申请好的Web端开发者Key，首次调用 load 时必填
         version: string; // 指定要加载的 JSAPI 的版本，缺省时默认为 1.4.15
@@ -14,7 +15,14 @@ export namespace PsrAMapTypes {
         };
     }
 
+    // 地图选项
     export type MapOptions = {
         viewMode?: '2D' | '3D'
     } | undefined
+
+    // 经纬度坐标
+    export type LngLat = {
+        lng: number // 经度
+        lat: number // 维度
+    }
 }

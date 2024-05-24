@@ -123,8 +123,14 @@ export default defineConfig({
                     ]
                 },
                 {
-                    text:'高德地图插件',
-                    link:'/reference/amap/plugins/'
+                    text:'高德地图组件',
+                    collapsed:false,
+                    items:[
+                        {
+                            text:'地图',
+                            link:'/reference/amap/components/map/',
+                        }
+                    ]
                 }
             ],
         },

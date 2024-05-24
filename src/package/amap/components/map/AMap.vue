@@ -8,11 +8,13 @@ const props = withDefaults(defineProps<{
   mapViewMode?: '2D' | '3D',
   mapLogo?: boolean,
   mapMoveImmediately?: boolean,
-  mapMoveDuration?: number
+  mapMoveDuration?: number,
+  mapZoomRange?: [number, number]
 }>(), {
   mapViewMode: '2D',
   mapLogo: true,
-  mapMoveImmediately: false
+  mapMoveImmediately: false,
+  mapZoomRange: () => ([2, 20])
 })
 // 移动中标识
 const movingFlagModel = defineModel<boolean>("mapMovingFlag", {default: false})
@@ -45,6 +47,7 @@ const mapRef = PsrAMapContext.useMap(
     () => ({
       center: centerModel.value ? [centerModel.value.lng, centerModel.value.lat] : undefined,
       zoom: zoomModel.value ? zoomModel.value : undefined,
+      zooms: props.mapZoomRange,
       rotation: rotationModel.value ? rotationModel.value : undefined,
       pitch: pitchModel.value ? pitchModel.value : undefined,
     })

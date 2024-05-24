@@ -12,6 +12,12 @@ const props = withDefaults(defineProps<{
   mapLogo: true,
   mapMoveImmediately: false
 })
+// 移动中标识
+const movingFlagModel = defineModel<boolean>("mapMovingFlag", {default: false})
+movingFlagModel.value = false
+// 缩放中标识
+const zoomingFlagModel = defineModel<boolean>("mapZoomingFlag", {default: false})
+zoomingFlagModel.value = false
 // 地图中心点
 const centerModel = defineModel<PsrAMapTypes.LngLat>("mapCenter")
 // 地图缩放等级
@@ -20,9 +26,9 @@ const zoomModel = defineModel<number>("mapZoom")
 // 初始化
 const {containerRef, mapRef} = useAMap(props)
 // 中心点
-useAMapCenterService(mapRef, props, centerModel)
+useAMapCenterService(mapRef, props, centerModel, movingFlagModel)
 // 缩放等级
-useAMapZoomService(mapRef, props, zoomModel)
+useAMapZoomService(mapRef, props, zoomModel, zoomingFlagModel)
 </script>
 
 <template>

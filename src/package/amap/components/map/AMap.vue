@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import {computed, ref} from "vue";
-import {PsrAMapContext} from "../plugins/PsrAMapContext.ts";
-import {PsrAMapTypes} from "../types/PsrAMapTypes";
-import {useAMapCenterService} from "./useAMapCenterService.ts";
+import {PsrAMapTypes} from "../../types/PsrAMapTypes";
+import {useAMap, useAMapCenterService, useAMapZoomService} from "./services";
 
 const props = withDefaults(defineProps<{
   mapViewMode?: '2D' | '3D',
@@ -14,17 +12,17 @@ const props = withDefaults(defineProps<{
   mapLogo: true,
   mapMoveImmediately: false
 })
-
-// 初始化地图
-const containerRef = ref<HTMLDivElement>()
-const mapRef = PsrAMapContext.useMap(containerRef, computed(() => ({
-  viewMode: props.mapViewMode
-})))
-
 // 地图中心点
 const centerModel = defineModel<PsrAMapTypes.LngLat>("mapCenter")
+// 地图缩放等级
+const zoomModel = defineModel<number>("mapZoom")
 
+// 初始化
+const {containerRef, mapRef} = useAMap(props)
+// 中心点
 useAMapCenterService(mapRef, props, centerModel)
+// 缩放等级
+useAMapZoomService(mapRef, props, zoomModel)
 </script>
 
 <template>

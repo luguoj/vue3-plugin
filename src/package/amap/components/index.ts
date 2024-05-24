@@ -1,5 +1,1 @@
-import PsrAMap from "./AMap.vue"
-
-export {
-    PsrAMap
-};
+export * from "./map";

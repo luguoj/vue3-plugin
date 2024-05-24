@@ -13,3 +13,11 @@ demo-preview=./ViewModeProp.vue
 :::preview
 demo-preview=./CenterModel.vue
 :::
+
+## 缩放等级
+
+支持双向绑定
+
+:::preview
+demo-preview=./ZoomModel.vue
+:::

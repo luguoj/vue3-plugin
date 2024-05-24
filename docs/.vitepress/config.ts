@@ -129,6 +129,10 @@ export default defineConfig({
                         {
                             text:'地图',
                             link:'/reference/amap/components/map/',
+                        },
+                        {
+                            text:'信息窗体',
+                            link:'/reference/amap/components/info-window/',
                         }
                     ]
                 }

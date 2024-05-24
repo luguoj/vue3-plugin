@@ -1,9 +1,5 @@
-import PsrVue3AMapInfoWindow from "./InfoWindow.vue"
+import PsrAMapInfoWindow from "./AMapInfoWindow.vue"
 
 export {
-    PsrVue3AMapInfoWindow
-}
-
-export interface PsrVue3AMapInfoWindowExpose {
-    infoWindow: AMap.InfoWindow
+    PsrAMapInfoWindow
 }

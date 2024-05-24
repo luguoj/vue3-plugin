@@ -30,3 +30,11 @@ demo-preview=./ZoomModel.vue
 demo-preview=./RotationModel.vue
 :::
 
+## 俯仰角度
+
+支持双向绑定
+
+:::preview
+demo-preview=./PitchModel.vue
+:::
+

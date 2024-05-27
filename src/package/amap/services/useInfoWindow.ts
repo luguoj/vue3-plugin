@@ -1,4 +1,4 @@
-import {onMounted, shallowRef} from "vue";
+import {shallowRef} from "vue";
 import {PsrAMapContext} from "../plugins";
 
 export function useInfoWindow(
@@ -6,10 +6,8 @@ export function useInfoWindow(
     initOptions?: AMap.InfoWindow.Options | (() => AMap.InfoWindow.Options)
 ) {
     const infoWindow = shallowRef<AMap.InfoWindow>()
-    onMounted(() => {
-        ctx.ready().then((AMap) => {
-            infoWindow.value = new AMap.InfoWindow(initOptions)
-        })
+    ctx.ready().then((AMap) => {
+        infoWindow.value = new AMap.InfoWindow(initOptions)
     })
     return infoWindow
 }

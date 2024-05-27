@@ -1,4 +1,4 @@
-import {onMounted, shallowRef} from "vue";
+import {shallowRef} from "vue";
 import {PsrAMapContext} from "../plugins";
 
 export function useMarker(
@@ -6,10 +6,8 @@ export function useMarker(
     initOptions?: AMap.Marker.Options | (() => AMap.Marker.Options)
 ) {
     const marker = shallowRef<AMap.Marker>()
-    onMounted(() => {
-        ctx.ready().then((AMap) => {
-            marker.value = new AMap.Marker(initOptions)
-        })
+    ctx.ready().then((AMap) => {
+        marker.value = new AMap.Marker(initOptions)
     })
     return marker
 }

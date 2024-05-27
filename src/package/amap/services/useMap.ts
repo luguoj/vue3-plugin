@@ -1,4 +1,4 @@
-import {onMounted, onUnmounted, Ref, shallowRef, ShallowRef, watch, WatchStopHandle} from "vue";
+import {onUnmounted, Ref, shallowRef, ShallowRef, watch, WatchStopHandle} from "vue";
 import {PsrAMapContext} from "../plugins";
 import {PsrAMapTypes} from "../types/PsrAMapTypes"
 
@@ -49,10 +49,8 @@ export function useMap(
         }, {deep: true, immediate: true})
     }
 
-    onMounted(() => {
-        ctx.ready().then((AMap) => {
-            init(AMap)
-        })
+    ctx.ready().then((AMap) => {
+        init(AMap)
     })
     // 组件卸载时取消监听器，并销毁地图实例
     onUnmounted(() => {

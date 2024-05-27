@@ -11,13 +11,17 @@ export class PsrAMapContext {
     private readonly _options: PsrAMapTypes.Options
     private _ready: Promise<any> | undefined
 
-    // 必须要在onMounted 中调用，否则会导致SSR构建时抛出异常
-    ready() {
+    ready(): Promise<any> {
         if (!this._ready) {
-            this._ready = import("@amap/amap-jsapi-loader")
-                .then((AMapLoader) => {
-                    return AMapLoader.load(this._options)
+            this._ready = new Promise((resolve) => {
+                // 必须要在onMounted 中调用，否则会导致SSR构建时抛出异常
+                onMounted(() => {
+                    import("@amap/amap-jsapi-loader")
+                        .then((AMapLoader) => {
+                            resolve(AMapLoader.load(this._options))
+                        })
                 })
+            })
         }
         return this._ready
     }
@@ -62,12 +66,10 @@ export class PsrAMapContext {
 
     public static usePixel(pixelRef: Ref<PsrAMapTypes.Pixel | undefined>) {
         const aMapPixelRef = shallowRef<AMap.Pixel>()
-        onMounted(() => {
-            this.getInstance().ready().then((AMap) => {
-                watch(pixelRef, pixel => {
-                    aMapPixelRef.value = pixel ? new AMap.Pixel(pixel.x, pixel.y, pixel.round) : undefined
-                }, {immediate: true, deep: true})
-            })
+        this.getInstance().ready().then((AMap) => {
+            watch(pixelRef, pixel => {
+                aMapPixelRef.value = pixel ? new AMap.Pixel(pixel.x, pixel.y, pixel.round) : undefined
+            }, {immediate: true, deep: true})
         })
         return aMapPixelRef
     }

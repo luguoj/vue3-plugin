@@ -8,7 +8,7 @@ import {
   useAMapZoomService
 } from "./services";
 import {computed, ref} from "vue";
-import {PsrAMapContext} from "@psr-framework/vue3-plugin";
+import {PsrAMapContext} from "../../plugins";
 
 const props = withDefaults(defineProps<{
   mapViewMode?: '2D' | '3D',

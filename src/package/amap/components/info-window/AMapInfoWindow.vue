@@ -8,7 +8,8 @@
 
 <script setup lang="ts">
 import {onUnmounted, onUpdated, ref, watch, watchEffect} from "vue";
-import {PsrAMapContext, PsrAMapTypes} from "@psr-framework/vue3-plugin";
+import {PsrAMapTypes} from "../../types/PsrAMapTypes.ts";
+import {PsrAMapContext} from "../../plugins";
 
 const props = withDefaults(defineProps<{
   aMap: AMap.Map, // 地图实例对象

@@ -1,5 +1,5 @@
-import {PsrAMapContext} from "@psr-framework/vue3-plugin";
 import {onMounted, shallowRef} from "vue";
+import {PsrAMapContext} from "../plugins";
 
 export function useInfoWindow(
     ctx: PsrAMapContext,

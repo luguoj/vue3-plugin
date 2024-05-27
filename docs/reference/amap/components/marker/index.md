@@ -32,3 +32,9 @@ demo-preview=./IconUseAnchor.vue
 :::preview
 demo-preview=./IconUseOffset.vue
 :::
+
+## 自定义点标记
+
+:::preview
+demo-preview=./CustomContent.vue
+:::

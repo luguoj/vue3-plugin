@@ -25,4 +25,10 @@ export namespace PsrAMapTypes {
         lng: number // 经度
         lat: number // 维度
     }
+
+    export type Pixel = {
+        x: number
+        y: number
+        round?: boolean
+    }
 }

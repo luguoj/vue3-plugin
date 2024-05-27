@@ -1,5 +1,5 @@
 import {PsrAMapTypes} from "../types/PsrAMapTypes.ts";
-import {App, getCurrentInstance, inject, Ref, ShallowRef} from "vue";
+import {App, getCurrentInstance, inject, onMounted, Ref, shallowRef, ShallowRef, watch} from "vue";
 import {useMap} from "../services/useMap.ts";
 import {useInfoWindow} from "../services/useInfoWindow.ts";
 import {useMarker} from "../services/useMarker.ts";
@@ -58,6 +58,18 @@ export class PsrAMapContext {
         initOptions?: AMap.Marker.Options | (() => AMap.Marker.Options)
     ) {
         return useMarker(PsrAMapContext.getInstance(), initOptions)
+    }
+
+    public static usePixel(pixelRef: Ref<PsrAMapTypes.Pixel | undefined>) {
+        const aMapPixelRef = shallowRef<AMap.Pixel>()
+        onMounted(() => {
+            this.getInstance().ready().then((AMap) => {
+                watch(pixelRef, pixel => {
+                    aMapPixelRef.value = pixel ? new AMap.Pixel(pixel.x, pixel.y, pixel.round) : undefined
+                }, {immediate: true, deep: true})
+            })
+        })
+        return aMapPixelRef
     }
 
     install(app: App) {

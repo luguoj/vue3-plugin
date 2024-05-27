@@ -2,6 +2,7 @@ import {PsrAMapTypes} from "../types/PsrAMapTypes.ts";
 import {App, getCurrentInstance, inject, Ref, ShallowRef} from "vue";
 import {useMap} from "../services/useMap.ts";
 import {useInfoWindow} from "../services/useInfoWindow.ts";
+import {useMarker} from "../services/useMarker.ts";
 
 const injectKey = 'psr-a-map'
 
@@ -51,6 +52,12 @@ export class PsrAMapContext {
         initOptions?: AMap.InfoWindow.Options | (() => AMap.InfoWindow.Options)
     ) {
         return useInfoWindow(PsrAMapContext.getInstance(), initOptions)
+    }
+
+    public static useMarker(
+        initOptions?: AMap.Marker.Options | (() => AMap.Marker.Options)
+    ) {
+        return useMarker(PsrAMapContext.getInstance(), initOptions)
     }
 
     install(app: App) {

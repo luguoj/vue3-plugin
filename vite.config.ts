@@ -7,11 +7,6 @@ import vueJsxPlugin from "@vitejs/plugin-vue-jsx";
 import {visualizer} from "rollup-plugin-visualizer";
 
 export default defineConfig({
-    resolve: {
-        alias: {
-            "@psr-framework/vue3-plugin": resolve(__dirname, "./src")
-        }
-    },
     plugins: [
         vue(),
         vueJsxPlugin(),

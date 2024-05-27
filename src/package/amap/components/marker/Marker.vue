@@ -1,6 +1,6 @@
 <template>
   <div style="display: none">
-    <div style="width: fit-content;  height: fit-content;  transform: translateX(-50%) translateY(-100%);"
+    <div style="width: fit-content;  height: fit-content;"
          ref="contentRef">
       <slot/>
     </div>
@@ -8,7 +8,7 @@
 </template>
 
 <script setup lang="ts">
-import {computed, onUnmounted, ref, Ref, ShallowRef, watch, watchEffect} from "vue";
+import {computed, onUnmounted, onUpdated, ref, Ref, ShallowRef, watch, watchEffect} from "vue";
 import {PsrAMapTypes} from "../../types/PsrAMapTypes.ts";
 import {PsrAMapContext} from "../../plugins";
 
@@ -52,21 +52,30 @@ watchEffect(() => {
     markerRef.value.setContent(contentRef.value)
   }
 })
+
+// 更新自定义点标记内容
+onUpdated(() => {
+  if (markerRef.value && contentRef.value && props.markerCustom) {
+    markerRef.value.setContent(contentRef.value)
+  }
+})
+
 // 设置位置
 watchEffect(() => {
   if (markerRef.value) {
     (markerRef.value as any).setPosition(position.value && [position.value.lng, position.value.lat])
   }
 })
-// 监听移动事件（用户拖拽），更新位置
+// 监听移动事件（moveTo/用户拖拽），更新位置
 watch(markerRef, marker => {
   if (marker) {
     marker.on('moving', () => {
       const {lng, lat} = marker.getPosition() || {lng: 0, lat: 0}
-      position.value = {lng, lat}
+      if (lng != position.value?.lng || lat != position.value?.lat) {
+        position.value = {lng, lat}
+      }
     })
-    marker.on('dragging', (ev) => {
-      console.log('dragging', ev, marker.getPosition())
+    marker.on('dragging', () => {
       const {lng, lat} = marker.getPosition() || {lng: 0, lat: 0}
       if (lng != position.value?.lng || lat != position.value?.lat) {
         position.value = {lng, lat}

@@ -133,6 +133,10 @@ export default defineConfig({
                         {
                             text:'信息窗体',
                             link:'/reference/amap/components/info-window/',
+                        },
+                        {
+                            text:'点标记',
+                            link:'/reference/amap/components/marker/',
                         }
                     ]
                 }

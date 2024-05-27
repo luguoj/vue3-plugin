@@ -67,7 +67,7 @@ watchEffect(() => {
 
 // 组件卸载时关闭消息窗体
 onUnmounted(() => {
-  if (infoWindowRef.value && props.aMap) {
+  if (infoWindowRef.value) {
     infoWindowRef.value.close()
   }
 })

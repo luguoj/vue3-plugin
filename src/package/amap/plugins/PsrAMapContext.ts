@@ -1,8 +1,6 @@
 import {PsrAMapTypes} from "../types/PsrAMapTypes.ts";
 import {App, getCurrentInstance, inject, onMounted, Ref, shallowRef, ShallowRef, watch} from "vue";
 import {useMap} from "../services/useMap.ts";
-import {useInfoWindow} from "../services/useInfoWindow.ts";
-import {useMarker} from "../services/useMarker.ts";
 
 const injectKey = 'psr-a-map'
 
@@ -49,13 +47,13 @@ export class PsrAMapContext {
         optionsRef: Ref<PsrAMapTypes.MapOptions>,
         initOptions?: Omit<AMap.Map.Options, "viewMode"> | (() => Omit<AMap.Map.Options, "viewMode">)
     ): ShallowRef<AMap.Map | undefined> {
-        return useMap(PsrAMapContext.getInstance(), containerDivRef, optionsRef, initOptions)
+        return useMap(PsrAMapContext.getInstance().ready().then(AMap => AMap.Map), containerDivRef, optionsRef, initOptions)
     }
 
     public static usePlugin<P>(
         pluginName: PsrAMapTypes.PluginName,
     ): Promise<P> {
-        return this.getInstance().ready().then((AMap) => {
+        return PsrAMapContext.getInstance().ready().then((AMap) => {
             return new Promise(resolve => AMap.plugin(`AMap.${pluginName}`, () => {
                 resolve(AMap[pluginName])
             }))
@@ -65,18 +63,26 @@ export class PsrAMapContext {
     public static useInfoWindow(
         initOptions?: AMap.InfoWindow.Options | (() => AMap.InfoWindow.Options)
     ) {
-        return useInfoWindow(PsrAMapContext.getInstance(), initOptions)
+        const infoWindow = shallowRef<AMap.InfoWindow>()
+        PsrAMapContext.getInstance().ready().then(AMap => {
+            infoWindow.value = new AMap.InfoWindow(initOptions)
+        })
+        return infoWindow
     }
 
     public static useMarker(
         initOptions?: AMap.Marker.Options | (() => AMap.Marker.Options)
     ) {
-        return useMarker(PsrAMapContext.getInstance(), initOptions)
+        const marker = shallowRef<AMap.Marker>()
+        PsrAMapContext.getInstance().ready().then(AMap => {
+            marker.value = new AMap.Marker(initOptions)
+        })
+        return marker
     }
 
     public static usePixel(pixelRef: Ref<PsrAMapTypes.Pixel | undefined>) {
         const aMapPixelRef = shallowRef<AMap.Pixel>()
-        this.getInstance().ready().then((AMap) => {
+        PsrAMapContext.getInstance().ready().then(AMap => {
             watch(pixelRef, pixel => {
                 aMapPixelRef.value = pixel ? new AMap.Pixel(pixel.x, pixel.y, pixel.round) : undefined
             }, {immediate: true, deep: true})

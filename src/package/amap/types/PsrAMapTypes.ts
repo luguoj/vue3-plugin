@@ -15,6 +15,41 @@ export namespace PsrAMapTypes {
         };
     }
 
+    export type PluginName =
+        "ElasticMarker"
+        | "ToolBar"
+        | "Scale"
+        | "HawkEye"
+        | "ControlBar"
+        | "MapType"
+        | "Geolocation"
+        | "AutoComplete"
+        | "PlaceSearch"
+        | "DistrictSearch"
+        | "LineSearch"
+        | "StationSearch"
+        | "Driving"
+        | "TruckDriving"
+        | "Transfer"
+        | "Walking"
+        | "Riding"
+        | "DragRoute"
+        | "Geocoder"
+        | "CitySearch"
+        | "IndoorMap"
+        | "MouseTool"
+        | "CircleEditor"
+        | "PolygonEditor"
+        | "PolylineEditor"
+        | "RectangleEditor"
+        | "EllipseEditor"
+        | "BezierCurveEditor"
+        | "MarkerCluster"
+        | "RangingTool"
+        | "CloudDataSearch"
+        | "Weather"
+
+
     // 地图选项
     export type MapOptions = {
         viewMode?: '2D' | '3D'
@@ -26,11 +61,33 @@ export namespace PsrAMapTypes {
         lat: number // 维度
     }
 
-    export type Anchor = 'top-left' | 'top-center' | 'top-right' | 'middle-left' | 'center' | 'middle-right' | 'bottom-left' | 'bottom-center' | 'bottom-right'
+    export type Anchor =
+        'top-left'
+        | 'top-center'
+        | 'top-right'
+        | 'middle-left'
+        | 'center'
+        | 'middle-right'
+        | 'bottom-left'
+        | 'bottom-center'
+        | 'bottom-right'
 
     export type Pixel = {
         x: number
         y: number
         round?: boolean
+    }
+
+    export type Size = {
+        width: number,
+        height: number
+    }
+
+    export type Icon = {
+        image: string // 图标取图地址
+        size: Size // 图标尺寸
+        offset: Pixel // 在大图中截取图标的偏移量
+        imageSize: Size // 图标所用图片的尺寸
+
     }
 }

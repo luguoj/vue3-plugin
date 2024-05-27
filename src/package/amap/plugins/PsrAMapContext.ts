@@ -52,6 +52,16 @@ export class PsrAMapContext {
         return useMap(PsrAMapContext.getInstance(), containerDivRef, optionsRef, initOptions)
     }
 
+    public static usePlugin<P>(
+        pluginName: PsrAMapTypes.PluginName,
+    ): Promise<P> {
+        return this.getInstance().ready().then((AMap) => {
+            return new Promise(resolve => AMap.plugin(`AMap.${pluginName}`, () => {
+                resolve(AMap[pluginName])
+            }))
+        })
+    }
+
     public static useInfoWindow(
         initOptions?: AMap.InfoWindow.Options | (() => AMap.InfoWindow.Options)
     ) {

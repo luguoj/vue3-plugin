@@ -26,6 +26,8 @@ export namespace PsrAMapTypes {
         lat: number // 维度
     }
 
+    export type Anchor = 'top-left' | 'top-center' | 'top-right' | 'middle-left' | 'center' | 'middle-right' | 'bottom-left' | 'bottom-center' | 'bottom-right'
+
     export type Pixel = {
         x: number
         y: number

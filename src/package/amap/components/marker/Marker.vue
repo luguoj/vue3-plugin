@@ -15,6 +15,8 @@ import {PsrAMapContext} from "../../plugins";
 const props = withDefaults(defineProps<{
   aMap: AMap.Map, // 地图实例对象
   markerIcon?: string, // 在点标记中显示的图标地址
+  markerOffset?: PsrAMapTypes.Pixel, // 点标记显示位置偏移量
+  markerAnchor?: PsrAMapTypes.Anchor, // 点标记锚点
   markerTitle?: string, // 鼠标滑过点标记时的文字提示。不设置则鼠标滑过点标无文字提示。
   markerVisible?: boolean, // 点标记是否可见
   markerDraggable?: boolean, // 设置点标记是否可拖拽移动
@@ -36,6 +38,7 @@ const position = defineModel<PsrAMapTypes.LngLat>("markerPosition")
 const markerRef: ShallowRef<AMap.Marker | undefined> = PsrAMapContext.useMarker({
   position: position.value && [position.value.lng, position.value.lat],
   icon: props.markerIcon,
+  anchor: props.markerAnchor,
   title: props.markerTitle,
   visible: props.markerVisible,
   draggable: props.markerDraggable
@@ -97,14 +100,22 @@ watchEffect(() => {
   }
 })
 
+// 设置偏移量
+const offsetRef = PsrAMapContext.usePixel(computed(() => props.markerOffset || {x: 0, y: 0}))
+watchEffect(() => {
+  if (markerRef.value && offsetRef.value) {
+    markerRef.value.setOffset(offsetRef.value)
+  }
+})
+
 // 设置文本标注
-const offsetRef = PsrAMapContext.usePixel(computed(() => props.markerLabelOffset))
+const labelOffsetRef = PsrAMapContext.usePixel(computed(() => props.markerLabelOffset))
 watchEffect(() => {
   if (markerRef.value) {
     if (props.markerLabel) {
       markerRef.value.setLabel({
         content: props.markerLabel || '',
-        offset: offsetRef.value,
+        offset: labelOffsetRef.value,
         direction: props.markerLabelDirection
       })
     } else {

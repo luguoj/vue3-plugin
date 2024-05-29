@@ -1,9 +1,5 @@
-import PsrVue3AMapMarkerCluster from "./MarkerCluster.vue"
+import PsrAMapMarkerCluster from "./MarkerCluster.vue"
 
 export {
-    PsrVue3AMapMarkerCluster
-}
-
-export interface PsrVue3AMapMarkerClusterExpose {
-    markerCluster: AMap.MarkerCluster
+    PsrAMapMarkerCluster
 }

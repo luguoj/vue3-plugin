@@ -5,6 +5,7 @@ import {resolve} from "path";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+    base: "/docs/psr-vue3-plugin/",
     markdown: {
         config(md) {
             md.use(containerPreview as any)
@@ -51,8 +52,8 @@ export default defineConfig({
                     }]
                 },
                 {
-                    text:'高德地图插件',
-                    link:'/guide/amap/'
+                    text: '高德地图插件',
+                    link: '/guide/amap/'
                 },
                 {text: 'Markdown Examples', link: '/guide/markdown-examples'},
                 {text: 'Runtime API Examples', link: '/guide/api-examples'}
@@ -123,20 +124,24 @@ export default defineConfig({
                     ]
                 },
                 {
-                    text:'高德地图组件',
-                    collapsed:false,
-                    items:[
+                    text: '高德地图组件',
+                    collapsed: false,
+                    items: [
                         {
-                            text:'地图',
-                            link:'/reference/amap/components/map/',
+                            text: '地图',
+                            link: '/reference/amap/components/map/',
                         },
                         {
-                            text:'信息窗体',
-                            link:'/reference/amap/components/info-window/',
+                            text: '信息窗体',
+                            link: '/reference/amap/components/info-window/',
                         },
                         {
-                            text:'点标记',
-                            link:'/reference/amap/components/marker/',
+                            text: '点标记',
+                            link: '/reference/amap/components/marker/',
+                        },
+                        {
+                            text: '点标记聚合',
+                            link: '/reference/amap/components/marker-cluster/',
                         }
                     ]
                 }

@@ -61,7 +61,7 @@ export class PsrAMapContext {
     }
 
     public static useInfoWindow(
-        initOptions?: AMap.InfoWindow.Options | (() => AMap.InfoWindow.Options)
+        initOptions?: AMap.InfoWindow.Options
     ) {
         const infoWindow = shallowRef<AMap.InfoWindow>()
         PsrAMapContext.getInstance().ready().then(AMap => {
@@ -71,13 +71,29 @@ export class PsrAMapContext {
     }
 
     public static useMarker(
-        initOptions?: AMap.Marker.Options | (() => AMap.Marker.Options)
+        initOptions?: AMap.Marker.Options
     ) {
         const marker = shallowRef<AMap.Marker>()
         PsrAMapContext.getInstance().ready().then(AMap => {
             marker.value = new AMap.Marker(initOptions)
         })
         return marker
+    }
+
+    public static useMarkerCluster(
+        initOptions?: {
+            map?: AMap.Map,
+            dataOptions?: AMap.MarkerCluster.DataOptions[],
+            opts?: AMap.MarkerCluster.Options
+        }
+    ) {
+        const markerCluster = shallowRef<AMap.MarkerCluster>()
+        PsrAMapContext.usePlugin<typeof AMap.MarkerCluster>("MarkerCluster").then(
+            AMapMarkerCluster => {
+                markerCluster.value = new AMapMarkerCluster(initOptions?.map as any, initOptions?.dataOptions || [], initOptions?.opts)
+            }
+        )
+        return markerCluster
     }
 
     public static usePixel(pixelRef: Ref<PsrAMapTypes.Pixel | undefined>) {

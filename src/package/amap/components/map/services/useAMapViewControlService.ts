@@ -51,12 +51,10 @@ export function useAMapViewControlService<V>(options: {
         }
         // 监听地图缩放事件，更新模型
         map && map.on(changeEvent, () => {
-            console.log(changeEvent)
             updateModel()
         })
         // 监听地图缩放结束事件，重置目标值
         map && map.on(changeEndEvent, () => {
-            console.log(changeEndEvent)
             transitionFlagModel.value = false
         })
     }, {immediate: true})

@@ -55,8 +55,17 @@ export namespace PsrAMapTypes {
         viewMode?: '2D' | '3D'
     } | undefined
 
+    export interface ClusterMarkerData<T = void> {
+        // 经纬度坐标
+        position: LngLat
+        // 权重
+        weight?: number
+        // 数据
+        data?: T
+    }
+
     // 经纬度坐标
-    export type LngLat = {
+    export interface LngLat {
         lng: number // 经度
         lat: number // 维度
     }
@@ -72,18 +81,18 @@ export namespace PsrAMapTypes {
         | 'bottom-center'
         | 'bottom-right'
 
-    export type Pixel = {
+    export interface Pixel {
         x: number
         y: number
         round?: boolean
     }
 
-    export type Size = {
+    export interface Size {
         width: number,
         height: number
     }
 
-    export type Icon = {
+    export interface Icon {
         image: string // 图标取图地址
         size: Size // 图标尺寸
         offset: Pixel // 在大图中截取图标的偏移量

@@ -1,19 +1,23 @@
 <script setup lang="ts">
-import {PsrAMap, PsrAMapMarkerCluster} from "@psr-framework/vue3-plugin";
+import {PsrAMap, PsrAMapMarkerCluster, PsrAMapTypes} from "@psr-framework/vue3-plugin";
 import {ref} from "vue";
 import ContentComponent from "../marker/ContentComponent.vue";
 
-const visible = ref(true)
+type DataOptions = PsrAMapTypes.ClusterMarkerData<{ title: string }>
 
-const markerCluster = ref<AMap.MarkerCluster.DataOptions[]>([])
+const markerCluster = ref<DataOptions[]>([])
 let i = 0
 let timer = setInterval(() => {
-  const element: AMap.MarkerCluster.DataOptions = {
+  markerCluster.value.push({
     weight: 1,
-    lnglat: [116.397428 + Math.random() * 0.002 - 0.001, 39.90923 + Math.random() * 0.002 - 0.001],
-    title: 'title-' + i
-  };
-  markerCluster.value.push(element)
+    position: {
+      lng: 116.397428 + Math.random() * 0.002 - 0.001,
+      lat: 39.90923 + Math.random() * 0.002 - 0.001
+    },
+    data: {
+      title: 'title-' + i
+    }
+  })
   if (i++ > 100) {
     clearInterval(timer)
   }
@@ -22,7 +26,6 @@ let timer = setInterval(() => {
 
 <template>
   <div style="height: 400px;">
-    <button class="el-button" @click="visible=!visible">开/关点标记: {{ visible }}</button>
     <psr-a-map
         style="height: 100%;"
         :map-center="{lng:116.397428,lat:39.90923}"
@@ -31,14 +34,14 @@ let timer = setInterval(() => {
         <psr-a-map-marker-cluster
             :a-map="map"
             :cluster-data="markerCluster"
-            :cluster-custom-marker = "false"
+            cluster-custom-marker
             cluster-custom-cluster-marker
         >
-          <template #marker="{markerData}">
-            <content-component :model-value="`${markerData.title}`"/>
+          <template #marker="{data}">
+            <content-component :model-value="`${data?.title}`" style="transform:translateX(-50%) translateY(-100%)"/>
           </template>
-          <template #cluster-marker="{clusterMarkerData}">
-            <div>{{ clusterMarkerData.data.count }}</div>
+          <template #cluster-marker="{count}">
+            <div>{{ count }}</div>
           </template>
         </psr-a-map-marker-cluster>
       </template>

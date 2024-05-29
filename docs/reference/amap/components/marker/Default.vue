@@ -10,8 +10,8 @@ const pos = ref<PsrAMapTypes.LngLat>({lng: 116.397428, lat: 39.90923})
 
 <template>
   <div style="height: 400px;">
-    <button @click="visible=!visible">开/关点标记: {{ visible }}</button>
-    <button @click="draggable=!draggable;">开/关拖拽: {{ draggable }}</button>
+    <button class="el-button" @click="visible=!visible">开/关点标记: {{ visible }}</button>
+    <button class="el-button" @click="draggable=!draggable;">开/关拖拽: {{ draggable }}</button>
     <psr-a-map
         style="height: 100%;"
         :map-center="{lng:116.397428,lat:39.90923}"
@@ -31,11 +31,3 @@ const pos = ref<PsrAMapTypes.LngLat>({lng: 116.397428, lat: 39.90923})
     </psr-a-map>
   </div>
 </template>
-
-<style scoped>
-button {
-  border: 1px solid;
-  margin-right: 5px;
-  padding: 0 5px;
-}
-</style>

@@ -9,12 +9,12 @@ const zoomRange = ref<[number, number]>([2, 26])
 
 <template>
   <div style="height: 400px;">
-    <button @click="zoomingFlag = false;zoomRange[0]=zoomRange[0] - 1;">MIN-</button>
-    <button @click="zoomingFlag = false;zoomRange[0]=zoomRange[0] + 1;">MIN+</button>
-    <button @click="zoomingFlag = false;zoom=(zoom||0) - 0.3;">-</button>
-    <button @click="zoomingFlag = false;zoom=(zoom||0) + 0.3">+</button>
-    <button @click="zoomingFlag = false;zoomRange[1]=zoomRange[1] - 1">MAX-</button>
-    <button @click="zoomingFlag = false;zoomRange[1]=zoomRange[1] + 1">MAX+</button>
+    <button class="el-button" @click="zoomingFlag = false;zoomRange[0]=zoomRange[0] - 1;">MIN-</button>
+    <button class="el-button" @click="zoomingFlag = false;zoomRange[0]=zoomRange[0] + 1;">MIN+</button>
+    <button class="el-button" @click="zoomingFlag = false;zoom=(zoom||0) - 0.3;">-</button>
+    <button class="el-button" @click="zoomingFlag = false;zoom=(zoom||0) + 0.3">+</button>
+    <button class="el-button" @click="zoomingFlag = false;zoomRange[1]=zoomRange[1] - 1">MAX-</button>
+    <button class="el-button" @click="zoomingFlag = false;zoomRange[1]=zoomRange[1] + 1">MAX+</button>
     <psr-a-map
         style="height: 100%;"
         :map-zoom-range="zoomRange"
@@ -26,11 +26,3 @@ const zoomRange = ref<[number, number]>([2, 26])
     </psr-a-map>
   </div>
 </template>
-
-<style scoped>
-button {
-  border: 1px solid;
-  margin-right: 5px;
-  padding: 0 5px;
-}
-</style>

@@ -36,7 +36,7 @@ watch(mapRef, map => {
 
 <template>
   <div style="height: 400px;">
-    <button @click="switchViewMode">切换视图模式: {{ opt?.viewMode || '2D' }}</button>
+    <button class="el-button" @click="switchViewMode">切换视图模式: {{ opt?.viewMode || '2D' }}</button>
     <div style="height: 100%;" ref="divRef"/>
   </div>
 </template>

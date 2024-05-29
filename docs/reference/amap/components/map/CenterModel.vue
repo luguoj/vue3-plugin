@@ -8,7 +8,7 @@ const movingFLag = ref<boolean>()
 
 <template>
   <div style="height: 400px;">
-    <button @click="movingFLag=false;center={lat: (center?.lat||0) + 0.3, lng: (center?.lng||0) + 0.3};">移动
+    <button class="el-button" @click="movingFLag=false;center={lat: (center?.lat||0) + 0.3, lng: (center?.lng||0) + 0.3};">移动
     </button>
     <psr-a-map
         style="height: 100%;"
@@ -20,11 +20,3 @@ const movingFLag = ref<boolean>()
     </psr-a-map>
   </div>
 </template>
-
-<style scoped>
-button {
-  border: 1px solid;
-  margin-right: 5px;
-  padding: 0 5px;
-}
-</style>

@@ -8,8 +8,8 @@ const rotatingFlag = ref<boolean>()
 
 <template>
   <div style="height: 400px;">
-    <button @click="rotatingFlag = false;rotation=(rotation||0) - 30;">-</button>
-    <button @click="rotatingFlag = false;rotation=(rotation||0) + 30">+</button>
+    <button class="el-button" @click="rotatingFlag = false;rotation=(rotation||0) - 30;">-</button>
+    <button class="el-button" @click="rotatingFlag = false;rotation=(rotation||0) + 30">+</button>
     <psr-a-map
         style="height: 100%;"
         v-model:map-rotation="rotation"
@@ -20,11 +20,3 @@ const rotatingFlag = ref<boolean>()
     </psr-a-map>
   </div>
 </template>
-
-<style scoped>
-button {
-  border: 1px solid;
-  margin-right: 5px;
-  padding: 0 5px;
-}
-</style>

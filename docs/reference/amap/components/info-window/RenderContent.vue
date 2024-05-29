@@ -14,7 +14,7 @@ const content = info.join("")
 
 <template>
   <div style="height: 400px;">
-    <button @click="visible=!visible">开/关信息窗体: {{ visible }}</button>
+    <button class="el-button" @click="visible=!visible">开/关信息窗体: {{ visible }}</button>
     <psr-a-map
         style="height: 100%;"
     >
@@ -30,11 +30,3 @@ const content = info.join("")
     </psr-a-map>
   </div>
 </template>
-
-<style scoped>
-button {
-  border: 1px solid;
-  margin-right: 5px;
-  padding: 0 5px;
-}
-</style>

@@ -18,10 +18,10 @@ const features = computed<AMap.Map.Feature[]>(() => {
 
 <template>
   <div style="height: 400px;">
-    <button @click="showBg=!showBg">地图背景: {{ showBg }}</button>
-    <button @click="showPoint=!showPoint">兴趣点: {{ showPoint }}</button>
-    <button @click="showRoad=!showRoad">道路: {{ showRoad }}</button>
-    <button @click="showBuilding=!showBuilding">建筑物: {{ showBuilding }}</button>
+    <button class="el-button" @click="showBg=!showBg">地图背景: {{ showBg }}</button>
+    <button class="el-button" @click="showPoint=!showPoint">兴趣点: {{ showPoint }}</button>
+    <button class="el-button" @click="showRoad=!showRoad">道路: {{ showRoad }}</button>
+    <button class="el-button" @click="showBuilding=!showBuilding">建筑物: {{ showBuilding }}</button>
     <psr-a-map
         style="height: 100%;"
         map-view-mode="3D"
@@ -31,11 +31,3 @@ const features = computed<AMap.Map.Feature[]>(() => {
     />
   </div>
 </template>
-
-<style scoped>
-button {
-  border: 1px solid;
-  margin-right: 5px;
-  padding: 0 5px;
-}
-</style>

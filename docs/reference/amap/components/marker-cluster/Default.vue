@@ -17,7 +17,7 @@ for (let i = 0; i < 100; i++) {
 
 <template>
   <div style="height: 400px;">
-    <button @click="visible=!visible">开/关点标记: {{ visible }}</button>
+    <button class="el-button" @click="visible=!visible">开/关点标记: {{ visible }}</button>
     <psr-a-map
         style="height: 100%;"
         :map-center="{lng:116.397428,lat:39.90923}"
@@ -31,11 +31,3 @@ for (let i = 0; i < 100; i++) {
     </psr-a-map>
   </div>
 </template>
-
-<style scoped>
-button {
-  border: 1px solid;
-  margin-right: 5px;
-  padding: 0 5px;
-}
-</style>

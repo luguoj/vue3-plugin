@@ -18,18 +18,10 @@ function switchViewMode() {
 
 <template>
   <div style="height: 400px;">
-    <button @click="switchViewMode">切换视图模式: {{ viewMode }}</button>
+    <button class="el-button" @click="switchViewMode">切换视图模式: {{ viewMode }}</button>
     <psr-a-map
         style="height: 100%;"
         :map-view-mode="viewMode"
     />
   </div>
 </template>
-
-<style scoped>
-button {
-  border: 1px solid;
-  margin-right: 5px;
-  padding: 0 5px;
-}
-</style>

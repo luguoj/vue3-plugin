@@ -1,6 +1,7 @@
 import {PsrAMapTypes} from "../types/PsrAMapTypes.ts";
-import {App, getCurrentInstance, inject, onMounted, Ref, shallowRef, ShallowRef, watch} from "vue";
+import {App, getCurrentInstance, inject, onMounted, onUnmounted, Ref, shallowRef, ShallowRef, watch} from "vue";
 import {useMap} from "../services/useMap.ts";
+import {useGLCustomLayer} from "../services/useGLCustomLayer.ts";
 
 const injectKey = 'psr-a-map'
 
@@ -92,6 +93,15 @@ export class PsrAMapContext {
             buildings.value?.destroy()
         })
         return buildings
+    }
+
+    public static useGLCustomLayer(
+        options?: AMap.GLCustomLayer.Options | (() => AMap.GLCustomLayer.Options)
+    ) {
+        return useGLCustomLayer(
+            PsrAMapContext.getInstance().ready().then(AMap => AMap.GLCustomLayer),
+            options
+        )
     }
 
     public static useMarkerCluster(

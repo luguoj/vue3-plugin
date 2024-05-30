@@ -5,3 +5,9 @@
 :::preview
 demo-preview=./Buildings.vue
 :::
+
+## 自定义GL图层
+
+:::preview
+demo-preview=./GlCustom.vue
+:::

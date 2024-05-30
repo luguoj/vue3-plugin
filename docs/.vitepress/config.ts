@@ -142,6 +142,10 @@ export default defineConfig({
                         {
                             text: '点标记聚合',
                             link: '/reference/amap/components/marker-cluster/',
+                        },
+                        {
+                            text: '图层',
+                            link: '/reference/amap/components/layer/',
                         }
                     ]
                 }

@@ -80,6 +80,20 @@ export class PsrAMapContext {
         return marker
     }
 
+    public static useBuildings(
+        initOptions?: AMap.Buildings.Options
+    ) {
+        const buildings = shallowRef<AMap.Buildings>()
+        PsrAMapContext.getInstance().ready().then(AMap => {
+            buildings.value = new AMap.Buildings(initOptions)
+        })
+        // 组件卸载时销毁图层实例
+        onUnmounted(() => {
+            buildings.value?.destroy()
+        })
+        return buildings
+    }
+
     public static useMarkerCluster(
         initOptions?: {
             map?: AMap.Map,

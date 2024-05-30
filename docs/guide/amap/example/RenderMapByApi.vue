@@ -5,7 +5,7 @@ import {ref, watch} from "vue";
 // 渲染地图的DIV容器引用
 const divRef = ref<HTMLDivElement>()
 // 渲染地图参数
-const opt = ref<PsrAMapTypes.MapOptions>({
+const opt = ref<PsrAMapTypes.MapInitOptions>({
   viewMode: '3D'
 })
 

@@ -21,6 +21,8 @@ function switchViewMode() {
     <button class="el-button" @click="switchViewMode">切换视图模式: {{ viewMode }}</button>
     <psr-a-map
         style="height: 100%;"
+        :map-zoom="18"
+        :map-pitch="45"
         :map-view-mode="viewMode"
     />
   </div>

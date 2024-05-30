@@ -51,9 +51,28 @@ export namespace PsrAMapTypes {
 
 
     // 地图选项
-    export type MapOptions = {
+    export type MapInitOptions = {
         viewMode?: '2D' | '3D'
+        terrain?: boolean
+        touchZoomCenter?: number
+        wallColor?: string | number[]
+        roofColor?: string | number[]
+        showBuildingBlock?: boolean
+        showIndoorMap?: boolean
+        skyColor?: string | number[]
     } | undefined
+
+    export type MapOptions = Omit<
+        AMap.Map.Options,
+        'viewMode'
+        | 'terrain'
+        | 'touchZoomCenter'
+        | 'wallColor'
+        | 'roofColor'
+        | 'showBuildingBlock'
+        | 'showIndoorMap'
+        | 'skyColor'
+    >
 
     export interface ClusterMarkerData<T = void> {
         // 经纬度坐标

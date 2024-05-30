@@ -44,10 +44,10 @@ export class PsrAMapContext {
 
     public static useMap(
         containerDivRef: ShallowRef<HTMLDivElement | undefined>,
-        optionsRef: Ref<PsrAMapTypes.MapOptions>,
-        initOptions?: Omit<AMap.Map.Options, "viewMode"> | (() => Omit<AMap.Map.Options, "viewMode">)
+        initOptionsRef: Ref<PsrAMapTypes.MapInitOptions>,
+        options?: PsrAMapTypes.MapOptions | (() => PsrAMapTypes.MapOptions)
     ): ShallowRef<AMap.Map | undefined> {
-        return useMap(PsrAMapContext.getInstance().ready().then(AMap => AMap.Map), containerDivRef, optionsRef, initOptions)
+        return useMap(PsrAMapContext.getInstance().ready().then(AMap => AMap.Map), containerDivRef, initOptionsRef, options)
     }
 
     public static usePlugin<P>(

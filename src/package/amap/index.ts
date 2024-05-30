@@ -1,4 +1,4 @@
-import "@pansy/amap-types";
+import "./declares/amap-types/index.d.ts"
 
 export * from "./components"
 export * from "./plugins"

@@ -15,11 +15,13 @@
     "@element-plus/icons-vue": "2.3.1",
     "@pansy/amap-types": "^2.22.0",
     "@psr-framework/typescript-utils": "^1.6.1",
-    "@types/three": "^0.164.0",
+    "@types/three": "^0.164.1",
+    "@types/three162": "npm:@types/three@0.162.0",
     "element-plus": "2.6.3",
     "lodash": "^4.17.21",
-    "three": "^0.164.0",
     "pinia": "^2.1.7",
+    "three": "^0.164.1",
+    "three162": "npm:three@0.162.0",
     "vue": "^3.4.21"
   },
   "devDependencies": {

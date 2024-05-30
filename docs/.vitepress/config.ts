@@ -24,9 +24,11 @@ export default defineConfig({
                 '@pansy/amap-types',
                 "@psr-framework/typescript-utils",
                 '@types/three',
+                '@types/three162',
                 'element-plus',
                 'lodash',
                 'three',
+                'three162',
                 "pinia",
                 'vue',
             ]

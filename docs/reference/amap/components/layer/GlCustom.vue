@@ -18,6 +18,7 @@ function handleLayerInit({map, gl}: { map: AMap.Map, layer: AMap.GLCustomLayer, 
     // 数据转换工具
     var customCoords = (map as any).customCoords;
     // 数据使用转换工具进行转换，这个操作必须要提前执行（在获取镜头参数 函数之前执行），否则将会获得一个错误信息。
+    customCoords.setCenter([0, 0]);
     var data = customCoords.lngLatsToCoords([
       [116.52, 39.79],
       [116.54, 39.79],
@@ -70,7 +71,6 @@ function handleLayerInit({map, gl}: { map: AMap.Map, layer: AMap.GLCustomLayer, 
       scene.add(mesh);
     }
 
-
     // 动画
     function animate() {
       for (let i = 0; i < meshes.length; i++) {
@@ -91,12 +91,11 @@ function handleLayerRender({map}: { map: AMap.Map, layer: AMap.GLCustomLayer, gl
     if (camera && renderer && scene) {
       // 数据转换工具
       var customCoords = map.customCoords;
-      debugger
       // 这里必须执行！！重新设置 three 的 gl 上下文状态。
       renderer.resetState();
       // 重新设置图层的渲染中心点，将模型等物体的渲染中心点重置
       // 否则和 LOCA 可视化等多个图层能力使用的时候会出现物体位置偏移的问题
-      customCoords.setCenter([116.472268, 39.995693]);
+      customCoords.setCenter([0, 0]);
       var {near, far, fov, up, lookAt, position} =
           customCoords.getCameraParams();
 
@@ -134,16 +133,16 @@ function handleLayerRender({map}: { map: AMap.Map, layer: AMap.GLCustomLayer, gl
     <button class="el-button" @click="visible=!visible">开/关点图层: {{ visible }}</button>
     <psr-a-map
         style="height: 100%;"
-        :map-zoom="14"
+        :map-zoom="13"
         :map-pitch="50"
         map-view-mode="3D"
         :map-features="['bg','road']"
-        :map-center="{lng:116.472268,lat:39.995693}"
+        :map-center="{lng:116.54, lat:39.79}"
     >
       <template #default="{map}">
         <psr-a-map-gl-custom-layer
             :a-map="map"
-            :layer-zoom-range="[10,20]"
+            :layer-zoom-range="[2,26]"
             :layer-visible="visible"
             :layer-z-index="130"
             @layer-init="handleLayerInit"

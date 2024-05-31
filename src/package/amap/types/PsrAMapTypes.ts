@@ -1,3 +1,5 @@
+import * as THREEJS from "three162";
+
 export namespace PsrAMapTypes {
     // 插件选项
     export interface Options {
@@ -117,5 +119,23 @@ export namespace PsrAMapTypes {
         offset: Pixel // 在大图中截取图标的偏移量
         imageSize: Size // 图标所用图片的尺寸
 
+    }
+
+    export namespace ThreeJsLayer {
+        export interface OnReadyParams {
+            amap: AMap.Map
+            customCoords: () => AMap.Map.CustomCoords
+            renderContext: RenderContext
+            render: () => void
+            THREE: typeof THREEJS
+        }
+
+        export interface RenderContext {
+            renderer: THREEJS.WebGLRenderer
+            camera: THREEJS.PerspectiveCamera | THREEJS.OrthographicCamera
+            scene: THREEJS.Scene
+        }
+
+        export type OnReadyHandler = (params: OnReadyParams) => void
     }
 }

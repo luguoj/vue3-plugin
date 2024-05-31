@@ -11,3 +11,9 @@ demo-preview=./Buildings.vue
 :::preview
 demo-preview=./GlCustom.vue
 :::
+
+## ThreeJs图层
+
+:::preview
+demo-preview=./ThreeJs.vue
+:::

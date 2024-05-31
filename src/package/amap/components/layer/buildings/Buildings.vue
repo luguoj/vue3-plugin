@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {onUnmounted, watchEffect} from "vue";
-import {PsrAMapContext} from "@psr-framework/vue3-plugin";
+import {PsrAMapContext} from "../../../plugins/PsrAMapContext.ts";
 
 const props = withDefaults(defineProps<{
   // 地图实例对象

@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import {PsrAMap, PsrAMapGlCustomLayer} from "@psr-framework/vue3-plugin";
 import {ref} from "vue";
-import THREE from "three162"
+import * as THREE from "three162"
+import textureUrl from "./texture.png?url"
 
 const visible = ref(true)
 
@@ -48,9 +49,7 @@ function handleLayerInit({map, gl}: { map: AMap.Map, layer: AMap.GLCustomLayer, 
     scene.add(dLight);
     scene.add(aLight);
 
-    var texture = new THREE.TextureLoader().load(
-        'https://a.amap.com/jsapi_demos/static/demo-center-v2/three.jpeg'
-    );
+    var texture = new THREE.TextureLoader().load(textureUrl);
     texture.minFilter = THREE.LinearFilter;
     //  这里可以使用 three 的各种材质
     var mat = new THREE.MeshPhongMaterial({

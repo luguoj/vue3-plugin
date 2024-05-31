@@ -86,6 +86,15 @@ export default defineConfig({
                                     link: '/reference/common/services/usePsrColorScheme'
                                 },
                             ]
+                        },
+                        {
+                            text:'组件',
+                            items:[
+                                {
+                                    text:'Markdown',
+                                    link:'/reference/common/components/markdown'
+                                }
+                            ]
                         }
                     ]
                 },

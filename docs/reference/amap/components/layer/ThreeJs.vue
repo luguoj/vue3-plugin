@@ -2,7 +2,10 @@
 import {PsrAMap, PsrAMapThreeJsLayer, PsrAMapTypes} from "@psr-framework/vue3-plugin";
 import {ref} from "vue";
 import * as THREE from "three162"
+import {GLTFLoader} from "three162/examples/jsm/loaders/GLTFLoader";
 import textureUrl from "./texture.png?url"
+import modelUrl from "./model.glb?url"
+import {PsrThreeDRACOLoader} from "./draco/DracoLoader.ts";
 
 const visible = ref(true)
 
@@ -25,7 +28,7 @@ function handleThreeJsReady(
   texture.minFilter = THREE.LinearFilter;
   //  这里可以使用 three 的各种材质
   var mat = new THREE.MeshPhongMaterial({
-    color: 0xfff0f0,
+    color: 0xffffff,
     depthTest: true,
     transparent: true,
     map: texture,
@@ -38,18 +41,36 @@ function handleThreeJsReady(
     mesh.position.set(d[0], d[1], 500);
     meshes.push({
       mesh,
-      count: i,
+      count: 30 * (i + 1),
     });
     scene.add(mesh);
   }
 
+  var dataModel = customCoords().lngLatToCoord(
+      [116.54, 39.83],
+  );
+  const loader = new GLTFLoader();
+  const dracoLoader = new PsrThreeDRACOLoader();
+  loader.setDRACOLoader(dracoLoader)
+  let modelMesh: any
+  loader.load(modelUrl, function (gltf) {
+    modelMesh = gltf.scene
+    modelMesh.position.set(dataModel[0], dataModel[1], 0);
+    modelMesh.rotation.set(Math.PI * 0.5, 0, 0)
+    modelMesh.scale.set(100, 100, 100)
+    scene.add(modelMesh)
+  })
+  const clock = new THREE.Clock();
+
   // 动画
   function animate() {
+    const delta = clock.getDelta();
+    console.log(delta)
     for (let i = 0; i < meshes.length; i++) {
       let {mesh, count} = meshes[i];
-      count += 1;
-      mesh.rotateZ((count / 180) * Math.PI);
+      mesh.rotateZ((count / 180) * Math.PI * delta);
     }
+    modelMesh?.rotateY((30 / 180) * Math.PI * delta)
     render();
     requestAnimationFrame(animate);
   }
@@ -68,7 +89,7 @@ function handleThreeJsReady(
         :map-pitch="50"
         map-view-mode="3D"
         :map-features="['bg','road']"
-        :map-center="{lng:116.54, lat:39.79}"
+        :map-center="{lng:116.54, lat:39.81}"
     >
       <template #default="{map}">
         <psr-a-map-three-js-layer

@@ -335,6 +335,44 @@ declare namespace AMap {
             dragend: Event<'dragend'>;
             resize: Event<'resize'>;
         }
+
+        export type CameraParams = CameraParams2D | CameraParams3D;
+
+        export interface CameraParams2D {
+            rotation: number;
+            fov: never;
+            near: number;
+            far: number;
+            top: number;
+            bottom: number;
+            left: number;
+            right: number;
+            position: [number, number, number];
+            lookAt: never;
+            up: never;
+        }
+
+        export interface CameraParams3D {
+            rotation: never;
+            fov: number;
+            near: number;
+            far: number;
+            top: never;
+            bottom: never;
+            left: never;
+            right: never;
+            position: [number, number, number];
+            lookAt: [number, number, number];
+            up: [number, number, number];
+        }
+
+        export type CustomCoords = {
+            setCenter(center: [number, number]): void;
+            getCenter(): [number, number];
+            lngLatToCoord(lngLat: [number, number]): [number, number];
+            lngLatsToCoords(lngLats: [number, number][]): [number, number][];
+            getCameraParams(): CameraParams
+        }
     }
 
     class Map extends EventEmitter {
@@ -703,36 +741,13 @@ declare namespace AMap {
         /**
          * @author PSR
          */
-        customCoords: {
-            setCenter(center: [number, number]): void;
-            getCenter(): [number, number];
-            lngLatToCoord(lngLat: [number, number]): [number, number];
-            lngLatsToCoords(lngLats: [number, number][]): [number, number][];
-            getCameraParams(): {
-                rotation: number;
-                fov: never;
-                near: number;
-                far: number;
-                top: number;
-                bottom: number;
-                left: number;
-                right: number;
-                position: [number, number, number];
-                lookAt: never;
-                up: never;
-            } | {
-                rotation: never;
-                fov: number;
-                near: number;
-                far: number;
-                top: never;
-                bottom: never;
-                left: never;
-                right: never;
-                position: [number, number, number];
-                lookAt: [number, number, number];
-                up: [number, number, number];
-            }
+        customCoords: Map.CustomCoords
+
+        /**
+         * @author PSR
+         */
+        getView(): {
+            type: '2D' | '3D'
         }
     }
 }

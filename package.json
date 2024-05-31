@@ -47,7 +47,7 @@
     "registry": "https://packages.aliyun.com/5ea982f438076f00011bc29a/npm/npm-registry/"
   },
   "files": [
-    "src/example",
+    "src/declares",
     "package.json",
     "README.md",
     "dist"

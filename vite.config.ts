@@ -2,7 +2,7 @@ import {defineConfig} from 'vite'
 import vue from '@vitejs/plugin-vue'
 import {resolve} from "path";
 import dts from 'vite-plugin-dts'
-import libCss from "vite-plugin-libcss"
+import {libInjectCss} from 'vite-plugin-lib-inject-css';
 import vueJsxPlugin from "@vitejs/plugin-vue-jsx";
 import {visualizer} from "rollup-plugin-visualizer";
 
@@ -10,7 +10,7 @@ export default defineConfig({
     plugins: [
         vue(),
         vueJsxPlugin(),
-        libCss(),
+        libInjectCss(),
         dts({
             exclude: ["src/example/**/*.vue", "src/example/**/*.ts", "docs"],
         }),
@@ -22,6 +22,7 @@ export default defineConfig({
         })
     ],
     build: {
+        cssCodeSplit: true,
         lib: {
             entry: resolve(__dirname, 'src/index.ts'),
             name: 'PsrPlugin',

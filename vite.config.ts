@@ -12,7 +12,7 @@ export default defineConfig({
         vueJsxPlugin(),
         libInjectCss(),
         dts({
-            exclude: ["src/example/**/*.vue", "src/example/**/*.ts", "docs"],
+            exclude: ["src/example", "docs", "vite.config.ts"],
         }),
         visualizer({
             open: false,
@@ -44,6 +44,8 @@ export default defineConfig({
                 'vue',
             ],
             output: {
+                chunkFileNames: "chunks/[name].[hash].js",
+                assetFileNames: "assets/[name].[hash].[ext]",
                 globals: {
                     // 在 UMD 构建模式下为这些外部化的依赖提供一个全局变量
                     vue: 'Vue'

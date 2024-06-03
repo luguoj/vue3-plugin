@@ -12,11 +12,13 @@ import {usePsrColorScheme} from "../../services";
 import {computed} from "vue";
 
 const props = withDefaults(defineProps<{
-  content: string
+  // markdown内容
+  markdownContent: string
 }>(), {
-  content: ''
+  markdownContent: ''
 })
 
+// 代码高亮
 const highlight = (str: string, lang: string): string => {
   if (lang && hljs.getLanguage(lang)) {
     try {
@@ -30,25 +32,39 @@ const highlight = (str: string, lang: string): string => {
   return `<pre><code class="hljs">${md.utils.escapeHtml(str)}</code></pre>`
 }
 
+// markdownIt实例
 const md: MarkdownIt = MarkdownIt({
+  // 启用语言中性替换和引号美化
   typographer: true,
+  // 启用代码高亮
   highlight,
 })
+
+// <ins>插入文本标签
 md.use(markdownItIns)
+// <mark>标记文本标签
 md.use(markdownItMark)
+// 上标文本
 md.use(markdownItSub)
+// 下标文本
 md.use(markdownItSup)
+// 脚注引用链接
 md.use(markdownItFootnote)
+// 定义列表
 md.use(markdownItDeflist)
+// 表情图标
 md.use(markdownItEmoji)
 
+// 应用元素样式渲染规则函数
 function useElClassRendererRules(md: MarkdownIt, elName: string, elClass: string) {
   md.renderer.rules[elName + "_open"] = function () {
     return `<${elName} class="${elClass}">\n`
   }
 }
 
+// 应用斑马纹表格样式
 useElClassRendererRules(md, 'table', 'table table-striped')
+// 应用引用块样式
 useElClassRendererRules(md, 'blockquote', 'blockquote')
 const colorScheme = usePsrColorScheme()
 
@@ -57,7 +73,7 @@ const html = computed(() => {
     <div class="psr-markdown-wrapper">
       <div style="height: 100%;" class="psr-markdown" data-bs-theme="${colorScheme.value}">
           <div class="text-body bg-body">
-              ${md.render(props.content)}
+              ${md.render(props.markdownContent)}
           </div>
       </div>
     </div>

@@ -257,7 +257,7 @@ It converts "HTML", but keep intact partial entries like "xxxHTMLyyy" and so on.
   <div style="height: 500px;">
     <el-input class="input" v-model="input" type="textarea" autosize
               style="width: 50%;height:100%;display: inline-block;" resize="none"/>
-    <psr-markdown :content="input" style="width: 50%;height:100%;display: inline-block;overflow: scroll;"/>
+    <psr-markdown :markdown-content="input" style="width: 50%;height:100%;display: inline-block;overflow: scroll;"/>
   </div>
 </template>
 

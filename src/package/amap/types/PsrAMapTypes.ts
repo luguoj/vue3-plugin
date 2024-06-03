@@ -1,5 +1,3 @@
-import * as THREEJS from "three162";
-
 export namespace PsrAMapTypes {
     // 插件选项
     export interface Options {
@@ -127,13 +125,13 @@ export namespace PsrAMapTypes {
             customCoords: () => AMap.Map.CustomCoords
             renderContext: RenderContext
             render: () => void
-            THREE: typeof THREEJS
+            THREE: typeof import("three162")
         }
 
         export interface RenderContext {
-            renderer: THREEJS.WebGLRenderer
-            camera: THREEJS.PerspectiveCamera | THREEJS.OrthographicCamera
-            scene: THREEJS.Scene
+            renderer: import("three162").WebGLRenderer
+            camera: import("three162").PerspectiveCamera | import("three162").OrthographicCamera
+            scene: import("three162").Scene
         }
 
         export type OnReadyHandler = (params: OnReadyParams) => void

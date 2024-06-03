@@ -1,15 +1,14 @@
-import * as THREEJS from "three162"
 import {PsrAMapTypes} from "../../../../types/PsrAMapTypes.ts"
 
-
+type THREE162 = typeof import("three162")
 export class ThreeJsContext {
     amap: AMap.Map
     viewMode: "3D" | "2D"
     customCoords: () => AMap.Map.CustomCoords
     onReadyHandler: PsrAMapTypes.ThreeJsLayer.OnReadyHandler
-    THREE: typeof THREEJS
+    THREE: THREE162
 
-    protected constructor(amap: AMap.Map, THREE: typeof THREEJS, onReady: PsrAMapTypes.ThreeJsLayer.OnReadyHandler) {
+    protected constructor(amap: AMap.Map, THREE: THREE162, onReady: PsrAMapTypes.ThreeJsLayer.OnReadyHandler) {
         this.amap = amap
         this.viewMode = amap.getView().type
         this.customCoords = () => {
@@ -50,13 +49,14 @@ export class ThreeJsContext {
     }
 
     render() {
+        const THREE = this.THREE
         if (this.renderContext) {
             const {renderer, camera, scene} = this.renderContext
             // 这里必须执行！！重新设置 three 的 gl 上下文状态。
             renderer.resetState();
             // 重新设置图层的渲染中心点，将模型等物体的渲染中心点重置
             // 否则和 LOCA 可视化等多个图层能力使用的时候会出现物体位置偏移的问题
-            if (camera instanceof THREEJS.PerspectiveCamera) {
+            if (camera instanceof THREE.PerspectiveCamera) {
                 const {
                     near,
                     far,
@@ -101,7 +101,7 @@ export class ThreeJsContext {
             onReady
         }: {
             amap: AMap.Map,
-            THREE: typeof THREEJS
+            THREE: THREE162
             onReady: PsrAMapTypes.ThreeJsLayer.OnReadyHandler
         }
     ) {

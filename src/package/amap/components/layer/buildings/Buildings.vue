@@ -62,10 +62,8 @@ watchEffect(() => {
     buildings.setZooms(props.layerZoomRange)
     buildings.setOpacity(props.layerOpacity)
     if (props.layerVisible) {
-      console.log("show")
       buildings.show()
     } else {
-      console.log("hide")
       buildings.hide()
     }
     buildings.setzIndex(props.layerZIndex)

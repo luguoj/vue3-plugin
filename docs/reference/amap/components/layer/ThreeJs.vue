@@ -65,7 +65,6 @@ function handleThreeJsReady(
   // 动画
   function animate() {
     const delta = clock.getDelta();
-    console.log(delta)
     for (let i = 0; i < meshes.length; i++) {
       let {mesh, count} = meshes[i];
       mesh.rotateZ((count / 180) * Math.PI * delta);

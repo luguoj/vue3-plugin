@@ -15,7 +15,7 @@ export default defineConfig({
             exclude: ["src/example/**/*.vue", "src/example/**/*.ts", "docs"],
         }),
         visualizer({
-            open: true,
+            open: false,
             gzipSize: true,
             brotliSize: true,
             filename: "rollup-stats.html"

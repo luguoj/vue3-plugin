@@ -41,6 +41,13 @@ export default defineConfig({
                 'three',
                 'three162',
                 "pinia",
+                "primeicons",
+                "primevue",
+                "primevue/datatable",
+                "primevue/treetable",
+                "primevue/api",
+                "primevue/config",
+                "primeflex",
                 'vue',
             ],
             output: {

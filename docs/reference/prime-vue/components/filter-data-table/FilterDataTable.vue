@@ -32,7 +32,7 @@ tableContext.load()
 </script>
 
 <template>
-  <div class="vp-raw" style="height:500px;">
+  <div style="height:500px;">
     <psr-prm-filter-data-table :table-context="tableContext">
       <pv-column field="id" header="ID" filterMatchMode="equals">
         <template #filter="{filterModel,filterCallback}">

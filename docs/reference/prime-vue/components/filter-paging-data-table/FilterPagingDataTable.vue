@@ -48,7 +48,7 @@ tableContext.load()
 </script>
 
 <template>
-  <div class="vp-raw" style="height:500px;">
+  <div style="height:500px;">
     <psr-prm-filter-paging-data-table :table-context="tableContext" @filter="tableContext.load()">
       <pv-column field="id" header="ID" :show-filter-menu="false">
         <template #filter="{filterModel,filterCallback}">

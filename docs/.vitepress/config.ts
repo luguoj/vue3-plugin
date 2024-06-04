@@ -146,6 +146,10 @@ export default defineConfig({
                     collapsed: false,
                     items: [
                         {
+                            text: '安装',
+                            link: '/reference/prime-vue/setup/'
+                        },
+                        {
                             text: '组件',
                             items: [
                                 {

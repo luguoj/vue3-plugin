@@ -38,6 +38,7 @@ export default defineConfig({
                 '@types/three162',
                 'element-plus',
                 'lodash',
+                'moment',
                 'three',
                 'three162',
                 "pinia",

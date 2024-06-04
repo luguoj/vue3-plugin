@@ -30,6 +30,13 @@ export default defineConfig({
                 'three',
                 'three162',
                 "pinia",
+                "primeicons",
+                "primevue",
+                "primevue/datatable",
+                "primevue/treetable",
+                "primevue/api",
+                "primevue/config",
+                "primeflex",
                 'vue',
             ]
         },
@@ -88,11 +95,11 @@ export default defineConfig({
                             ]
                         },
                         {
-                            text:'组件',
-                            items:[
+                            text: '组件',
+                            items: [
                                 {
-                                    text:'Markdown',
-                                    link:'/reference/common/components/markdown'
+                                    text: 'Markdown',
+                                    link: '/reference/common/components/markdown'
                                 }
                             ]
                         }
@@ -129,6 +136,21 @@ export default defineConfig({
                                 {
                                     text: 'vPsrElHScrollOnWheel',
                                     link: '/reference/element-plus/directives/vPsrElHScrollOnWheel'
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    text: 'Prime Vue扩展',
+                    collapsed: false,
+                    items: [
+                        {
+                            text: '组件',
+                            items: [
+                                {
+                                    text: '过滤数据表 FilterDataTable',
+                                    link: '/reference/prime-vue/components/filter-data-table/'
                                 }
                             ]
                         }

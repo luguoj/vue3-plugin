@@ -8,7 +8,8 @@ interface DataItem {
   code: string
 }
 
-const tableContext1 = PsrPrmFilterDataTableContext.create<DataItem>({
+const tableContext = PsrPrmFilterDataTableContext.create<DataItem>({
+  // 加载数据处理器
   loadDataHandler: () => {
     const data: DataItem[] = []
     for (let i = 0; i < 1000; i++) {
@@ -19,6 +20,7 @@ const tableContext1 = PsrPrmFilterDataTableContext.create<DataItem>({
     }
     return Promise.resolve(data)
   },
+  // 过滤器默认值
   defaultFilters: () => {
     return {
       'id': '',
@@ -26,12 +28,12 @@ const tableContext1 = PsrPrmFilterDataTableContext.create<DataItem>({
     }
   }
 })
-tableContext1.load()
+tableContext.load()
 </script>
 
 <template>
   <div class="vp-raw" style="height:500px;">
-    <psr-prm-filter-data-table :table-context="tableContext1">
+    <psr-prm-filter-data-table :table-context="tableContext">
       <pv-column field="id" header="ID" filterMatchMode="equals">
         <template #filter="{filterModel,filterCallback}">
           <pv-input v-model="filterModel.value" @change="filterCallback()" type="text"/>
@@ -45,6 +47,3 @@ tableContext1.load()
     </psr-prm-filter-data-table>
   </div>
 </template>
-
-<style scoped>
-</style>

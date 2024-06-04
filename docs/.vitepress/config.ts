@@ -149,8 +149,12 @@ export default defineConfig({
                             text: '组件',
                             items: [
                                 {
-                                    text: '过滤数据表 FilterDataTable',
+                                    text: '过滤数据表',
                                     link: '/reference/prime-vue/components/filter-data-table/'
+                                },
+                                {
+                                    text: '过滤分页数据表',
+                                    link: '/reference/prime-vue/components/filter-paging-data-table/'
                                 }
                             ]
                         }

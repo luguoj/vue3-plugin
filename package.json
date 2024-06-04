@@ -44,6 +44,7 @@
     "markdown-it-mark": "^4.0.0",
     "markdown-it-sub": "^2.0.0",
     "markdown-it-sup": "^2.0.0",
+    "postcss": "^8.4.38",
     "rollup-plugin-visualizer": "^5.12.0",
     "sass": "^1.74.1",
     "sass-loader": "^14.1.1",

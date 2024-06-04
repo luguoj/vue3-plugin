@@ -1,6 +1,5 @@
 <template>
   <TreeTable
-      class="p-treetable-sm"
       :scrollable="true"
       scrollHeight="flex"
       scrollDirection="both"
@@ -22,13 +21,3 @@ defineProps<{
   tableContext: PsrPrmFilterTreeTableContext<any>
 }>()
 </script>
-
-<style>
-.p-treetable.p-treetable-sm .p-treetable-header {
-  padding: 0.5rem;
-}
-
-.p-treetable-scrollable .p-treetable-thead {
-  z-index: 2 !important;
-}
-</style>

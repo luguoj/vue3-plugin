@@ -155,6 +155,10 @@ export default defineConfig({
                                 {
                                     text: '过滤分页数据表',
                                     link: '/reference/prime-vue/components/filter-paging-data-table/'
+                                },
+                                {
+                                    text: '过滤树形表',
+                                    link: '/reference/prime-vue/components/filter-tree-table/'
                                 }
                             ]
                         }

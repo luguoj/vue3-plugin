@@ -1,14 +1,19 @@
+import {PsrLogger, PsrLoggerTypes} from "@psr-framework/vue3-plugin";
 import {ElMessage, ElNotification} from "element-plus"
 import "element-plus/es/components/message/style/css"
 import "element-plus/es/components/notification/style/css"
-import {PsrLogger, PsrLoggerTypes} from "../package";
 
+// 扩展日志消息选项类型
 export interface LogOptions extends PsrLoggerTypes.LogOptions {
+    // toast消息
     toast?: boolean
+    // 提示消息
     notify?: boolean
+    // 日志采集
     log?: boolean
 }
 
+// 根据不同级别采用不同的日志消息选项
 function optionsByLevel(level: PsrLoggerTypes.LogLevel): LogOptions | undefined {
     switch (level) {
         case "info":
@@ -36,6 +41,7 @@ function optionsByLevel(level: PsrLoggerTypes.LogLevel): LogOptions | undefined 
     }
 }
 
+// 模拟日志采集服务
 const logApi: PsrLoggerTypes.Subscriber<LogOptions> = (logObj: PsrLoggerTypes.Log, {log}) => {
     if (log) {
         setTimeout(() => {
@@ -43,27 +49,11 @@ const logApi: PsrLoggerTypes.Subscriber<LogOptions> = (logObj: PsrLoggerTypes.Lo
         }, 1000)
     }
 }
+
+// toast消息处理
 const toastOut: PsrLoggerTypes.Subscriber<LogOptions> = ({message}, {toast, topic}) => {
     if (toast) {
-        switch (topic) {
-            case "info":
-            case "debug":
-                ElMessage({message})
-                break
-            case "success":
-                ElMessage({message, type: 'success'})
-                break
-            case "warn":
-                ElMessage({message, type: 'warning'})
-                break
-            case "error":
-                ElMessage({message, type: 'error'})
-                break
-        }
-    }
-}
-const notifyOut: PsrLoggerTypes.Subscriber<LogOptions> = ({message}, {notify, topic}) => {
-    if (notify) {
+        // 可根据级别实现不同的效果
         switch (topic) {
             case "info":
             case "debug":
@@ -81,9 +71,32 @@ const notifyOut: PsrLoggerTypes.Subscriber<LogOptions> = ({message}, {notify, to
         }
     }
 }
+// 提示消息处理
+const notifyOut: PsrLoggerTypes.Subscriber<LogOptions> = ({message}, {notify, topic}) => {
+    if (notify) {
+        switch (topic) {
+            case "info":
+            case "debug":
+                ElMessage({message})
+                break
+            case "success":
+                ElMessage({message, type: 'success'})
+                break
+            case "warn":
+                ElMessage({message, type: 'warning'})
+                break
+            case "error":
+                ElMessage({message, type: 'error'})
+                break
+        }
+    }
+}
 
 export const logger = PsrLogger.create({
+    // 启用调试，启用后所有消息将在控制台输出
     debugging: true,
+    // 消息级别对应选项定义
     optionsByLevel,
+    // 订阅消息的处理器
     subscribers: [toastOut, notifyOut, logApi]
 })

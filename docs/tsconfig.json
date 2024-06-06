@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "composite": true,
     "target": "ES2020",
     "useDefineForClassFields": true,
     "module": "ESNext",
@@ -14,27 +15,23 @@
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
     "jsx": "preserve",
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": false,
     "noFallthroughCasesInSwitch": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "paths": {
+      "@psr-framework/vue3-plugin": [
+        "../src"
+      ]
+    }
   },
   "include": [
-    "src/**/*.ts",
-    "src/**/*.d.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue"
-  ],
-  "references": [
-    {
-      "path": "./tsconfig.node.json"
-    },
-    {
-      "path": "./docs/tsconfig.json"
-    }
+    "./**/*.ts",
+    "./**/*.d.ts",
+    "./**/*.tsx",
+    "./**/*.vue"
   ]
 }

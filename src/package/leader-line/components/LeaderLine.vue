@@ -5,78 +5,72 @@
 </template>
 
 <script lang="ts" setup>
-import {computed, markRaw, onUnmounted, ref, watch} from "vue";
-import LeaderLine from "leader-line-new";
+import {markRaw, onMounted, onUnmounted, ref, watch} from "vue";
 import {PsrLeaderLineTypes} from "../types";
 
-(LeaderLine as any).positionByWindowResize = false
-
 const props = defineProps<{
-  leaderLineStart?: PsrLeaderLineTypes.Element
-  leaderLineEnd?: PsrLeaderLineTypes.Element,
+  // 引导线起点
+  leaderLineStart: PsrLeaderLineTypes.Element
+  // 引导线终点
+  leaderLineEnd: PsrLeaderLineTypes.Element,
+  // 引导线起点锚点
   leaderLinePointAnchorStart?: Omit<PsrLeaderLineTypes.PointAnchorOptions, 'element'>,
+  // 引导线终点锚点
   leaderLinePointAnchorEnd?: Omit<PsrLeaderLineTypes.PointAnchorOptions, 'element'>,
+  // 引导线起点锚点区域
   leaderLineAreaAnchorStart?: Omit<PsrLeaderLineTypes.AreaAnchorOptions, 'element'>,
+  // 引导线终点锚点区域
   leaderLineAreaAnchorEnd?: Omit<PsrLeaderLineTypes.AreaAnchorOptions, 'element'>,
+  // 引导线起点锚点鼠标悬停选项
   leaderLineHoverAnchorStart?: Omit<PsrLeaderLineTypes.MouseHoverAnchorOptions, 'element'>,
+  // 引导线终点锚点鼠标悬停选项
   leaderLineHoverAnchorEnd?: Omit<PsrLeaderLineTypes.MouseHoverAnchorOptions, 'element'>,
+  // 引导线选项
   leaderLineOptions?: PsrLeaderLineTypes.Options
+  // 引导线隐藏
   leaderLineHide?: boolean
+  // 引导线显示效果
   leaderLineShowEffect?: { name: PsrLeaderLineTypes.ShowEffectName, options?: PsrLeaderLineTypes.AnimationOptions }
 }>()
 
+// 引导线渲染画布
 const canvasRef = ref<HTMLDivElement>()
-const line = ref<[LeaderLine, HTMLElement]>()
+// 引导线实例与SVG元素引用
+const line = ref<[any, HTMLElement]>()
+// 修正位置定时器
 let fixPosInt: NodeJS.Timeout;
 
+onMounted(() => {
+  // 异步加载leader-line-new
+  import("leader-line-new").then(Module => {
+    // 禁用自动调整位置
+    (Module.default as any).positionByWindowResize = false
+
+    // 监控引导线端点变化
+    watch(() => ({start: props.leaderLineStart, end: props.leaderLineEnd}), leaderLinePoints => {
+      // 销毁旧的引导线
+      eraseLine()
+      // 定时检查端点的元素是否已经附加到文档中，进行绘制，并清除定时器
+      const drawInt = setInterval(() => {
+        if (ifPointElAttached()) {
+          try {
+            drawLine(Module.default)
+          } finally {
+            clearInterval(drawInt)
+          }
+        }
+      }, 100)
+    }, {deep: true, immediate: true})
+  })
+})
+
+// 组件卸载时销毁引导线
 onUnmounted(() => {
   eraseLine()
 })
 
-const leaderLinePoints = computed(() => ({start: props.leaderLineStart, end: props.leaderLineEnd}))
-watch(leaderLinePoints, leaderLinePoints => {
-  eraseLine()
-  if (leaderLinePoints.start && leaderLinePoints.end) {
-    const drawInt = setInterval(() => {
-      if (ifPointElAttached()) {
-        try {
-          drawLine()
-        } finally {
-          clearInterval(drawInt)
-        }
-      }
-    }, 100)
-  }
-})
-watch(() => props.leaderLineHide, hide => {
-  if (line.value) {
-    if (hide) {
-      line.value[0].hide(props.leaderLineShowEffect?.name, props.leaderLineShowEffect?.options)
-    } else {
-      line.value[0].show(props.leaderLineShowEffect?.name, props.leaderLineShowEffect?.options)
-    }
-  }
-})
-
-function eraseLine() {
-  if (fixPosInt) {
-    clearInterval(fixPosInt)
-  }
-  if (line.value) {
-    if (canvasRef.value) {
-      canvasRef.value?.removeChild(line.value[1])
-    }
-    line.value = undefined
-  }
-}
-
-function ifPointElAttached() {
-  return props.leaderLineStart && props.leaderLineEnd
-      && !(props.leaderLineStart.compareDocumentPosition(document) & Node.DOCUMENT_POSITION_DISCONNECTED)
-      && !(props.leaderLineEnd.compareDocumentPosition(document) & Node.DOCUMENT_POSITION_DISCONNECTED)
-}
-
-function drawLine() {
+// 绘制引导线
+function drawLine(LeaderLine: typeof import("leader-line-new")) {
   if (props.leaderLineStart && props.leaderLineEnd && canvasRef.value) {
     let startElement: PsrLeaderLineTypes.Element | PsrLeaderLineTypes.AnchorAttachment = props.leaderLineStart
     if (props.leaderLinePointAnchorStart) {
@@ -111,6 +105,41 @@ function drawLine() {
   }
 }
 
+// 监控引导线显隐变化
+watch(() => props.leaderLineHide, hide => {
+  // 如果引导线已经绘制，则根据显隐属性控制显隐
+  if (line.value) {
+    if (hide) {
+      line.value[0].hide(props.leaderLineShowEffect?.name, props.leaderLineShowEffect?.options)
+    } else {
+      line.value[0].show(props.leaderLineShowEffect?.name, props.leaderLineShowEffect?.options)
+    }
+  }
+})
+
+// 销毁引导线
+function eraseLine() {
+  // 停止修正位置定时器
+  if (fixPosInt) {
+    clearInterval(fixPosInt)
+  }
+  // 销毁引导线
+  if (line.value) {
+    if (canvasRef.value) {
+      canvasRef.value?.removeChild(line.value[1])
+    }
+    line.value = undefined
+  }
+}
+
+// 判断端点元素是否已经挂载到文档中
+function ifPointElAttached() {
+  return props.leaderLineStart && props.leaderLineEnd
+      && !(props.leaderLineStart.compareDocumentPosition(document) & Node.DOCUMENT_POSITION_DISCONNECTED)
+      && !(props.leaderLineEnd.compareDocumentPosition(document) & Node.DOCUMENT_POSITION_DISCONNECTED)
+}
+
+// 修正位置
 function fixPosition() {
   if (canvasRef.value) {
     canvasRef.value.style.transform = 'translate(' +

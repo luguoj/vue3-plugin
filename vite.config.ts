@@ -36,6 +36,7 @@ export default defineConfig({
                 "@psr-framework/typescript-utils",
                 '@types/three',
                 '@types/three162',
+                'echarts',
                 'element-plus',
                 'lodash',
                 'moment',

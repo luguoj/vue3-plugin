@@ -25,6 +25,7 @@ export default defineConfig({
                 "@psr-framework/typescript-utils",
                 '@types/three',
                 '@types/three162',
+                'echarts',
                 'element-plus',
                 'lodash',
                 'three',
@@ -180,6 +181,16 @@ export default defineConfig({
                                 }
                             ]
                         },
+                    ]
+                },
+                {
+                    text: 'Apache Echarts',
+                    collapsed: false,
+                    items: [
+                        {
+                            text: '图表渲染',
+                            link: '/reference/echarts/'
+                        }
                     ]
                 },
                 {

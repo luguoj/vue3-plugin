@@ -203,6 +203,10 @@ export default defineConfig({
                             link: '/reference/messenger/logger/'
                         }
                     ]
+                },
+                {
+                    text: '引导线',
+                    link: '/reference/leader-line/'
                 }
             ],
         },

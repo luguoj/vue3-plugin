@@ -47,6 +47,7 @@
     "markdown-it-sup": "^2.0.0",
     "postcss": "^8.4.38",
     "rollup-plugin-visualizer": "^5.12.0",
+    "leader-line-new": "^1.1.9",
     "sass": "^1.74.1",
     "sass-loader": "^14.1.1",
     "typescript": "^5.4.5",

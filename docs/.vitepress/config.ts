@@ -197,6 +197,10 @@ export default defineConfig({
                         {
                             text: '拖拽缩放',
                             link: '/reference/drag-resize/'
+                        },
+                        {
+                            text: '天气',
+                            link: '/reference/weather/'
                         }
                     ]
                 },

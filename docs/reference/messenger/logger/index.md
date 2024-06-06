@@ -9,3 +9,9 @@
 :::preview
 demo-preview=./LoggerSample.vue
 :::
+
+### 渲染消息记录
+
+:::preview
+demo-preview=./MessageList.vue
+:::

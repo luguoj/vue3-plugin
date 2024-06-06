@@ -1,21 +1,26 @@
 <template>
-  <el-scrollbar ref="scrollbarRef" view-style="padding: 1rem;">
-    <el-timeline style="padding-inline-start: 0;">
-      <el-timeline-item
-          v-for="(message,index) in messages" :key="index"
-          :timestamp="getTimestamp(message.time)"
-          :type="getType(message.topic)"
-          :icon="getIcon(message.topic)"
-          placement="top"
-          center
-          size="large"
-      >
-        <el-card :class="`message-card-${message.topic}`">
-          {{ message.message }}
-        </el-card>
-      </el-timeline-item>
-    </el-timeline>
-  </el-scrollbar>
+  <div style="height:500px;">
+    <button @click="msg.clear()">清空</button>
+    <el-scrollbar ref="scrollbarRef" view-style="padding: 1rem;">
+      <el-timeline style="padding-inline-start: 0;">
+        <el-timeline-item
+            v-for="(message,index) in messages" :key="index"
+            :timestamp="getTimestamp(message.time)"
+            :type="getType(message.topic)"
+            :icon="getIcon(message.topic)"
+            placement="top"
+            center
+            size="large"
+        >
+          <el-card :class="`message-card-${message.topic}`">
+            <h1>message content: {{ message.message }}</h1>
+            <h4>source at: {{ message.owner?.source }}</h4>
+            <h4>method: {{ message.owner?.method }}</h4>
+          </el-card>
+        </el-timeline-item>
+      </el-timeline>
+    </el-scrollbar>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -27,12 +32,14 @@ import "element-plus/es/components/timeline-item/style/css"
 import "element-plus/es/components/card/style/css"
 import {CircleCloseFilled, InfoFilled, QuestionFilled, SuccessFilled, WarningFilled} from "@element-plus/icons-vue"
 import moment from "moment";
-import {PsrLogger, PsrLoggerTypes} from "../../../package";
+import {PsrLogger, PsrLoggerTypes} from "@psr-framework/vue3-plugin";
 
 
 const scrollbarRef = ref<ScrollbarInstance>()
 
+// 获取全局日志服务
 const msg = PsrLogger.useLog()
+// 获取消息记录
 const messages = msg.messages
 
 watch(messages, () => {

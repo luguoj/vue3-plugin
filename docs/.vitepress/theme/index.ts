@@ -2,7 +2,7 @@ import {App} from "vue";
 import DefaultTheme from 'vitepress/theme'
 import {ElementPlusContainer} from '@vitepress-demo-preview/component'
 import '@vitepress-demo-preview/component/dist/style.css'
-import {PsrAMapContext, usePsrPrimeVue} from "@psr-framework/vue3-plugin";
+import {PsrAMapContext, usePsrElementPlus, usePsrPrimeVue} from "@psr-framework/vue3-plugin";
 
 export default {
     ...DefaultTheme,
@@ -13,5 +13,6 @@ export default {
             version: '2.0'
         }))
         app.use(usePsrPrimeVue())
+        app.use(usePsrElementPlus())
     }
 }

@@ -193,6 +193,10 @@ export default defineConfig({
                         {
                             text: '引导线',
                             link: '/reference/leader-line/'
+                        },
+                        {
+                            text: '拖拽缩放',
+                            link: '/reference/drag-resize/'
                         }
                     ]
                 },

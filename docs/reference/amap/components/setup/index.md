@@ -1,4 +1,4 @@
-# 高德地图插件
+# 安装设置
 
 ## 1. 初始化高德地图上下文
 
@@ -25,11 +25,11 @@ createApp(App).use(amapCtx).mount('#app')
 ## 2. 使用API渲染地图
 
 :::preview
-demo-preview=./example/RenderMapByApi.vue
+demo-preview=./RenderMapByApi.vue
 :::
 
 ## 3. 使用组件渲染地图
 
 :::preview
-demo-preview=./example/RenderMapByComponent.vue
+demo-preview=./RenderMapByComponent.vue
 :::

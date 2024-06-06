@@ -8,7 +8,7 @@ import markdownItFootnote from "markdown-it-footnote"
 import markdownItDeflist from "markdown-it-deflist"
 import {full as markdownItEmoji} from "markdown-it-emoji"
 import hljs from 'highlight.js'
-import {usePsrColorScheme} from "../../services";
+import {usePsrColorScheme} from "../dom-utils";
 import {computed} from "vue";
 
 const props = withDefaults(defineProps<{

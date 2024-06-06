@@ -52,24 +52,12 @@ export default defineConfig({
 
         sidebar: {
             '/guide/': [
-                {
-                    text: 'pinia持久化',
-                    collapsed: false,
-                    items: [{
-                        text: '开始',
-                        link: '/guide/pinia-persist/'
-                    }]
-                },
-                {
-                    text: '高德地图插件',
-                    link: '/guide/amap/'
-                },
                 {text: 'Markdown Examples', link: '/guide/markdown-examples'},
                 {text: 'Runtime API Examples', link: '/guide/api-examples'}
             ],
             '/reference/': [
                 {
-                    text: '公用模块',
+                    text: 'DOM工具',
                     collapsed: false,
                     items: [
                         {
@@ -77,11 +65,11 @@ export default defineConfig({
                             items: [
                                 {
                                     text: 'vPsrMutationObserver',
-                                    link: '/reference/common/directives/vPsrMutationObserver'
+                                    link: '/reference/dom-utils/directives/vPsrMutationObserver'
                                 },
                                 {
                                     text: 'vPsrResizeObserver',
-                                    link: '/reference/common/directives/vPsrResizeObserver'
+                                    link: '/reference/dom-utils/directives/vPsrResizeObserver'
                                 },
                             ]
                         },
@@ -90,17 +78,8 @@ export default defineConfig({
                             items: [
                                 {
                                     text: 'usePsrColorScheme',
-                                    link: '/reference/common/services/usePsrColorScheme'
+                                    link: '/reference/dom-utils/services/usePsrColorScheme'
                                 },
-                            ]
-                        },
-                        {
-                            text: '组件',
-                            items: [
-                                {
-                                    text: 'Markdown',
-                                    link: '/reference/common/components/markdown'
-                                }
                             ]
                         }
                     ]
@@ -169,28 +148,51 @@ export default defineConfig({
                     ]
                 },
                 {
-                    text: '高德地图组件',
+                    text: '高德地图',
                     collapsed: false,
                     items: [
                         {
-                            text: '地图',
-                            link: '/reference/amap/components/map/',
+                            text: '安装',
+                            link: '/reference/amap/components/setup/'
                         },
                         {
-                            text: '信息窗体',
-                            link: '/reference/amap/components/info-window/',
+                            text: '组件',
+                            items: [
+                                {
+                                    text: '地图',
+                                    link: '/reference/amap/components/map/',
+                                },
+                                {
+                                    text: '信息窗体',
+                                    link: '/reference/amap/components/info-window/',
+                                },
+                                {
+                                    text: '点标记',
+                                    link: '/reference/amap/components/marker/',
+                                },
+                                {
+                                    text: '点标记聚合',
+                                    link: '/reference/amap/components/marker-cluster/',
+                                },
+                                {
+                                    text: '图层',
+                                    link: '/reference/amap/components/layer/',
+                                }
+                            ]
+                        },
+                    ]
+                },
+                {
+                    text: '组件',
+                    collapsed: false,
+                    items: [
+                        {
+                            text: 'Markdown',
+                            link: '/reference/markdown/'
                         },
                         {
-                            text: '点标记',
-                            link: '/reference/amap/components/marker/',
-                        },
-                        {
-                            text: '点标记聚合',
-                            link: '/reference/amap/components/marker-cluster/',
-                        },
-                        {
-                            text: '图层',
-                            link: '/reference/amap/components/layer/',
+                            text: '引导线',
+                            link: '/reference/leader-line/'
                         }
                     ]
                 },
@@ -205,9 +207,13 @@ export default defineConfig({
                     ]
                 },
                 {
-                    text: '引导线',
-                    link: '/reference/leader-line/'
-                }
+                    text: 'pinia持久化',
+                    collapsed: false,
+                    items: [{
+                        text: '安装',
+                        link: '/reference/pinia-persist/'
+                    }]
+                },
             ],
         },
 

@@ -34,6 +34,3 @@ function onClick() {
   }
 }
 </script>
-<style scoped>
-
-</style>

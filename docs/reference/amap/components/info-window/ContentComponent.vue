@@ -17,7 +17,3 @@ onUnmounted(() => {
 <template>
   <span>{{ num }}</span>
 </template>
-
-<style scoped>
-
-</style>

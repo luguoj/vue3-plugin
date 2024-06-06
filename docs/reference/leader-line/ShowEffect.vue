@@ -36,7 +36,3 @@ const lineOptions: PsrLeaderLineTypes.Options = {
 
 const anchorOptions: PsrLeaderLineTypes.PointAnchorOptions = {}
 </script>
-
-<style scoped>
-
-</style>

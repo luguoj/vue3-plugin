@@ -16,7 +16,3 @@ function restore() {
   store.$restore()
 }
 </script>
-
-<style scoped>
-
-</style>

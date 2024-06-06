@@ -23,8 +23,4 @@ function buttonAction(result: any) {
   console.log(result)
   return new Promise(resolve => setTimeout(resolve, 3000))
 }
-
 </script>
-<style scoped>
-
-</style>

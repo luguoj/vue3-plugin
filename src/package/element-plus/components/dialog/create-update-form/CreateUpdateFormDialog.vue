@@ -95,7 +95,3 @@ function beforeClose() {
   }
 }
 </script>
-
-<style scoped>
-
-</style>

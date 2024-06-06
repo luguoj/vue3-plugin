@@ -193,6 +193,16 @@ export default defineConfig({
                             link: '/reference/amap/components/layer/',
                         }
                     ]
+                },
+                {
+                    text: '全局消息',
+                    collapsed: false,
+                    items: [
+                        {
+                            text: '全局日志',
+                            link: '/reference/messenger/logger/'
+                        }
+                    ]
                 }
             ],
         },

@@ -20,6 +20,36 @@ export default defineConfig({
         },
         ssr: {
             noExternal: [
+                '@antv/algorithm',
+                '@antv/layout',
+                '@antv/g-base',
+                '@antv/g-canvas',
+                '@antv/g-webgpu-engine',
+                '@antv/g-svg',
+                '@antv/g6',
+                '@antv/util',
+                '@antv/g6-pc',
+                '@antv/g6-element',
+                '@antv/g6-core',
+                '@antv/g6-plugin',
+                '@element-plus/icons-vue',
+                '@pansy/amap-types',
+                "@psr-framework/typescript-utils",
+                '@types/three',
+                '@types/three162',
+                'echarts',
+                '@antv/algorithm',
+                '@antv/layout',
+                '@antv/g-base',
+                '@antv/g-canvas',
+                '@antv/g-webgpu-engine',
+                '@antv/g-svg',
+                '@antv/g6',
+                '@antv/util',
+                '@antv/g6-pc',
+                '@antv/g6-element',
+                '@antv/g6-core',
+                '@antv/g6-plugin',
                 '@element-plus/icons-vue',
                 '@pansy/amap-types',
                 "@psr-framework/typescript-utils",
@@ -28,6 +58,7 @@ export default defineConfig({
                 'echarts',
                 'element-plus',
                 'lodash',
+                'moment',
                 'three',
                 'three162',
                 "pinia",
@@ -40,7 +71,7 @@ export default defineConfig({
                 "primeflex",
                 'vue',
             ]
-        },
+        }
     },
     title: "PSR Vue3 Plugin",
     description: "PSR Vue3 插件",
@@ -181,6 +212,30 @@ export default defineConfig({
                                 }
                             ]
                         },
+                    ]
+                },
+                {
+                    text: 'AntV-G6',
+                    collapsed: false,
+                    items: [
+                        {
+                            text: '安装',
+                            link: '/reference/antv-g6/setup/'
+                        },
+                        {
+                            text: '图形扩展',
+                            link: '/reference/antv-g6/shape-extension/',
+                            items: [
+                                {
+                                    text: '内置边扩展类型',
+                                    link: '/reference/antv-g6/shape-extension/build-in-edge-extensions/'
+                                },
+                                {
+                                    text: '内置节点扩展类型',
+                                    link: '/reference/antv-g6/shape-extension/build-in-node-extensions/'
+                                },
+                            ]
+                        }
                     ]
                 },
                 {

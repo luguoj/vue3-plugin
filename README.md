@@ -41,3 +41,5 @@
 ## 天气组件
 
 ## Apache Echarts组件
+
+## Vue 3 插件 Antv G6

@@ -2,7 +2,7 @@ import {App} from "vue";
 import DefaultTheme from 'vitepress/theme'
 import {ElementPlusContainer} from '@vitepress-demo-preview/component'
 import '@vitepress-demo-preview/component/dist/style.css'
-import {PsrAMapContext, usePsrElementPlus, usePsrPrimeVue} from "@psr-framework/vue3-plugin";
+import {PsrAMapContext, usePsrElementPlus, usePsrPrimeVue, PsrAntvG6} from "@psr-framework/vue3-plugin";
 import {logger} from "./LoggerService.ts";
 
 export default {
@@ -16,5 +16,6 @@ export default {
         app.use(usePsrPrimeVue())
         app.use(usePsrElementPlus())
         app.use(logger)
+        app.use(PsrAntvG6.create())
     }
 }

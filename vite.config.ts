@@ -31,6 +31,18 @@ export default defineConfig({
         rollupOptions: {
             // 确保外部化处理那些你不想打包进库的依赖
             external: [
+                '@antv/algorithm',
+                '@antv/layout',
+                '@antv/g-base',
+                '@antv/g-canvas',
+                '@antv/g-webgpu-engine',
+                '@antv/g-svg',
+                '@antv/g6',
+                '@antv/util',
+                '@antv/g6-pc',
+                '@antv/g6-element',
+                '@antv/g6-core',
+                '@antv/g6-plugin',
                 '@element-plus/icons-vue',
                 '@pansy/amap-types',
                 "@psr-framework/typescript-utils",

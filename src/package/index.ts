@@ -2,6 +2,7 @@ export * from "./dom-utils";
 export * from "./pinia-persist";
 export * from "./element-plus";
 export * from "./prime-vue";
+export * from "./antv-g6"
 export * from "./amap";
 export * from "./messenger"
 export * from "./leader-line"

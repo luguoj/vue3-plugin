@@ -27,6 +27,7 @@ package-lock.json
 # vitepress
 docs/.vitepress/dist
 docs/.vitepress/cache
+docs/.vitepress/.temp
 
 # rollup visualizer
 rollup-stats.html

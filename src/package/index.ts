@@ -10,3 +10,4 @@ export * from "./markdown"
 export * from './drag-resize'
 export * from "./weather"
 export * from "./echarts"
+export * from "./joint"

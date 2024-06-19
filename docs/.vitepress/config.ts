@@ -90,7 +90,7 @@ export default defineConfig({
             '/reference/': [
                 {
                     text: 'DOM工具',
-                    collapsed: false,
+                    collapsed: true,
                     items: [
                         {
                             text: '指令',
@@ -117,8 +117,52 @@ export default defineConfig({
                     ]
                 },
                 {
+                    text: '组件',
+                    collapsed: true,
+                    items: [
+                        {
+                            text: 'Markdown',
+                            link: '/reference/markdown/'
+                        },
+                        {
+                            text: '引导线',
+                            link: '/reference/leader-line/'
+                        },
+                        {
+                            text: '拖拽缩放',
+                            link: '/reference/drag-resize/'
+                        },
+                        {
+                            text: '天气',
+                            link: '/reference/weather/'
+                        },
+                        {
+                            text: 'Joint',
+                            link: '/reference/joint/'
+                        }
+                    ]
+                },
+                {
+                    text: '全局消息',
+                    collapsed: true,
+                    items: [
+                        {
+                            text: '全局日志',
+                            link: '/reference/messenger/logger/'
+                        }
+                    ]
+                },
+                {
+                    text: 'pinia持久化',
+                    collapsed: true,
+                    items: [{
+                        text: '安装',
+                        link: '/reference/pinia-persist/'
+                    }]
+                },
+                {
                     text: 'ElementPlus扩展',
-                    collapsed: false,
+                    collapsed: true,
                     items: [
                         {
                             text: '组件',
@@ -154,7 +198,7 @@ export default defineConfig({
                 },
                 {
                     text: 'Prime Vue扩展',
-                    collapsed: false,
+                    collapsed: true,
                     items: [
                         {
                             text: '安装',
@@ -181,7 +225,7 @@ export default defineConfig({
                 },
                 {
                     text: '高德地图',
-                    collapsed: false,
+                    collapsed: true,
                     items: [
                         {
                             text: '安装',
@@ -216,7 +260,7 @@ export default defineConfig({
                 },
                 {
                     text: 'AntV-G6',
-                    collapsed: false,
+                    collapsed: true,
                     items: [
                         {
                             text: '安装',
@@ -240,53 +284,13 @@ export default defineConfig({
                 },
                 {
                     text: 'Apache Echarts',
-                    collapsed: false,
+                    collapsed: true,
                     items: [
                         {
                             text: '图表渲染',
                             link: '/reference/echarts/'
                         }
                     ]
-                },
-                {
-                    text: '组件',
-                    collapsed: false,
-                    items: [
-                        {
-                            text: 'Markdown',
-                            link: '/reference/markdown/'
-                        },
-                        {
-                            text: '引导线',
-                            link: '/reference/leader-line/'
-                        },
-                        {
-                            text: '拖拽缩放',
-                            link: '/reference/drag-resize/'
-                        },
-                        {
-                            text: '天气',
-                            link: '/reference/weather/'
-                        }
-                    ]
-                },
-                {
-                    text: '全局消息',
-                    collapsed: false,
-                    items: [
-                        {
-                            text: '全局日志',
-                            link: '/reference/messenger/logger/'
-                        }
-                    ]
-                },
-                {
-                    text: 'pinia持久化',
-                    collapsed: false,
-                    items: [{
-                        text: '安装',
-                        link: '/reference/pinia-persist/'
-                    }]
                 },
             ],
         },

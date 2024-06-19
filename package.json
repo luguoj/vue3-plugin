@@ -57,7 +57,9 @@
     "vite-plugin-dts": "^3.8.1",
     "vite-plugin-lib-inject-css": "^2.1.1",
     "vitepress": "^1.1.4",
-    "vue-tsc": "^2.0.12"
+    "vue-tsc": "^2.0.12",
+    "@types/backbone": "^1.4.17",
+    "jointjs": "^3.7.6"
   },
   "author": "zhoudingding",
   "description": "vue3.x 插件",

@@ -166,6 +166,10 @@ export default defineConfig({
                     collapsed: true,
                     items: [
                         {
+                            text: '安装',
+                            link: '/reference/element-plus/setup/'
+                        },
+                        {
                             text: '组件',
                             items: [
                                 {

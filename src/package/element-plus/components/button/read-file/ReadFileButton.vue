@@ -23,8 +23,6 @@
 <script setup lang="ts">
 import {ref} from "vue";
 import {ElButton, ElUpload, UploadFile, UploadInstance} from "element-plus";
-import "element-plus/es/components/upload/style/css"
-import 'element-plus/es/components/button/style/css'
 import {ReadState, useFileReader} from "./useFileReader";
 
 const props = withDefaults(defineProps<{

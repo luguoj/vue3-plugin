@@ -21,10 +21,6 @@
 <script setup lang="ts">
 import {computed, ref, toRaw, watch} from "vue";
 import {ElDialog, ElForm, ElMessage, ElMessageBox} from "element-plus";
-import "element-plus/es/components/dialog/style/css"
-import "element-plus/es/components/form/style/css"
-import "element-plus/es/components/message/style/css"
-import "element-plus/es/components/message-box/style/css"
 import {PsrElAsyncActionButton} from "../../button/async-action";
 import {isEqual} from "lodash";
 import {PsrCreateUpdateFormDialogContext} from "./PsrCreateUpdateFormDialogContext";

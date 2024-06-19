@@ -1,7 +1,5 @@
 import {PsrLogger, PsrLoggerTypes} from "@psr-framework/vue3-plugin";
 import {ElMessage, ElNotification} from "element-plus"
-import "element-plus/es/components/message/style/css"
-import "element-plus/es/components/notification/style/css"
 
 // 扩展日志消息选项类型
 export interface LogOptions extends PsrLoggerTypes.LogOptions {

@@ -8,7 +8,6 @@
 
 <script setup lang="ts">
 import {ElSpace} from "element-plus"
-import "element-plus/es/components/space/style/css"
 </script>
 
 <style lang="scss" scoped>

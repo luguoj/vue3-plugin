@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import {ElInput} from "element-plus";
-import "element-plus/es/components/input/style/css"
 import {PsrMarkdown} from "@psr-framework/vue3-plugin"
 import {ref} from "vue";
 

@@ -15,8 +15,6 @@
 
 <script setup lang="ts">
 import {ElDropdown, ElDropdownMenu} from "element-plus";
-import "element-plus/es/components/dropdown/style/css"
-import "element-plus/es/components/dropdown-menu/style/css"
 import {PsrElAsyncActionDropdownItem} from "@psr-framework/vue3-plugin";
 
 function buttonAction(result: any) {

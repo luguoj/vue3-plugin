@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import {PsrElAsyncActionButton} from "@psr-framework/vue3-plugin";
 import {Search} from '@element-plus/icons-vue'
-import "element-plus/es/components/icon/style/css"
 
 function buttonAction(result: any) {
   console.log(result)

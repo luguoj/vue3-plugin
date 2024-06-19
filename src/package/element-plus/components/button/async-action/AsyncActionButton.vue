@@ -11,7 +11,6 @@
 <script setup lang="ts">
 import {ref} from "vue";
 import {ElButton} from "element-plus";
-import 'element-plus/es/components/button/style/css'
 
 const props = defineProps<{
   buttonAction: (params?: any) => Promise<any> | any,

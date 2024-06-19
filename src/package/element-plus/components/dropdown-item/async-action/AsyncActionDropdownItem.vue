@@ -12,8 +12,6 @@
 <script setup lang="ts">
 import {ref} from "vue";
 import {ElDropdownItem, ElIcon} from "element-plus";
-import "element-plus/es/components/dropdown-item/style/css"
-import "element-plus/es/components/icon/style/css"
 import {Loading as IconLoading} from "@element-plus/icons-vue";
 
 const props = defineProps<{

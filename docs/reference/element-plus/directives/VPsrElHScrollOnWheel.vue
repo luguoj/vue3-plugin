@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import {shallowRef} from "vue";
 import {ElScrollbar, ScrollbarInstance} from "element-plus"
-import "element-plus/es/components/scrollbar/style/css"
 import {vPsrElHScrollOnWheel} from "@psr-framework/vue3-plugin";
 
 const scrollbarRef = shallowRef<ScrollbarInstance>()

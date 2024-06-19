@@ -26,10 +26,6 @@
 <script setup lang="ts">
 import {nextTick, ref, watch} from "vue";
 import {ElCard, ElScrollbar, ElTimeline, ElTimelineItem, ScrollbarInstance} from "element-plus"
-import "element-plus/es/components/scrollbar/style/css"
-import "element-plus/es/components/timeline/style/css"
-import "element-plus/es/components/timeline-item/style/css"
-import "element-plus/es/components/card/style/css"
 import {CircleCloseFilled, InfoFilled, QuestionFilled, SuccessFilled, WarningFilled} from "@element-plus/icons-vue"
 import moment from "moment";
 import {PsrLogger, PsrLoggerTypes} from "@psr-framework/vue3-plugin";

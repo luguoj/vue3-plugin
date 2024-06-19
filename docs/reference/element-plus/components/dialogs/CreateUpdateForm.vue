@@ -17,9 +17,6 @@
 <script setup lang="ts">
 import {PsrCreateUpdateFormDialogContext, PsrElCreateUpdateFormDialog} from "@psr-framework/vue3-plugin";
 import {ElButton, ElFormItem, ElInput} from "element-plus"
-import "element-plus/es/components/form-item/style/css"
-import "element-plus/es/components/input/style/css"
-import "element-plus/es/components/button/style/css"
 
 // 表单数据类型
 interface Data {

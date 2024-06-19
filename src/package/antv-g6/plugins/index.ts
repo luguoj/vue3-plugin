@@ -119,7 +119,9 @@ export class PsrAntvG6 {
         component: ComponentOptionsBase<any, any, any, any, any, any, any, any>
     }) {
         const tag = `psr-antv-g6-el-${this.getInstance().nextShapeId++}`
-        customElements.define(tag, defineCustomElement(options.component as any))
+        onMounted(() => {
+            customElements.define(tag, defineCustomElement(options.component as any))
+        })
         return tag
     }
 

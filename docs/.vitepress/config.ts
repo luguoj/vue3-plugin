@@ -33,6 +33,7 @@ export default defineConfig({
                 '@antv/g6-core',
                 '@antv/g6-plugin',
                 '@element-plus/icons-vue',
+                '@joint/core',
                 '@pansy/amap-types',
                 "@psr-framework/typescript-utils",
                 '@types/three',

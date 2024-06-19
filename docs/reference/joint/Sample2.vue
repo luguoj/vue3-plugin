@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import {ref, watch} from "vue";
-import "jointjs/dist/joint.css"
-import {dia, elementTools, shapes} from "jointjs"
+import {dia, elementTools, shapes} from "@joint/core"
 
 interface Box {
   width: number
@@ -127,7 +126,7 @@ function buildRect(box: Box, paper: dia.Paper, graph: dia.Graph) {
     <div style="position: relative;height: 100%;">
       <div ref="divRef"
            style="height: 100%;width: 100%;position: absolute;--border-color: grey;--bg-color: #EEEEEE;"/>
-      <div style="height: 100%;width: 100%;position: absolute;pointer-events: none">
+      <div style="height: 100%;width: 100%;position: absolute;left:0;top:0;pointer-events: none">
         <div class="element-content" style="position: absolute;" :style="computeBoxStyle(boxBlock1)">block1</div>
         <div class="element-content" style="position: absolute;" :style="computeBoxStyle(boxBlock2)">block2</div>
       </div>

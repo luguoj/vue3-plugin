@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import {ref, watch} from "vue";
-import "jointjs/dist/joint.css"
-import {dia, shapes,} from "jointjs"
+import {dia, shapes,} from "@joint/core"
 
 const divRef = ref<HTMLElement>()
 watch(divRef, div => {

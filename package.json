@@ -14,6 +14,7 @@
   "dependencies": {
     "@antv/g6": "^4.8.23",
     "@element-plus/icons-vue": "2.3.1",
+    "@joint/core": "^4.0.4",
     "@pansy/amap-types": "^2.22.0",
     "@psr-framework/typescript-utils": "^1.6.1",
     "@types/three": "^0.164.1",
@@ -39,6 +40,7 @@
     "@vitepress-demo-preview/plugin": "^1.2.3",
     "bootstrap": "5.3.3",
     "highlight.js": "^11.9.0",
+    "leader-line-new": "^1.1.9",
     "markdown-it": "^14.1.0",
     "markdown-it-deflist": "^3.0.0",
     "markdown-it-emoji": "^3.0.0",
@@ -49,7 +51,6 @@
     "markdown-it-sup": "^2.0.0",
     "postcss": "^8.4.38",
     "rollup-plugin-visualizer": "^5.12.0",
-    "leader-line-new": "^1.1.9",
     "sass": "^1.74.1",
     "sass-loader": "^14.1.1",
     "typescript": "^5.4.5",
@@ -57,9 +58,7 @@
     "vite-plugin-dts": "^3.8.1",
     "vite-plugin-lib-inject-css": "^2.1.1",
     "vitepress": "^1.1.4",
-    "vue-tsc": "^2.0.12",
-    "@types/backbone": "^1.4.17",
-    "jointjs": "^3.7.6"
+    "vue-tsc": "^2.0.12"
   },
   "author": "zhoudingding",
   "description": "vue3.x 插件",

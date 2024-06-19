@@ -1,6 +1,34 @@
 <script setup lang="ts">
-import {ref, watch} from "vue";
-import {dia, elementTools, shapes} from "@joint/core"
+import {ref, shallowRef, watch} from "vue";
+import {PsrJoint} from "@psr-framework/vue3-plugin";
+import * as JointNs from "@joint/core"
+
+const divRef = shallowRef<HTMLDivElement>()
+
+const jointRef = PsrJoint.useJoint()
+const graphRef = PsrJoint.useGraph()
+const paperRef = PsrJoint.usePaper(divRef, graphRef, {
+  height: '100%',
+  width: '100%',
+  background: {color: '#F5F5F5'},
+  drawGrid: 'mesh',
+  // 限制元素在画布内移动
+  restrictTranslate: true
+})
+
+watch(() => ({joint: jointRef.value, graph: graphRef.value, paper: paperRef.value}), ({joint, graph, paper}) => {
+  if (!joint || !graph || !paper) {
+    return
+  }
+
+
+  const rect = buildRect(boxBlock1.value, joint, graph, paper)
+  const rect2 = buildRect(boxBlock2.value, joint, graph, paper)
+  const link = new joint.shapes.standard.Link();
+  link.source(rect)
+  link.target(rect2)
+  link.addTo(graph)
+})
 
 interface Box {
   width: number
@@ -9,7 +37,6 @@ interface Box {
   top: number
 }
 
-const divRef = ref<HTMLElement>()
 const boxBlock1 = ref<Box>({
   width: 100,
   height: 40,
@@ -34,30 +61,8 @@ function computeBoxStyle(box: Box): any {
   }
 }
 
-watch(divRef, div => {
-  if (div != undefined) {
-    const graph = new dia.Graph({}, {cellNamespace: shapes})
-    const paper = new dia.Paper({
-      el: div,
-      model: graph,
-      height: 200,
-      gridSize: 10,
-      cellViewNamespace: shapes,
-      // 限制元素在画布内移动
-      restrictTranslate: true
-    })
-    const rect = buildRect(boxBlock1.value, paper, graph)
-    const rect2 = buildRect(boxBlock2.value, paper, graph)
-    const link = new shapes.standard.Link();
-    link.source(rect)
-    link.target(rect2)
-    link.addTo(graph)
-  }
-})
-
-
-function buildRect(box: Box, paper: dia.Paper, graph: dia.Graph) {
-  const rect = new shapes.standard.Rectangle({
+function buildRect(box: Box, joint: typeof JointNs, graph: JointNs.dia.Graph, paper: JointNs.dia.Paper) {
+  const rect = new joint.shapes.standard.Rectangle({
     position: {x: box.left - 2, y: box.top - 20},
     size: {width: box.width + 6, height: box.height + 24},
     attrs: {
@@ -84,20 +89,20 @@ function buildRect(box: Box, paper: dia.Paper, graph: dia.Graph) {
   }).addTo(graph);
   // 鼠标移入显示边框工具
   const rectView = rect.findView(paper).addTools(
-      new dia.ToolsView({
+      new joint.dia.ToolsView({
         tools: [
-          new elementTools.Boundary()
+          new joint.elementTools.Boundary()
         ]
       })
   ).hideTools()
 
-  function onMouseEnter(elementView: dia.CellView) {
+  function onMouseEnter(elementView: JointNs.dia.CellView) {
     if (elementView == rectView) {
       elementView.showTools();
     }
   }
 
-  function onMouseLeave(elementView: dia.CellView) {
+  function onMouseLeave(elementView: JointNs.dia.CellView) {
     if (elementView == rectView) {
       elementView.hideTools();
     }
@@ -108,7 +113,7 @@ function buildRect(box: Box, paper: dia.Paper, graph: dia.Graph) {
   paper.on('element:mouseleave', onMouseLeave)
 
   // 位置改变时更新参数
-  function onPositionChange(cell: dia.Cell) {
+  function onPositionChange(cell: JointNs.dia.Cell) {
     if (cell == rect) {
       const pos = cell.getBBox().topLeft()
       box.left = pos.x + 2

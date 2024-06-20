@@ -172,6 +172,10 @@ export default defineConfig({
                             text: '组件',
                             items: [
                                 {
+                                    text: '布局',
+                                    link: '/reference/element-plus/components/layout/'
+                                },
+                                {
                                     text: '按钮',
                                     link: '/reference/element-plus/components/buttons/'
                                 },

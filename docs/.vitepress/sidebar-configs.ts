@@ -1,10 +1,6 @@
 import {DefaultTheme} from "vitepress/theme";
 
 export const sidebar:DefaultTheme.Sidebar = {
-    '/guide/': [
-        {text: 'Markdown Examples', link: '/guide/markdown-examples'},
-        {text: 'Runtime API Examples', link: '/guide/api-examples'}
-    ],
     '/reference/': [
         {
             text: 'DOM工具',

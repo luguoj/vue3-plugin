@@ -12,9 +12,7 @@ export function usePsrPrimeVue(options?: {
 }) {
     return {
         install(app: App) {
-            import("../styles/themes/index.scss")
-            import("primeicons/primeicons.css")
-            import("primeflex/primeflex.css")
+            import("./loadStyle").then(({loaded}) => loaded)
             app.use(PrimeVue, {
                 locale: zhCN,
                 filterMatchModeOptions,

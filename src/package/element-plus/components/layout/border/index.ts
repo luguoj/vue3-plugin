@@ -1,4 +1,4 @@
-import PsrAsideMain from "./AsideMain.vue";
-import PsrHeaderMain from "./HeaderMain.vue";
+import PsrElAsideMain from "./AsideMain.vue";
+import PsrElHeaderMain from "./HeaderMain.vue";
 
-export {PsrAsideMain, PsrHeaderMain}
+export {PsrElAsideMain, PsrElHeaderMain}

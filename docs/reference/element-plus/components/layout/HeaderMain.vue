@@ -1,5 +1,5 @@
 <template>
-  <psr-header-main style="height: 300px;">
+  <psr-el-header-main style="height: 300px;">
     <template #header>
       <div style="height:50px;border: 1px solid red;">页头</div>
     </template>
@@ -13,5 +13,5 @@
 </template>
 
 <script setup lang="ts">
-import {PsrHeaderMain} from "@psr-framework/vue3-plugin";
+import {PsrElHeaderMain} from "@psr-framework/vue3-plugin";
 </script>

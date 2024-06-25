@@ -16,7 +16,7 @@
     "@element-plus/icons-vue": "2.3.1",
     "@joint/core": "4.0.4",
     "@pansy/amap-types": "^2.22.0",
-    "@psr-framework/typescript-utils": "^1.6.1",
+    "@psr-framework/typescript-utils": "^1.6.2",
     "@types/three": "^0.165.0",
     "@types/three162": "npm:@types/three@0.162.0",
     "echarts": "^5.5.0",

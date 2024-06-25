@@ -12,7 +12,12 @@ export default defineConfig({
         vueJsxPlugin(),
         libInjectCss(),
         dts({
-            exclude: ["src/example", "docs", "vite.config.ts"],
+            // 排除示例文件夹代码
+            exclude: ["example", "docs"],
+            // 指定应用程序的 tsconfig.json
+            tsconfigPath: 'tsconfig.app.json',
+            // 基于package.json的types字段生成类型入口文件
+            insertTypesEntry: true
         }),
         visualizer({
             open: false,
@@ -24,7 +29,7 @@ export default defineConfig({
     build: {
         cssCodeSplit: true,
         lib: {
-            entry: resolve(__dirname, 'src/index.ts'),
+            entry: resolve(__dirname, 'src/package/index.ts'),
             name: 'PsrPlugin',
             fileName: 'index'
         },

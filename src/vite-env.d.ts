@@ -1,6 +1,6 @@
 /// <reference types="vite/client" />
 
-/// <reference path="./declares/amap-types/index.d.ts" />
+/// <reference path="../declares/amap-types/index.d.ts" />
 
 declare module "markdown-it-ins";
 declare module "markdown-it-mark";

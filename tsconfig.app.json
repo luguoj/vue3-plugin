@@ -21,19 +21,17 @@
     "strict": true,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
-    "noFallthroughCasesInSwitch": true,
-
-    /* alias paths */
-    "paths": {
-      "@psr-framework/vue3-plugin": [
-        "../src/package"
-      ]
-    }
+    "noFallthroughCasesInSwitch": true
   },
   "include": [
-    "./**/*.ts",
-    "./**/*.d.ts",
-    "./**/*.tsx",
-    "./**/*.vue"
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "declares/**/*.d.ts",
+    "example/**/*.ts",
+    "example/**/*.d.ts",
+    "example/**/*.tsx",
+    "example/**/*.vue"
   ]
 }

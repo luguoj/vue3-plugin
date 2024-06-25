@@ -1,6 +1,6 @@
 {
   "name": "@psr-framework/vue3-plugin",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "type": "module",
   "scripts": {
     "dev": "vite --host",
@@ -66,7 +66,7 @@
     "registry": "https://packages.aliyun.com/5ea982f438076f00011bc29a/npm/npm-registry/"
   },
   "files": [
-    "src/declares",
+    "declares",
     "package.json",
     "README.md",
     "dist"
@@ -76,6 +76,7 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "require": "./dist/index.umd.cjs"
     },

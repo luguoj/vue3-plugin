@@ -11,18 +11,16 @@
   </div>
 </template>
 
-<script setup lang="ts" generic="T extends ECBasicOption">
+<script setup lang="ts">
 import {ref, shallowRef, useAttrs, watch, watchEffect} from "vue";
 import {usePsrColorScheme, vPsrResizeObserver} from "../../../dom-utils";
 import * as echarts from "echarts";
-import {EChartsType} from "echarts/types/dist/echarts";
-import {ECBasicOption} from "echarts/types/dist/shared";
 
 const echartsContainerRef = ref<HTMLDivElement>();
-const echartsRef = shallowRef<EChartsType>()
+const echartsRef = shallowRef<echarts.EChartsType>()
 const props = withDefaults(defineProps<{
   chartDarkTheme?: boolean
-  chartOptions?: T
+  chartOptions?: any
 }>(), {
   chartDarkTheme: false
 });

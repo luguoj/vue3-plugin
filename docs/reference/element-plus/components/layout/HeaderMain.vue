@@ -9,7 +9,7 @@
     <template #footer>
       <div style="height:50px;border: 1px solid red;">页脚</div>
     </template>
-  </psr-header-main>
+  </psr-el-header-main>
 </template>
 
 <script setup lang="ts">

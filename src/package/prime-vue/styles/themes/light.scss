@@ -4030,7 +4030,8 @@
 
   .p-datatable-scrollable-table > .p-datatable-thead {
     top: 0;
-    z-index: 1;
+    // 1 -> 2 防止表格中使用el组件时覆盖到表头上面
+    z-index: 2;
   }
 
   .p-datatable-scrollable-table > .p-datatable-frozen-tbody {
@@ -5520,7 +5521,8 @@
   .p-treetable-scrollable .p-treetable-thead {
     position: sticky;
     top: 0;
-    z-index: 1;
+    // 1 -> 2 防止表格中使用el组件时覆盖到表头上面
+    z-index: 2;
   }
 
   .p-treetable-scrollable .p-treetable-tfoot {

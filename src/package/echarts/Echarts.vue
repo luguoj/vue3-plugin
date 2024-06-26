@@ -13,17 +13,21 @@
 
 <script setup lang="ts">
 import {ref, shallowRef, useAttrs, watch, watchEffect} from "vue";
-import {usePsrColorScheme, vPsrResizeObserver} from "../../../dom-utils";
-import * as echarts from "echarts";
+import {usePsrColorScheme, vPsrResizeObserver} from "../dom-utils";
+import * as echartsNs from "echarts";
 
 const echartsContainerRef = ref<HTMLDivElement>();
-const echartsRef = shallowRef<echarts.EChartsType>()
+const echartsRef = shallowRef<echartsNs.EChartsType>()
 const props = withDefaults(defineProps<{
   chartDarkTheme?: boolean
   chartOptions?: any
 }>(), {
   chartDarkTheme: false
 });
+
+const emits = defineEmits<{
+  (e: 'chartReady', chart: echartsNs.EChartsType): void
+}>()
 
 const colorScheme = usePsrColorScheme()
 
@@ -33,7 +37,8 @@ watchEffect(() => {
       echartsRef.value.dispose()
       echartsRef.value = undefined
     }
-    echartsRef.value = echarts.init(echartsContainerRef.value, (props.chartDarkTheme || colorScheme.value == 'dark') ? 'dark' : 'light')
+    echartsRef.value = echartsNs.init(echartsContainerRef.value, (props.chartDarkTheme || colorScheme.value == 'dark') ? 'dark' : 'light')
+    emits('chartReady', echartsRef.value)
   }
 })
 let currentOptions: any
@@ -55,10 +60,6 @@ function handleResize() {
     echartsRef.value.resize()
   }
 }
-
-defineExpose({
-  echarts: echartsRef
-})
 
 const attrs = useAttrs()
 // 获取所有监听器

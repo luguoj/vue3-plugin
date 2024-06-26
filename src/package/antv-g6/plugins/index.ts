@@ -1,5 +1,5 @@
 import {App, ComponentOptionsBase, defineCustomElement, getCurrentInstance, inject, onMounted, ShallowRef} from "vue";
-import * as G6 from "@antv/g6";
+import * as G6Ns from "@antv/g6";
 import {PsrAntvG6Types} from "../types";
 import {useGraph} from "../services/graph/useGraph.ts";
 import {useShape, useShapeWithExtensions} from "../services/utils/useShapeWithExtensions.ts";
@@ -32,7 +32,7 @@ for (const builderRaw of nodeExtBuilderRaws) {
 
 export class PsrAntvG6 {
     private static _activeInstance: PsrAntvG6
-    private _g6: Promise<typeof G6> | undefined
+    private _g6: Promise<typeof G6Ns> | undefined
     private nextShapeId: number = 0
 
     g6(): Promise<any> {
@@ -50,7 +50,7 @@ export class PsrAntvG6 {
     }
 
     static useNode(
-        definition: (extendShape?: any) => G6.ShapeOptions | G6.ShapeDefine,
+        definition: (G6: typeof G6Ns, extendShape?: any) => G6Ns.ShapeOptions | G6Ns.ShapeDefine,
         extendShapeType?: string
     ) {
         return useShape(
@@ -64,7 +64,7 @@ export class PsrAntvG6 {
 
 
     static useEdge(
-        definition: (extendShape?: any) => G6.ShapeOptions,
+        definition: (G6: typeof G6Ns, extendShape?: any) => G6Ns.ShapeOptions,
         extendShapeType?: string
     ) {
         return useShape(

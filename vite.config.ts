@@ -5,6 +5,7 @@ import dts from 'vite-plugin-dts'
 import {libInjectCss} from 'vite-plugin-lib-inject-css';
 import vueJsxPlugin from "@vitejs/plugin-vue-jsx";
 import {visualizer} from "rollup-plugin-visualizer";
+import {getAllSubModules} from "./getAllSubModules.ts";
 
 export default defineConfig({
     plugins: [
@@ -36,18 +37,7 @@ export default defineConfig({
         rollupOptions: {
             // 确保外部化处理那些你不想打包进库的依赖
             external: [
-                '@antv/algorithm',
-                '@antv/layout',
-                '@antv/g-base',
-                '@antv/g-canvas',
-                '@antv/g-webgpu-engine',
-                '@antv/g-svg',
-                '@antv/g6',
-                '@antv/util',
-                '@antv/g6-pc',
-                '@antv/g6-element',
-                '@antv/g6-core',
-                '@antv/g6-plugin',
+                ...getAllSubModules("@antv"),
                 '@element-plus/icons-vue',
                 '@joint/core',
                 '@pansy/amap-types',
@@ -63,10 +53,7 @@ export default defineConfig({
                 "pinia",
                 "primeicons",
                 "primevue",
-                "primevue/datatable",
-                "primevue/treetable",
-                "primevue/api",
-                "primevue/config",
+                ...getAllSubModules("primevue"),
                 "primeflex",
                 'vue',
             ],

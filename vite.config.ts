@@ -5,7 +5,7 @@ import dts from 'vite-plugin-dts'
 import {libInjectCss} from 'vite-plugin-lib-inject-css';
 import vueJsxPlugin from "@vitejs/plugin-vue-jsx";
 import {visualizer} from "rollup-plugin-visualizer";
-import {getAllSubModules} from "./getAllSubModules.ts";
+import {rollupExternal} from "./rollup-external";
 
 export default defineConfig({
     plugins: [
@@ -36,27 +36,7 @@ export default defineConfig({
         },
         rollupOptions: {
             // 确保外部化处理那些你不想打包进库的依赖
-            external: [
-                ...getAllSubModules("@antv"),
-                '@element-plus/icons-vue',
-                '@joint/core',
-                '@pansy/amap-types',
-                "@psr-framework/typescript-utils",
-                '@types/three',
-                '@types/three162',
-                'echarts',
-                'element-plus',
-                'lodash',
-                'moment',
-                'three',
-                'three162',
-                "pinia",
-                "primeicons",
-                "primevue",
-                ...getAllSubModules("primevue"),
-                "primeflex",
-                'vue',
-            ],
+            external: rollupExternal,
             output: {
                 chunkFileNames: "chunks/[name].[hash].js",
                 assetFileNames: "assets/[name].[hash].[ext]",

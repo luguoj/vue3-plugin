@@ -9,5 +9,8 @@
     "strict": true,
     "noEmit": true
   },
-  "include": ["vite.config.ts"]
+  "include": [
+    "rollup-external.ts",
+    "vite.config.ts"
+  ]
 }

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {ref} from "vue";
-import {ElCheckbox, ElForm, ElFormItem, ElInput, ElInputNumber, ElSlider} from "element-plus";
+import {ElCheckbox, ElForm, ElFormItem, ElInput, ElInputNumber, ElSlider, ElColorPicker} from "element-plus";
 import {PsrQrcode} from "@psr-framework/vue3-plugin"
 
 const input = ref(`
@@ -15,12 +15,15 @@ const errorCorrectionLevelInput = ref(0)
 const errorCorrectionLevels = ["L", "M", "Q", "H"]
 const maskPatternSpecified = ref(false)
 const maskPatternInput = ref(0)
+
+const colorDarkInput = ref('#000000ff')
+const colorLightInput = ref('#ffffffff')
 </script>
 
 <template>
   <div style="height: 500px;">
     <el-form
-        style="width: 50%;height:100%;display: inline-block;vertical-align: top;"
+        style="width: 50%;height:100%;display: inline-block;vertical-align: top;padding:1em;"
         label-width="auto"
     >
       <el-form-item label="内容">
@@ -63,6 +66,10 @@ const maskPatternInput = ref(0)
             v-model="versionInput"
         />
       </el-form-item>
+      <el-form-item label="颜色">
+        <el-color-picker v-model="colorDarkInput" color-format="hex" show-alpha/>
+        <el-color-picker v-model="colorLightInput" color-format="hex" show-alpha/>
+      </el-form-item>
     </el-form>
     <psr-qrcode
         style="width: 50%;height:100%;display: inline-block;vertical-align: top;"
@@ -70,6 +77,8 @@ const maskPatternInput = ref(0)
         :qrcode-version="versionSpecified?versionInput:undefined"
         :qrcode-error-correction-level="errorCorrectionLevels[errorCorrectionLevelInput]"
         :qrcode-mask-pattern="maskPatternSpecified?maskPatternInput:undefined"
+        :qrcode-color-dark="colorDarkInput"
+        :qrcode-color-light="colorLightInput"
     />
   </div>
 </template>

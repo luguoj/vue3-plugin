@@ -7,15 +7,16 @@ const input = ref(`
 test qrcode content
 `)
 
-
+// 版本参数，支持的值为1-40，如果不指定，则根据内容使用合适的值
 const versionSpecified = ref(false)
-const versionInput = ref(0)
-
+const versionInput = ref(1)
+// 纠错等级参数，支持的模式为L、M、Q、H，如果不指定，默认为M
 const errorCorrectionLevelInput = ref(0)
 const errorCorrectionLevels = ["L", "M", "Q", "H"]
+// 掩码参数，支持的值为0-7，如果不指定，则根据版本和内容使用合适的值
 const maskPatternSpecified = ref(false)
 const maskPatternInput = ref(0)
-
+// 颜色参数
 const colorDarkInput = ref('#000000ff')
 const colorLightInput = ref('#ffffffff')
 </script>
@@ -36,6 +37,16 @@ const colorLightInput = ref('#ffffffff')
             v-model="input"
         />
       </el-form-item>
+      <el-form-item label="版本">
+        <el-checkbox v-model="versionSpecified"/>
+        <el-input-number
+            style="margin-left: 1em;"
+            :min="1"
+            :max="40"
+            :disabled="!versionSpecified"
+            v-model="versionInput"
+        />
+      </el-form-item>
       <el-form-item label="纠错等级">
         <el-slider
             :min="0"
@@ -54,16 +65,6 @@ const colorLightInput = ref('#ffffffff')
             :marks="{0: '0', 1: '1', 2: '2', 3: '3',4:'4',5:'5',6:'6',7:'7'}"
             :disabled="!maskPatternSpecified"
             v-model="maskPatternInput"
-        />
-      </el-form-item>
-      <el-form-item label="版本">
-        <el-checkbox v-model="versionSpecified"/>
-        <el-input-number
-            style="margin-left: 1em;"
-            :min="0"
-            :max="40"
-            :disabled="!versionSpecified"
-            v-model="versionInput"
         />
       </el-form-item>
       <el-form-item label="颜色">

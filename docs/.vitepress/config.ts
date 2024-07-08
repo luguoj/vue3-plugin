@@ -2,7 +2,7 @@ import {defineConfig} from 'vitepress'
 import {componentPreview, containerPreview} from "@vitepress-demo-preview/plugin";
 import {resolve} from "path";
 import {rollupExternal} from "../../rollup-external";
-
+import {resolvePaths} from "../../resolve-paths";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -16,6 +16,7 @@ export default defineConfig({
     vite: {
         resolve: {
             alias: {
+                ...resolvePaths,
                 "@psr-framework/vue3-plugin": resolve(__dirname, "../../src/package")
             }
         },

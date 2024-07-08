@@ -6,6 +6,7 @@ import {libInjectCss} from 'vite-plugin-lib-inject-css';
 import vueJsxPlugin from "@vitejs/plugin-vue-jsx";
 import {visualizer} from "rollup-plugin-visualizer";
 import {rollupExternal} from "./rollup-external";
+import {resolvePaths} from "./resolve-paths";
 
 export default defineConfig({
     plugins: [
@@ -27,6 +28,9 @@ export default defineConfig({
             filename: "rollup-stats.html"
         })
     ],
+    resolve: {
+        alias: resolvePaths
+    },
     build: {
         cssCodeSplit: true,
         lib: {

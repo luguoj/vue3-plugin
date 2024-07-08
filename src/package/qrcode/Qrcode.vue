@@ -6,6 +6,7 @@ import {vPsrResizeObserver} from "@package/dom-utils";
 const canvasRef = ref<HTMLCanvasElement>()
 const props = withDefaults(defineProps<{
   qrcodeContent?: string,
+  qrcodeVersion?: number,
   qrcodeErrorCorrectionLevel?: QRCode.QRCodeErrorCorrectionLevel,
   qrcodeMaskPattern?: QRCode.QRCodeMaskPattern
 }>(), {
@@ -18,6 +19,7 @@ watchEffect(() => {
   const canvas = canvasRef.value
   const {
     qrcodeContent,
+    qrcodeVersion,
     qrcodeErrorCorrectionLevel,
     qrcodeMaskPattern
   } = props
@@ -26,6 +28,7 @@ watchEffect(() => {
         canvas,
         qrcodeContent,
         {
+          version: qrcodeVersion,
           maskPattern: qrcodeMaskPattern,
           errorCorrectionLevel: qrcodeErrorCorrectionLevel,
           width: codeWidth.value

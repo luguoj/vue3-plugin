@@ -93,6 +93,10 @@ export default defineConfig({
                         {
                             text: '二维码生成',
                             link: '/reference/qrcode/'
+                        },
+                        {
+                            text: '条形码生成',
+                            link: '/reference/barcode/'
                         }
                     ]
                 },

@@ -89,6 +89,10 @@ export default defineConfig({
                         {
                             text: 'Joint',
                             link: '/reference/joint/'
+                        },
+                        {
+                            text: '二维码生成',
+                            link: '/reference/qrcode/'
                         }
                     ]
                 },

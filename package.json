@@ -34,6 +34,7 @@
   "devDependencies": {
     "@amap/amap-jsapi-loader": "^1.0.1",
     "@types/node": "^20.14.5",
+    "@types/qrcode": "^1.5.5",
     "@vitejs/plugin-vue": "^5.0.5",
     "@vitejs/plugin-vue-jsx": "^4.0.0",
     "@vitepress-demo-preview/component": "^2.3.2",
@@ -50,6 +51,7 @@
     "markdown-it-sub": "^2.0.0",
     "markdown-it-sup": "^2.0.0",
     "postcss": "^8.4.38",
+    "qrcode": "^1.5.3",
     "rollup-plugin-visualizer": "^5.12.0",
     "sass": "^1.77.6",
     "sass-loader": "^14.2.1",

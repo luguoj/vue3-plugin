@@ -73,7 +73,7 @@ const colorLightInput = ref('#ffffffff')
       </el-form-item>
     </el-form>
     <psr-qrcode
-        style="width: 50%;height:100%;display: inline-block;vertical-align: top;"
+        style="width: 50%;height:250px;display: inline-block;vertical-align: top;border: 1px solid red;"
         :qrcode-content="input"
         :qrcode-version="versionSpecified?versionInput:undefined"
         :qrcode-error-correction-level="errorCorrectionLevels[errorCorrectionLevelInput]"

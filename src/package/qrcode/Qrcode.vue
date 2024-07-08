@@ -7,6 +7,7 @@ const canvasRef = ref<HTMLCanvasElement>()
 const props = withDefaults(defineProps<{
   qrcodeContent?: string,
   qrcodeErrorCorrectionLevel?: QRCode.QRCodeErrorCorrectionLevel,
+  qrcodeMaskPattern?: QRCode.QRCodeMaskPattern
 }>(), {
   qrcodeErrorCorrectionLevel: 'M',
 })
@@ -17,14 +18,15 @@ watchEffect(() => {
   const canvas = canvasRef.value
   const {
     qrcodeContent,
-    qrcodeErrorCorrectionLevel
+    qrcodeErrorCorrectionLevel,
+    qrcodeMaskPattern
   } = props
   if (canvas) {
     QRCode.toCanvas(
         canvas,
         qrcodeContent,
         {
-          scale: 1,
+          maskPattern: qrcodeMaskPattern,
           errorCorrectionLevel: qrcodeErrorCorrectionLevel,
           width: codeWidth.value
         }

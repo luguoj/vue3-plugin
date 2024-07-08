@@ -1,13 +1,15 @@
 <script setup lang="ts">
-import {ElForm, ElFormItem, ElInput, ElSlider} from "element-plus";
-import {PsrQrcode} from "@psr-framework/vue3-plugin"
 import {ref} from "vue";
+import {ElCheckbox, ElForm, ElFormItem, ElInput, ElSlider} from "element-plus";
+import {PsrQrcode} from "@psr-framework/vue3-plugin"
 
 const input = ref(`
 test qrcode content
 `)
 const errorCorrectionLevelInput = ref(0)
 const errorCorrectionLevels = ["L", "M", "Q", "H"]
+const maskPatternSpecified = ref(false)
+const maskPatternInput = ref(0)
 </script>
 
 <template>
@@ -35,11 +37,23 @@ const errorCorrectionLevels = ["L", "M", "Q", "H"]
             v-model="errorCorrectionLevelInput"
         />
       </el-form-item>
+      <el-form-item label="掩膜图案">
+        <el-checkbox v-model="maskPatternSpecified">指定</el-checkbox>
+        <el-slider
+            :min="0"
+            :max="7"
+            :step="1"
+            :marks="{0: '0', 1: '1', 2: '2', 3: '3',4:'4',5:'5',6:'6',7:'7'}"
+            :disabled="!maskPatternSpecified"
+            v-model="maskPatternInput"
+        />
+      </el-form-item>
     </el-form>
     <psr-qrcode
         style="width: 50%;height:100%;display: inline-block;vertical-align: top;"
         :qrcode-content="input"
         :qrcode-error-correction-level="errorCorrectionLevels[errorCorrectionLevelInput]"
+        :qrcode-mask-pattern="maskPatternSpecified?maskPatternInput:undefined"
     />
   </div>
 </template>

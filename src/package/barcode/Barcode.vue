@@ -77,9 +77,9 @@ watchEffect(() => {
   const marginTop = typeof barcodeMargin === "number" ? barcodeMargin : barcodeMargin[0]
   const marginRight = typeof barcodeMargin === "number" ? barcodeMargin : barcodeMargin[1]
   const marginBottom = typeof barcodeMargin === "number" ? barcodeMargin
-      : barcodeMargin.length < 3 ? barcodeMargin[0] : barcodeMargin[2]
+      : (barcodeMargin[2] || barcodeMargin[0])
   const marginLeft = typeof barcodeMargin === "number" ? barcodeMargin
-      : barcodeMargin.length < 4 ? barcodeMargin[1] : barcodeMargin[3]
+      : (barcodeMargin[3] || barcodeMargin[1])
   const fontOptions: string[] = []
   if (barcodeFontItalic) fontOptions.push("italic")
   if (barcodeFontBold) fontOptions.push("bold")

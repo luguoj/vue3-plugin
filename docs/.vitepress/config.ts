@@ -62,6 +62,10 @@ export default defineConfig({
                                     text: 'usePsrColorScheme',
                                     link: '/reference/dom-utils/services/usePsrColorScheme'
                                 },
+                                {
+                                    text: 'usePsrPrinter',
+                                    link: '/reference/dom-utils/services/usePrinter'
+                                },
                             ]
                         }
                     ]

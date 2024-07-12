@@ -1,27 +1,58 @@
-/**
- * html模式
- */
-export type Standards =
-    'strict' // 严格模式
-    | 'loose' // 宽松模式
-    | 'html5' // html5
+import {PrintEventListenerOptions, Standards} from "./types";
 
-export function writePrintAreaDocument(
-    options: {
-        targetDocument: Document,
-        sourceElement: HTMLElement
-        standard?: Standards
-        popTitle?: string
-    }
+/**
+ * 创建打印区域IFrame元素
+ */
+export function createPrintAreaIFrame(): HTMLIFrameElement {
+    let iframe = document.createElement('iframe');
+    iframe.style.border = '0px';
+    iframe.style.position = 'absolute';
+    iframe.style.width = '0px';
+    iframe.style.height = '0px';
+    iframe.style.right = '0px';
+    iframe.style.top = '0px';
+    return iframe
+}
+
+/**
+ * 打印IFrame
+ */
+export function printPrintAreaIFrame(
+    iframe: HTMLIFrameElement,
+    {
+        beforePrintDialogOpen,
+        onPrintDialogOpen,
+        onPrintDialogClosed
+    }: PrintEventListenerOptions
 ) {
-    const {targetDocument, sourceElement, standard, popTitle} = options
+    const iframeWin = iframe.contentWindow!
+    beforePrintDialogOpen && beforePrintDialogOpen()
+    iframeWin.focus();
+    onPrintDialogOpen && onPrintDialogOpen();
+    iframeWin.print();
+    onPrintDialogClosed && onPrintDialogClosed()
+}
+
+/**
+ * 将要打印的元素写入打印区域IFrame元素
+ */
+export function writePrintAreaDocument(
+    iframe: HTMLIFrameElement,
+    element: HTMLElement,
+    standard?: Standards,
+    printTitle?: string
+) {
+    const printAreaDocument = iframe.contentDocument || iframe.contentWindow?.document
+    if (!printAreaDocument) {
+        throw new Error('Cannot find document.');
+    }
     const docType = buildDocType(standard)
-    const head = buildHead(popTitle);
-    const body = buildBody(sourceElement)
-    const content = `${docType}<html>${head}${body}</html>`
-    targetDocument.open();
-    targetDocument.write(content);
-    targetDocument.close();
+    const head = buildHead(element, printTitle);
+    let body = buildBody(element);
+    const content = `${docType}<html>${head}<body>${body}</body></html>`
+    printAreaDocument.open();
+    printAreaDocument.write(content);
+    printAreaDocument.close();
 }
 
 function buildDocType(standard?: Standards) {
@@ -33,17 +64,21 @@ function buildDocType(standard?: Standards) {
     return `<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01${transitional}//EN" "http://www.w3.org/TR/html4/${dtd}.dtd">`;
 }
 
-function buildHead(popTitle?: string) {
+function buildHead(
+    element: HTMLElement,
+    printTitle?: string
+) {
+    const sourceDocument = element.ownerDocument;
     let links = '';
     let style = '';
     // 复制所有link标签
-    [].forEach.call(document.querySelectorAll('link'), function (item: HTMLLinkElement) {
+    [].forEach.call(sourceDocument.querySelectorAll('link'), function (item: HTMLLinkElement) {
         if (item.href.indexOf('.css') >= 0) {
             links += `<link type="text/css" rel="stylesheet" href="${item.href}" >`;
         }
     });
     // 循环获取style标签的样式
-    let domStyle = document.styleSheets;
+    let domStyle = sourceDocument.styleSheets;
     if (domStyle && domStyle.length > 0) {
         for (let i = 0; i < domStyle.length; i++) {
             try {
@@ -58,12 +93,7 @@ function buildHead(popTitle?: string) {
             }
         }
     }
-    return `<head><title>${popTitle}</title>${links}<style type="text/css">${style}</style></head>`;
-}
-
-function buildBody(element: HTMLElement) {
-    let htm = buildHtmlToPrint(element);
-    return `<body>${htm}</body>`;
+    return `<head><title>${printTitle}</title>${links}<style type="text/css">${style}</style></head>`;
 }
 
 /**
@@ -111,7 +141,9 @@ function removeCanvasImg(element: HTMLElement) {
 /**
  * 构建要打印的HTML
  */
-function buildHtmlToPrint(element: HTMLElement) {
+function buildBody(
+    element: HTMLElement
+) {
     convertCanvasToImg(element);
     let copy = element.cloneNode(true) as HTMLElement;
     removeCanvasImg(element);

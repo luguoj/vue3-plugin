@@ -1,16 +1,4 @@
-<script setup lang="ts">
-import {ref} from "vue";
-import {PsrMarkdown, usePsrPrinter} from "@psr-framework/vue3-plugin";
-import {ElButton, ElForm} from "element-plus";
-
-const pageRef = ref<HTMLElement>()
-const {print} = usePsrPrinter(pageRef)
-
-function handlePrint() {
-  print({preview: true})
-}
-
-const markdownContent = `
+export const markdownContent = `
 ---
 __Advertisement :)__
 
@@ -257,23 +245,3 @@ It converts "HTML", but keep intact partial entries like "xxxHTMLyyy" and so on.
 *here be dragons*
 :::
 `
-</script>
-
-<template>
-  <div style="height: 500px;">
-    <div style="width: 50%;height:100%;display: inline-block;vertical-align: top;padding:1em;">
-      <el-button @click="handlePrint">打印</el-button>
-      <el-form label-width="auto">
-      </el-form>
-    </div>
-    <div style="width: 50%;height:100%;display: inline-block;vertical-align: top;overflow: scroll;">
-      <div ref="pageRef" id="test-print-nb">
-        <psr-markdown style="width: 200px;height:600px;" :markdown-content="markdownContent"/>
-      </div>
-    </div>
-  </div>
-</template>
-
-<style scoped>
-
-</style>

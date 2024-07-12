@@ -42,6 +42,6 @@ export type PreviewOptions = {
     previewZIndex?: number
     // 预览窗口的标题
     previewTitle?: string
-    // 打印预览的标题
+    // 预览窗口打印按钮的标题
     previewPrintBtnLabel?: string
 }

@@ -76,8 +76,6 @@ function beforeClose() {
         '是否保存修改',
         '确认保存', {
           distinguishCancelAndClose: true,
-          confirmButtonText: '保存',
-          cancelButtonText: '不保存',
         }
     ).then(() => {
       handleSubmit().then(hide)

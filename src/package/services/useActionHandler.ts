@@ -131,8 +131,6 @@ export function useActionHandler<P = void, R = void>(
                     `确认${actionName}`,
                     {
                         dangerouslyUseHTMLString: true,
-                        confirmButtonText: '确认',
-                        cancelButtonText: '取消',
                     }
                 ).catch(
                     err => {

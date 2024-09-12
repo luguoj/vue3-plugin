@@ -13,3 +13,4 @@ export * from "./echarts";
 export * from "./joint";
 export * from "./qrcode";
 export * from "./barcode";
+export * from "./services"

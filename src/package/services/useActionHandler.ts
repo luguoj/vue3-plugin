@@ -14,10 +14,62 @@ function resolvePromise<T>(callback: () => T | Promise<T>): Promise<T> {
     }
 }
 
-type ActionHandler<P, R> = (params: P) => Promise<R | void>
 const ERROR_INVALID = "invalid"
 const ERROR_CANCELED = "canceled"
 const INNER_ERRORS = [ERROR_INVALID, ERROR_CANCELED]
+
+type ActionHandler<P, R> = (params: P) => Promise<R | void>
+type ActionHandlerOptions<P, R> = {
+    /**
+     * 操作名称，默认值 '操作'
+     */
+    actionName?: string
+    /**
+     * 静默执行标识，默认值 false。如果配置为 true，则在执行成功后不会显示成功提示
+     */
+    silent?: boolean
+    /**
+     * 校验，抛出异常或返回false则不会执行操作
+     * @param options
+     */
+    validate?: (options: {
+        params: P,
+        logger: PsrLoggerTypes.LogService<any>
+    }) => boolean | void | Promise<boolean | void>
+    /**
+     * 开始事件回调
+     * @param options
+     */
+    start?: (options: { params: P, logger: PsrLoggerTypes.LogService<any> }) => void
+    /**
+     * 成功事件回调
+     * @param options
+     */
+    success?: (options: { params: P, result: R, logger: PsrLoggerTypes.LogService<any> }) => void
+    /**
+     * 失败事件回调
+     * @param options
+     */
+    failure?: (options: { params: P, error: any, logger: PsrLoggerTypes.LogService<any> }) => void
+    /**
+     * 完成事件回调
+     * @param options
+     */
+    complete?: (options: { params: P, result?: R, error?: any, logger: PsrLoggerTypes.LogService<any> }) => void
+    /**
+     * 执行确认标识，默认值 false。如果配置为 true，则在执行前会先提示用户是否继续执行操作
+     */
+    confirmation?: boolean
+    /**
+     * 确认提示信息，默认值 '是否继续?'。
+     */
+    confirmationMessage?: string | ((params: P) => string)
+    /**
+     * 确认时，用户点击取消按钮的回调
+     * @param params
+     */
+    cancel?: (params: P) => void
+}
 
 /**
  * 操作处理器
@@ -26,57 +78,7 @@ const INNER_ERRORS = [ERROR_INVALID, ERROR_CANCELED]
  */
 export function useActionHandler<P = void, R = void>(
     action: (params: P) => R | Promise<R>,
-    options?: {
-        /**
-         * 操作名称，默认值 '操作'
-         */
-        actionName?: string
-        /**
-         * 静默执行标识，默认值 false。如果配置为 true，则在执行成功后不会显示成功提示
-         */
-        silent?: boolean
-        /**
-         * 校验，抛出异常或返回false则不会执行操作
-         * @param options
-         */
-        validate?: (options: {
-            params: P,
-            logger: PsrLoggerTypes.LogService<any>
-        }) => boolean | void | Promise<boolean | void>
-        /**
-         * 开始事件回调
-         * @param options
-         */
-        start?: (options: { params: P, logger: PsrLoggerTypes.LogService<any> }) => void
-        /**
-         * 成功事件回调
-         * @param options
-         */
-        success?: (options: { params: P, result: R, logger: PsrLoggerTypes.LogService<any> }) => void
-        /**
-         * 失败事件回调
-         * @param options
-         */
-        failure?: (options: { params: P, error: any, logger: PsrLoggerTypes.LogService<any> }) => void
-        /**
-         * 完成事件回调
-         * @param options
-         */
-        complete?: (options: { params: P, result?: R, error?: any, logger: PsrLoggerTypes.LogService<any> }) => void
-        /**
-         * 执行确认标识，默认值 false。如果配置为 true，则在执行前会先提示用户是否继续执行操作
-         */
-        confirmation?: boolean
-        /**
-         * 确认提示信息，默认值 '是否继续?'。
-         */
-        confirmationMessage?: string | ((params: P) => string)
-        /**
-         * 确认时，用户点击取消按钮的回调
-         * @param params
-         */
-        cancel?: (params: P) => void
-    }
+    options?: ActionHandlerOptions<P, R>
 ): ActionHandler<P, R> {
     // 日志器
     const logger = PsrLogger.useLog()

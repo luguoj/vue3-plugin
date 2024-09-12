@@ -1,7 +1,7 @@
 import {App, getCurrentInstance, inject} from "vue";
 import {PsrMessengerTypes} from "../types/PsrMessengerTypes";
-import {LogService} from "../services/message/LogService";
 import {PsrLoggerTypes} from "../types/PsrLoggerTypes";
+import {LogService} from "../services/message/LogService";
 
 const injectKey = 'psr-logger'
 
@@ -38,7 +38,7 @@ export class PsrLogger {
         PsrLogger._activeInstance = logger
     }
 
-    public static useLog(): LogService<any> {
+    public static useLog<L extends PsrLoggerTypes.LogOptions = PsrLoggerTypes.LogOptions>(): LogService<L> {
         return PsrLogger.getInstance()._logServices
     }
 
@@ -47,7 +47,6 @@ export class PsrLogger {
             return inject<PsrLogger>(injectKey) || PsrLogger._activeInstance
         else return PsrLogger._activeInstance
     }
-
 
     install(app: App) {
         app.provide(injectKey, this)

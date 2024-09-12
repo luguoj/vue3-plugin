@@ -5,10 +5,6 @@ import {ElMessage, ElNotification} from "element-plus"
 export interface LogOptions extends PsrLoggerTypes.LogOptions {
     // toast消息
     toast?: boolean
-    // 提示消息
-    notify?: boolean
-    // 日志采集
-    log?: boolean
 }
 
 // 根据不同级别采用不同的日志消息选项
@@ -48,8 +44,8 @@ const logApi: PsrLoggerTypes.Subscriber<LogOptions> = (logObj: PsrLoggerTypes.Lo
     }
 }
 
-// toast消息处理
-const toastOut: PsrLoggerTypes.Subscriber<LogOptions> = ({message}, {toast, topic}) => {
+// 提示消息处理
+const notifyOut: PsrLoggerTypes.Subscriber<LogOptions> = ({message}, {toast, topic}) => {
     if (toast) {
         // 可根据级别实现不同的效果
         switch (topic) {
@@ -69,8 +65,8 @@ const toastOut: PsrLoggerTypes.Subscriber<LogOptions> = ({message}, {toast, topi
         }
     }
 }
-// 提示消息处理
-const notifyOut: PsrLoggerTypes.Subscriber<LogOptions> = ({message}, {notify, topic}) => {
+// toast消息处理
+const toastOut: PsrLoggerTypes.Subscriber<LogOptions> = ({message}, {notify, topic}) => {
     if (notify) {
         switch (topic) {
             case "info":

@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import {PsrLogger} from "@psr-framework/vue3-plugin";
 import {ElButton} from "element-plus"
+import {LogOptions} from "./LoggerService.ts"
 
-const log = PsrLogger.useLog();
+const log = PsrLogger.useLog<LogOptions>();
 
+log.info('日志器已就绪', {toast: true, notify: false})
 </script>
 
 <template>

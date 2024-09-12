@@ -1,9 +1,9 @@
 import {MessageService} from "./MessageService";
 import {PsrLoggerTypes} from "../../types/PsrLoggerTypes";
 
-
 const consoleOutSubscriber = (msgObj: PsrLoggerTypes.Log, options: PsrLoggerTypes.LogOptions): void => {
     if (options.console || options.debugging) {
+        // 启用控制台输出或者调试模式，都会输出到控制台
         const {message, topic, owner, data} = msgObj
         let msg = message
         if (data) {
@@ -43,8 +43,8 @@ export class LogService<M extends PsrLoggerTypes.LogOptions> extends MessageServ
 
     info(message: string, options?: M) {
         this.message(message, {
-            ...options,
             ...this.optionsByLevel('info'),
+            ...options,
             topic: 'info',
             debugging: this._debugging
         })
@@ -52,8 +52,8 @@ export class LogService<M extends PsrLoggerTypes.LogOptions> extends MessageServ
 
     success(message: string, options?: M) {
         this.message(message, {
-            ...options,
             ...this.optionsByLevel('success'),
+            ...options,
             topic: 'success',
             debugging: this._debugging
         })
@@ -61,8 +61,8 @@ export class LogService<M extends PsrLoggerTypes.LogOptions> extends MessageServ
 
     warn(message: string, options?: M) {
         this.message(message, {
-            ...options,
             ...this.optionsByLevel('warn'),
+            ...options,
             topic: 'warn',
             debugging: this._debugging
         })
@@ -70,8 +70,8 @@ export class LogService<M extends PsrLoggerTypes.LogOptions> extends MessageServ
 
     error(message: string, options?: M) {
         this.message(message, {
-            ...options,
             ...this.optionsByLevel('error'),
+            ...options,
             topic: 'error',
             debugging: this._debugging
         })

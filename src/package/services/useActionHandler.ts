@@ -158,7 +158,7 @@ export function useActionHandler<P = void, R = void>(
         let actionPromise: Promise<R> = preprocessPromise.then(
             () => resolvePromise<R>(() => action(params)).then(
                 result => {
-                    logger.success(`${actionName}成功`, {feedback: !!silent})
+                    logger.success(`${actionName}成功`, {feedback: !silent})
                     return result;
                 },
                 err => {

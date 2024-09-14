@@ -142,6 +142,10 @@ export default defineConfig({
                                     link: '/reference/element-plus/components/buttons/'
                                 },
                                 {
+                                    text: '表单',
+                                    link: '/reference/element-plus/components/form/'
+                                },
+                                {
                                     text: '容器',
                                     link: '/reference/element-plus/components/containers/'
                                 },

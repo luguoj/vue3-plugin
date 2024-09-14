@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {ref, watch} from "vue";
-import {ElButton, ElInput, ElTable, ElTableColumn} from "element-plus"
-import {Close as IconClose} from "@element-plus/icons-vue"
+import {ElButton, ElInput, ElTable, ElTableColumn, ElTooltip} from "element-plus"
+import {Close as IconClose, InfoFilled as IconInfoFilled} from "@element-plus/icons-vue"
 import {PsrElHeaderMain} from "../../layout/border"
 
 const emits = defineEmits<{
@@ -19,8 +19,8 @@ watch(modelValue, newValue => {
       values.value = JSON.parse(newValue)
       parseFailure.value = false
     } catch (err) {
-      emits('jsonParseFailure', err)
       parseFailure.value = true
+      emits('jsonParseFailure', err)
     }
   } else {
     values.value = undefined
@@ -49,10 +49,16 @@ function handleEnter() {
       <el-input v-model="inputTextRef" @keydown.enter="handleEnter" v-bind="$attrs"/>
     </template>
     <template #main>
-      <el-table :data="values" :show-header="false" style="height:100%;">
+      <el-table :data="parseFailure?[]:values" :show-header="false" style="height:100%;">
         <template #empty>
           <div>
-            <span v-if="parseFailure" style="color:var(--el-color-danger)">Invalid JSON</span>
+            <span
+                v-if="parseFailure"
+                style="color:var(--el-color-danger)"
+            >
+              Invalid JSON Value
+              <el-tooltip :content="modelValue"><el-button link :icon="IconInfoFilled"/></el-tooltip>
+            </span>
             <span v-else>No data</span>
           </div>
         </template>

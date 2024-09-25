@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {ref, watch} from "vue";
 import {ElButton, ElInput, ElTable, ElTableColumn, ElTooltip} from "element-plus"
-import {Close as IconClose, InfoFilled as IconInfoFilled} from "@element-plus/icons-vue"
+import {Close as IconClose, InfoFilled as IconInfoFilled, Plus as IconPlus} from "@element-plus/icons-vue"
 import {PsrElHeaderMain} from "../../layout/border"
 
 const emits = defineEmits<{
@@ -9,6 +9,16 @@ const emits = defineEmits<{
 }>()
 
 const modelValue = defineModel<string>('modelValue')
+withDefaults(
+    defineProps<{
+      disabled?: boolean
+      placeholder?: string
+    }>(),
+    {
+      disabled: false,
+      placeholder: '输入并回车添加项目'
+    }
+)
 const values = ref<string[]>()
 const inputTextRef = ref('')
 const parseFailure = ref(false)
@@ -46,7 +56,19 @@ function handleEnter() {
 <template>
   <psr-el-header-main style="max-height: 15rem">
     <template #header>
-      <el-input v-model="inputTextRef" @keydown.enter="handleEnter" v-bind="$attrs"/>
+      <el-input
+          :placeholder="placeholder"
+          :disabled="disabled"
+          v-model="inputTextRef"
+          v-bind="$attrs"
+          @keydown.enter="handleEnter"
+      >
+        <template #append>
+          <el-tooltip content="添加" placement="left">
+            <el-button :disabled="disabled" @click="handleEnter" :icon="IconPlus"/>
+          </el-tooltip>
+        </template>
+      </el-input>
     </template>
     <template #main>
       <el-table :data="parseFailure?[]:values" :show-header="false" style="height:100%;">
@@ -69,23 +91,20 @@ function handleEnter() {
         </el-table-column>
         <el-table-column width="45px">
           <template #default="{row}">
-            <el-button
-                :icon="IconClose"
-                link
-                type="danger"
-                @click="values = values && values.filter(item => item !== row)"
-            />
+            <el-tooltip content="移除" placement="left">
+              <el-button
+                  :disabled="disabled"
+                  :icon="IconClose"
+                  link
+                  type="danger"
+                  @click="values = values && values.filter(item => item !== row)"
+              />
+            </el-tooltip>
           </template>
         </el-table-column>
       </el-table>
     </template>
   </psr-el-header-main>
-  <div class="w-full flex flex-column" style="max-height: 300px">
-
-    <div class="flex-grow-1" style="display: block;">
-
-    </div>
-  </div>
 </template>
 
 <style scoped lang="scss">

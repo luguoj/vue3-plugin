@@ -9,6 +9,6 @@ const value = ref<string>('["1","2","3"]')
 <template>
   <div style="height: 300px;">
     <el-input v-model="value"/>
-    <psr-el-array-json-input class="mt-1" v-model="value" placeholder="输入项目并回车添加"/>
+    <psr-el-array-json-input disabled class="mt-1" v-model="value" placeholder="输入项目并回车添加"/>
   </div>
 </template>

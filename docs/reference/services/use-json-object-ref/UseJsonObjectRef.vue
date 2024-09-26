@@ -9,8 +9,16 @@ interface ObjectType {
   enabled: boolean
 }
 
-const jsonRef = ref('{}')
-const objectRef = useJsonObjectRef<ObjectType>(jsonRef)
+const jsonRef = ref('')
+const objectRef = useJsonObjectRef<ObjectType>(
+    jsonRef,
+    () => ({name: '', age: 0, enabled: false}),
+    {
+      jsonParseFail: (json) => {
+        console.warn('JSON 解析失败', json)
+      }
+    }
+)
 </script>
 
 <template>

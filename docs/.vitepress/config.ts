@@ -71,6 +71,20 @@ export default defineConfig({
                     ]
                 },
                 {
+                    text: '工具服务',
+                    collapsed: true,
+                    items: [
+                        {
+                            text: 'useActionHandler',
+                            link: '/reference/services/use-action-handler'
+                        },
+                        {
+                            text: 'useJsonObjectRef',
+                            link: '/reference/services/use-json-object-ref'
+                        }
+                    ]
+                },
+                {
                     text: '组件',
                     collapsed: true,
                     items: [

@@ -1,17 +1,17 @@
 import {App, ComponentOptionsBase, defineCustomElement, getCurrentInstance, inject, onMounted, ShallowRef} from "vue";
 import * as G6Ns from "@antv/g6";
 import {PsrAntvG6Types} from "../types";
-import {useGraph} from "../services/graph/useGraph.ts";
-import {useShape, useShapeWithExtensions} from "../services/utils/useShapeWithExtensions.ts";
-import {ShapeExtensionHandlerBuilder} from "../services/utils/ShapeExtensionHandler.ts";
-import {ArrowRunningBuilder} from "../services/edges/ani-handlers/ArrowRunningHandler.ts";
-import {CircleRunningBuilder} from "../services/edges/ani-handlers/CircleRunningHandler.ts";
-import {LineDashBuilder} from "../services/edges/ani-handlers/LineDashHandler.ts";
-import {LineGrowthBuilder} from "../services/edges/ani-handlers/LineGrowthHandler.ts";
-import {CircleScaleBuilder} from "../services/nodes/ani-handlers/CircleScaleHandler.ts";
-import {CircleShadowBuilder} from "../services/nodes/ani-handlers/CircleShadowHandler.ts";
-import {ElOverlayBuilder} from "../services/nodes/ElOverlayHandler.ts";
-import {SvgOverlayBuilder} from "../services/nodes/SvgOverlayHandler.ts";
+import {useGraph} from "../services/graph/useGraph";
+import {useShape, useShapeWithExtensions} from "../services/utils/useShapeWithExtensions";
+import {ShapeExtensionHandlerBuilder} from "../services/utils/ShapeExtensionHandler";
+import {ArrowRunningBuilder} from "../services/edges/ani-handlers/ArrowRunningHandler";
+import {CircleRunningBuilder} from "../services/edges/ani-handlers/CircleRunningHandler";
+import {LineDashBuilder} from "../services/edges/ani-handlers/LineDashHandler";
+import {LineGrowthBuilder} from "../services/edges/ani-handlers/LineGrowthHandler";
+import {CircleScaleBuilder} from "../services/nodes/ani-handlers/CircleScaleHandler";
+import {CircleShadowBuilder} from "../services/nodes/ani-handlers/CircleShadowHandler";
+import {ElOverlayBuilder} from "../services/nodes/ElOverlayHandler";
+import {SvgOverlayBuilder} from "../services/nodes/SvgOverlayHandler";
 
 const injectKey = 'psr-antv-g6'
 const edgeExtBuilderRaws: ShapeExtensionHandlerBuilder<any>[] = [

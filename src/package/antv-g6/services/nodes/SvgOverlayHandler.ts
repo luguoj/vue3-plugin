@@ -1,5 +1,5 @@
 import * as G6Ns from "@antv/g6";
-import {ShapeExtensionHandler, ShapeExtensionHandlerBuilder} from "../utils/ShapeExtensionHandler.ts";
+import {ShapeExtensionHandler, ShapeExtensionHandlerBuilder} from "../utils/ShapeExtensionHandler";
 
 export const SvgOverlayBuilder: ShapeExtensionHandlerBuilder<SvgOverlayCfg> = {
     type() {

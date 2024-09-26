@@ -1,4 +1,4 @@
-import {PsrAMapTypes} from "../../../../types/PsrAMapTypes.ts"
+import {PsrAMapTypes} from "../../../../types/PsrAMapTypes"
 
 type THREE162 = typeof import("three162")
 export class ThreeJsContext {

@@ -1,5 +1,5 @@
 import * as G6Ns from "@antv/g6";
-import {ShapeExtensionHandler} from "./ShapeExtensionHandler.ts";
+import {ShapeExtensionHandler} from "./ShapeExtensionHandler";
 
 
 export type AnimationState = { running: boolean } | any

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {watchEffect} from "vue";
-import {PsrAMapContext} from "../../../plugins/PsrAMapContext.ts";
+import {PsrAMapContext} from "../../../plugins/PsrAMapContext";
 
 const props = withDefaults(defineProps<{
   // 地图实例对象

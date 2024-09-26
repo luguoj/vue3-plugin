@@ -1,6 +1,6 @@
 import * as G6Ns from "@antv/g6";
-import {AnimationHandler, AnimationState} from "../../utils/AnimationHandler.ts";
-import {ShapeExtensionHandler, ShapeExtensionHandlerBuilder} from "../../utils/ShapeExtensionHandler.ts";
+import {AnimationHandler, AnimationState} from "../../utils/AnimationHandler";
+import {ShapeExtensionHandler, ShapeExtensionHandlerBuilder} from "../../utils/ShapeExtensionHandler";
 
 export const CircleShadowBuilder: ShapeExtensionHandlerBuilder<CircleShadowAniCfg> = {
     type() {

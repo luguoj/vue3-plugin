@@ -1,2 +1,2 @@
-export * from "./useActionHandler.ts"
-export * from "./useJsonObjectRef.ts"
+export * from "./useActionHandler"
+export * from "./useJsonObjectRef"

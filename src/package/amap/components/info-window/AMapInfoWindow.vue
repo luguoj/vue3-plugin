@@ -8,7 +8,7 @@
 
 <script setup lang="ts">
 import {onUnmounted, onUpdated, ref, watch, watchEffect} from "vue";
-import {PsrAMapTypes} from "../../types/PsrAMapTypes.ts";
+import {PsrAMapTypes} from "../../types/PsrAMapTypes";
 import {PsrAMapContext} from "../../plugins";
 
 const props = withDefaults(defineProps<{

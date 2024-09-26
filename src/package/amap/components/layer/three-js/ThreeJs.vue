@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import {onMounted, shallowRef} from "vue";
 import {PsrAMapGlCustomLayer} from "../custom"
-import {ThreeJsContext} from "./services/ThreeJsContext.ts";
-import {PsrAMapTypes} from "../../../types/PsrAMapTypes.ts";
+import {ThreeJsContext} from "./services/ThreeJsContext";
+import {PsrAMapTypes} from "../../../types/PsrAMapTypes";
 
 const props = withDefaults(defineProps<{
   // 地图实例对象

@@ -1,1 +1,1 @@
-export * from "./PsrAMapContext.ts"
+export * from "./PsrAMapContext"

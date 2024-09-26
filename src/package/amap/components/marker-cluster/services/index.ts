@@ -1,2 +1,2 @@
-export * from "./useRenderClusterMarker.ts"
-export * from "./useRenderMarker.ts"
+export * from "./useRenderClusterMarker"
+export * from "./useRenderMarker"

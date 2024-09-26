@@ -1,7 +1,7 @@
 import {GraphOptions as AntvGraphOptions, ShapeStyle} from "@antv/g6";
 import {IPluginBaseConfig} from "@antv/g6-plugin/es/base";
-import {CircleRunningAniCfg} from "../services/edges/ani-handlers/CircleRunningHandler.ts";
-import {LineDashAniCfg} from "../services/edges/ani-handlers/LineDashHandler.ts";
+import {CircleRunningAniCfg} from "../services/edges/ani-handlers/CircleRunningHandler";
+import {LineDashAniCfg} from "../services/edges/ani-handlers/LineDashHandler";
 import {ShallowRef} from "vue";
 
 export namespace PsrAntvG6Types {

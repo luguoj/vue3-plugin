@@ -24,8 +24,8 @@
 
 <script setup lang="ts" generic="T">
 import {computed, onUnmounted, watchEffect} from "vue";
-import {PsrAMapContext} from "../../plugins/PsrAMapContext.ts";
-import {PsrAMapTypes} from "../../types/PsrAMapTypes.ts";
+import {PsrAMapContext} from "../../plugins/PsrAMapContext";
+import {PsrAMapTypes} from "../../types/PsrAMapTypes";
 import {useRenderClusterMarker, useRenderMarker} from "./services";
 
 const props = withDefaults(defineProps<{

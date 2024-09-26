@@ -1,6 +1,6 @@
 import {createPinia} from "pinia";
 import {createPsrPiniaPersist} from "@psr-framework/vue3-plugin";
-import {asyncStorage} from "./asyncStorage.ts";
+import {asyncStorage} from "./asyncStorage";
 
 export const pinia = createPinia()
 pinia.use(createPsrPiniaPersist({

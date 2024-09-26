@@ -1,6 +1,6 @@
 import {Ref, ShallowRef} from "vue";
-import {PsrAMapTypes} from "../../../types/PsrAMapTypes.ts";
-import {useAMapViewControlService} from "./useAMapViewControlService.ts";
+import {PsrAMapTypes} from "../../../types/PsrAMapTypes";
+import {useAMapViewControlService} from "./useAMapViewControlService";
 
 export function useAMapCenterService(
     mapRef: ShallowRef<AMap.Map | undefined>,

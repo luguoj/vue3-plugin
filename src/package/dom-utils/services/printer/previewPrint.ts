@@ -1,5 +1,5 @@
-import {PreviewOptions, PrintEventListenerOptions, PrintOptions} from "./types.ts";
-import {createPrintAreaIFrame, printPrintAreaIFrame, writePrintAreaDocument} from "./PrintAreaUtils.ts";
+import {PreviewOptions, PrintEventListenerOptions, PrintOptions} from "./types";
+import {createPrintAreaIFrame, printPrintAreaIFrame, writePrintAreaDocument} from "./PrintAreaUtils";
 
 export function previewPrint(
     element: HTMLElement,

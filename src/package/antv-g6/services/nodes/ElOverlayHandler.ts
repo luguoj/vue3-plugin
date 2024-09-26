@@ -2,7 +2,7 @@ import {watch} from "vue";
 import * as G6Ns from "@antv/g6";
 import mix from "@antv/util/esm/mix";
 import {ShapeAttrs} from "@antv/g-base/esm";
-import {ShapeExtensionHandler, ShapeExtensionHandlerBuilder} from "../utils/ShapeExtensionHandler.ts";
+import {ShapeExtensionHandler, ShapeExtensionHandlerBuilder} from "../utils/ShapeExtensionHandler";
 
 export const ElOverlayBuilder: ShapeExtensionHandlerBuilder<ElOverlayCfg> = {
     type() {

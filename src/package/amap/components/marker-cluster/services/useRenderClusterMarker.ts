@@ -1,5 +1,5 @@
 import {computed, ComputedRef, markRaw, reactive, ref} from "vue";
-import {PsrAMapTypes} from "../../../types/PsrAMapTypes.ts";
+import {PsrAMapTypes} from "../../../types/PsrAMapTypes";
 
 export type RenderClusterMarkerData<T> = {
     // 渲染聚合点标记实例对象

@@ -1,7 +1,7 @@
-import {PsrAMapTypes} from "../types/PsrAMapTypes.ts";
+import {PsrAMapTypes} from "../types/PsrAMapTypes";
 import {App, getCurrentInstance, inject, onMounted, onUnmounted, Ref, shallowRef, ShallowRef, watch} from "vue";
-import {useMap} from "../services/useMap.ts";
-import {useGLCustomLayer} from "../services/useGLCustomLayer.ts";
+import {useMap} from "../services/useMap";
+import {useGLCustomLayer} from "../services/useGLCustomLayer";
 
 const injectKey = 'psr-a-map'
 

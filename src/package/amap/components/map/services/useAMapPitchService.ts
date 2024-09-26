@@ -1,5 +1,5 @@
 import {Ref, ShallowRef} from "vue";
-import {useAMapViewControlService} from "./useAMapViewControlService.ts";
+import {useAMapViewControlService} from "./useAMapViewControlService";
 
 export function useAMapPitchService(
     mapRef: ShallowRef<AMap.Map | undefined>,

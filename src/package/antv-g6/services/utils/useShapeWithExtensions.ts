@@ -1,6 +1,6 @@
 import {ref, Ref} from "vue";
 import * as G6Ns from "@antv/g6";
-import {ShapeExtensionHandler, ShapeExtensionHandlerBuilder} from "./ShapeExtensionHandler.ts";
+import {ShapeExtensionHandler, ShapeExtensionHandlerBuilder} from "./ShapeExtensionHandler";
 
 export function useShape(
     promiseG6: Promise<typeof G6Ns>,

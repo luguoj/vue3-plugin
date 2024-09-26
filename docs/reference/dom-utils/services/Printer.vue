@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {shallowRef} from "vue";
 import {PsrElAsyncActionButton, PsrMarkdown, PsrPrinter} from "@psr-framework/vue3-plugin";
-import {markdownContent} from "../../markdown/markdown-content.ts";
+import {markdownContent} from "../../markdown/markdown-content";
 
 const pageRef = shallowRef<HTMLElement>()
 

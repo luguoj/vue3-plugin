@@ -2,7 +2,7 @@
 import {ref} from "vue";
 import {ElInput} from "element-plus";
 import {PsrMarkdown} from "@psr-framework/vue3-plugin"
-import {markdownContent} from "./markdown-content.ts";
+import {markdownContent} from "./markdown-content";
 
 const input = ref(markdownContent)
 </script>

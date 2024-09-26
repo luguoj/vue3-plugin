@@ -5,7 +5,7 @@ import * as THREE from "three162"
 import {GLTFLoader} from "three162/examples/jsm/loaders/GLTFLoader";
 import textureUrl from "./texture.png?url"
 import modelUrl from "./model.glb?url"
-import {PsrThreeDRACOLoader} from "./draco/DracoLoader.ts";
+import {PsrThreeDRACOLoader} from "./draco/DracoLoader";
 
 const visible = ref(true)
 

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {PsrLogger} from "@psr-framework/vue3-plugin";
 import {ElButton} from "element-plus"
-import {LogOptions} from "./LoggerService.ts"
+import {LogOptions} from "./LoggerService"
 
 const log = PsrLogger.useLog<LogOptions>();
 

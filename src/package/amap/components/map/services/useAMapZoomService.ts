@@ -1,5 +1,5 @@
 import {Ref, ShallowRef, watch} from "vue";
-import {useAMapViewControlService} from "./useAMapViewControlService.ts";
+import {useAMapViewControlService} from "./useAMapViewControlService";
 
 export function useAMapZoomService(
     mapRef: ShallowRef<AMap.Map | undefined>,

@@ -20,15 +20,21 @@ export function useJsonObjectRef<T>(
     const objectRef: Ref<UnwrapRef<T>> = ref<T>(defaultValue())
     // 监听JSON引用的变化
     watch(jsonRef, newJsonValue => {
+        const defaultObject = defaultValue()
         // 如果为空，则重置为默认值
         if (!newJsonValue) {
-            objectRef.value = defaultValue() as UnwrapRef<T>
+            objectRef.value = defaultObject as UnwrapRef<T>
             return
         }
         // 如果JSON值与对象引用不相等，则更新对象引用
         if (JSON.stringify(objectRef.value) != newJsonValue) {
             try {
-                objectRef.value = JSON.parse(newJsonValue)
+                const newObject = JSON.parse(newJsonValue)
+                // 判断对象类型是否一致
+                if ((defaultObject instanceof Array) != (newObject instanceof Array)) {
+                    throw new Error(`JSON对象类型不匹配`)
+                }
+                objectRef.value = newObject
             } catch (err) {
                 // 捕获JSON解析错误
                 logger.error("JSON解析失败", {data: err, log: true, feedback: true})

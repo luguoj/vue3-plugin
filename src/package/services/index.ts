@@ -1,5 +1,2 @@
-import {useActionHandler as _useActionHandler} from "./useActionHandler.ts";
-
-export namespace PsrVue3Use {
-    export const useActionHandler = _useActionHandler
-}
+export * from "./useActionHandler.ts"
+export * from "./useJsonObjectRef.ts"

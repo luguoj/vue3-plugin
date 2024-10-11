@@ -115,6 +115,10 @@ export default defineConfig({
                         {
                             text: '条形码生成',
                             link: '/reference/barcode/'
+                        },
+                        {
+                            text: '文件查看器',
+                            link: '/reference/file-viewer/'
                         }
                     ]
                 },

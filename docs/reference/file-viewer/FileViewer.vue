@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {PsrFileViewer} from "@psr-framework/vue3-plugin";
 import {ref} from "vue";
+import { withBase } from 'vitepress'
 
 type FileItem = {
   src: string
@@ -9,27 +10,27 @@ type FileItem = {
 
 const files = [
   {
-    src: './test.pdf',
+    src: '/file-viewer-resources/test.pdf',
     contentType: 'application/pdf'
   },
   {
-    src: './test.docx',
+    src: '/file-viewer-resources/test.docx',
     contentType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
   },
   {
-    src: './test.xlsx',
+    src: '/file-viewer-resources/test.xlsx',
     contentType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
   },
   {
-    src: './test.txt',
+    src: '/file-viewer-resources/test.txt',
     contentType: 'text/plain'
   },
   {
-    src: './test.jpg',
+    src: '/file-viewer-resources/test.jpg',
     contentType: 'image/jpeg'
   },
   {
-    src: './test.mp4',
+    src: '/file-viewer-resources/test.mp4',
     contentType: 'video/mpeg'
   }
 ]
@@ -46,6 +47,6 @@ const fileRef = ref<FileItem | null>(null)
   <button @click="fileRef=files[4]">image</button>
   <button @click="fileRef=files[5]">video</button>
   <div style="height: 350px;">
-    <psr-file-viewer v-if="fileRef" style="height: 100%;" :src="fileRef.src" :content-type="fileRef.contentType"/>
+    <psr-file-viewer v-if="fileRef" style="height: 100%;" :src="withBase(fileRef.src)" :content-type="fileRef.contentType"/>
   </div>
 </template>

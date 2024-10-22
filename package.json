@@ -21,7 +21,6 @@
     "@types/three162": "npm:@types/three@0.162.0",
     "@vue-office/docx": "^1.6.2",
     "@vue-office/excel": "^1.7.11",
-    "@vue-office/pdf": "^2.0.2",
     "echarts": "^5.5.0",
     "element-plus": "2.7.5",
     "lodash": "^4.17.21",

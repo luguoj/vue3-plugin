@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import {ref, watch} from "vue";
 import {vLoading} from "element-plus"
-import VueOfficePdf from '@vue-office/pdf'
 import VueOfficeDocx from "@vue-office/docx";
 import VueOfficeExcel from "@vue-office/excel";
 import '@vue-office/docx/lib/index.css'
@@ -38,11 +37,12 @@ function handleLoad(){
 
 <template>
   <div v-loading="loading">
-    <vue-office-pdf
-        v-if="contentType === 'application/pdf'"
-        style="height: 100%;"
+    <iframe
+        v-if="contentType === 'application/pdf' || contentType.startsWith('text')"
+        frameborder="0"
+        style="height: 100%;width:100%"
         :src="src"
-        @rendered="handleLoad"
+        @load="handleLoad"
     />
     <vue-office-docx
         v-else-if="contentType === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'"
@@ -55,13 +55,6 @@ function handleLoad(){
         style="height: 100%;"
         :src="src"
         @rendered="handleLoad"
-    />
-    <iframe
-        v-else-if="contentType.startsWith('text')"
-        frameborder="0"
-        style="height: 100%;"
-        :src="src"
-        @load="handleLoad"
     />
     <img
         v-else-if="contentType.startsWith('image')"

@@ -1,6 +1,6 @@
 {
   "name": "@psr-framework/vue3-plugin",
-  "version": "1.4.12",
+  "version": "1.4.13",
   "type": "module",
   "scripts": {
     "dev": "vite --host",

@@ -2,6 +2,7 @@ import PrimeVue, {PrimeVueLocaleOptions, PrimeVueZIndexOptions} from 'primevue/c
 import {App} from "vue";
 import {zhCN} from "../services/locales";
 import {filterMatchModeOptions} from "../services/filterMatchModeOptions";
+import {loadStyle} from "./loadStyle.ts";
 
 export function usePsrPrimeVue(options?: {
     ripple?: boolean
@@ -12,12 +13,18 @@ export function usePsrPrimeVue(options?: {
 }) {
     return {
         install(app: App) {
-            import("./loadStyle").then(({loaded}) => loaded)
+            // import("./loadStyle").then(({loaded}) => loaded)
             app.use(PrimeVue, {
                 locale: zhCN,
                 filterMatchModeOptions,
+                theme: {
+                    options: {
+                        darkModeSelector: '.dark'
+                    }
+                },
                 ...options
             })
+            loadStyle()
         }
     }
 }

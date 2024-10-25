@@ -1,5 +1,6 @@
 import {ref, Ref, UnwrapRef, watch} from "vue";
 import {PsrLogger} from "@package/messenger";
+import {IfAny} from "@vue/shared";
 
 /**
  * 根据 响应式JSON引用，创建响应式对象引用，实现JSON值和对象的双向同步
@@ -13,11 +14,11 @@ export function useJsonObjectRef<T>(
     options?: {
         jsonParseFail?: (json: string) => void
     }
-): Ref<UnwrapRef<T>> {
+): [T] extends [Ref] ? IfAny<T, Ref<T>, T> : Ref<UnwrapRef<T>, UnwrapRef<T> | T> {
     // 日志器
     const logger = PsrLogger.useLog()
     // 对象引用
-    const objectRef: Ref<UnwrapRef<T>> = ref<T>(defaultValue())
+    const objectRef: [T] extends [Ref] ? IfAny<T, Ref<T>, T> : Ref<UnwrapRef<T>, UnwrapRef<T> | T> = ref<T>(defaultValue())
     // 监听JSON引用的变化
     watch(jsonRef, newJsonValue => {
         const defaultObject = defaultValue()

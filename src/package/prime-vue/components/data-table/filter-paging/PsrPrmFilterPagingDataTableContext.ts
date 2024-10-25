@@ -1,6 +1,6 @@
 import {reactive, watch} from "vue";
 import {UnwrapNestedRefs} from "@vue/reactivity";
-import {DataTableFilterMeta, DataTableFilterMetaData} from "primevue/datatable";
+import {DataTableFilterMetaData} from "primevue/datatable";
 import {FilterOptions, PagingTypes} from "@psr-framework/typescript-utils"
 import {buildFilterOptions, FilterType} from "./buildFilterOptions";
 

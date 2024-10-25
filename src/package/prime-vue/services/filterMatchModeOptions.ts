@@ -1,4 +1,4 @@
-import {FilterMatchMode} from "primevue/api";
+import {FilterMatchMode} from "@primevue/core/api";
 
 export const filterMatchModeOptions = {
     string: [

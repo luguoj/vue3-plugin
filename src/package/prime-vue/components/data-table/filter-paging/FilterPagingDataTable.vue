@@ -45,7 +45,7 @@ import {PsrPrmFilterPagingDataTableContext} from "./PsrPrmFilterPagingDataTableC
 const props = defineProps<{
   tableContext: PsrPrmFilterPagingDataTableContext<any>
 }>()
-const tableRef = ref<DataTable>()
+const tableRef = ref<typeof DataTable>()
 
 // function handleExport() {
 //   tableRef.value?.exportCSV();

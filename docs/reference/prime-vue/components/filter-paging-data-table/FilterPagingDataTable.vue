@@ -2,7 +2,7 @@
 import PvColumn from 'primevue/column';
 import PvInput from "primevue/inputtext"
 import {PsrPrmFilterPagingDataTable, PsrPrmFilterPagingDataTableContext} from "@psr-framework/vue3-plugin";
-import {FilterMatchMode} from "primevue/api";
+import {FilterMatchMode} from "@primevue/core/api";
 
 interface DataItem {
   id: string,

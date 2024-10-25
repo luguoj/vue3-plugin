@@ -1,5 +1,5 @@
 import {FilterOptions} from "@psr-framework/typescript-utils"
-import {FilterMatchMode} from "primevue/api";
+import {FilterMatchMode} from "@primevue/core/api";
 import {DataTableFilterMetaData} from "primevue/datatable";
 
 export function buildFilterOptions(filters: Record<string, DataTableFilterMetaData>) {

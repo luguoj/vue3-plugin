@@ -20,4 +20,5 @@ export function loadStyle() {
             }
         }))
     })
+    import("primeflex/primeflex.css")
 }

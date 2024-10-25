@@ -5,9 +5,11 @@ import {FilterOptions, PagingTypes} from "@psr-framework/typescript-utils"
 import {buildFilterOptions} from "./buildFilterOptions";
 import {UnwrapNestedRefs} from "@vue/reactivity";
 
+type FilterType<E> = Record<keyof E, DataTableFilterMetaData>
+
 export class PsrPrmFilterPagingDataTableContext<E> {
-    loadDataHandler: (filter: Record<string, FilterOptions.ValueRange[]>, pageable: PagingTypes.Pageable) => Promise<PagingTypes.Page<E>>
-    defaultFilters: () => Record<string, DataTableFilterMetaData>
+    loadDataHandler: (filter: Record<keyof E, FilterOptions.ValueRange[]>, pageable: PagingTypes.Pageable) => Promise<PagingTypes.Page<E>>
+    defaultFilters: () => FilterType<E>
 
     pageable: PagingTypes.Pageable = {
         offset: 0,
@@ -20,11 +22,11 @@ export class PsrPrmFilterPagingDataTableContext<E> {
         totalPages: 0
     }
     loading: boolean = false
-    filters: Record<string, DataTableFilterMetaData>
+    filters: FilterType<E>
 
     constructor(
-        loadDataHandler: (filter: Record<string, FilterOptions.ValueRange[]>, pageable: PagingTypes.Pageable) => Promise<PagingTypes.Page<E>>,
-        defaultFilters: () => Record<string, DataTableFilterMetaData>
+        loadDataHandler: (filter: Record<keyof E, FilterOptions.ValueRange[]>, pageable: PagingTypes.Pageable) => Promise<PagingTypes.Page<E>>,
+        defaultFilters: () => FilterType<E>
     ) {
         this.loadDataHandler = loadDataHandler
         this.defaultFilters = defaultFilters
@@ -34,8 +36,8 @@ export class PsrPrmFilterPagingDataTableContext<E> {
 
     static create<E>(
         options: {
-            loadDataHandler: (filter: Record<string, FilterOptions.ValueRange[]>, pageable: PagingTypes.Pageable) => Promise<PagingTypes.Page<E>>,
-            defaultFilters: () => Record<string, DataTableFilterMetaData>
+            loadDataHandler: (filter: Record<keyof E, FilterOptions.ValueRange[]>, pageable: PagingTypes.Pageable) => Promise<PagingTypes.Page<E>>,
+            defaultFilters: () => FilterType<E>
         }
     ): UnwrapNestedRefs<PsrPrmFilterPagingDataTableContext<E>> {
         return reactive(new PsrPrmFilterPagingDataTableContext(
@@ -49,7 +51,7 @@ export class PsrPrmFilterPagingDataTableContext<E> {
             this.pageable.offset = page * this.pageable.limit
         }
         this.loading = true
-        const filterOptions = buildFilterOptions(this.filters)
+        const filterOptions = buildFilterOptions<E>(this.filters)
         return this.loadDataHandler(filterOptions, this.pageable).then(data => {
             this.data = data
         }).finally(() => this.loading = false)

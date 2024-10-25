@@ -34,11 +34,12 @@ function extractData<E>(
     return {rootNodes, recordByKey}
 }
 
+type FilterType<E> = Record<keyof E, any> & { global?: any }
 
 export class PsrPrmFilterTreeTableContext<E> {
     loadDataHandler: () => Promise<E[] | undefined>
-    defaultFilters: () => { [key: string | 'global']: any }
-    filters: { [key: string | 'global']: any }
+    defaultFilters: () => FilterType<E>
+    filters: FilterType<E>
     childrenProperty: keyof E
     keyProperty: keyof E
 
@@ -49,7 +50,7 @@ export class PsrPrmFilterTreeTableContext<E> {
 
     constructor(
         loadDataHandler: () => Promise<E[] | undefined>,
-        defaultFilters: () => { [key: string | 'global']: any },
+        defaultFilters: () => FilterType<E>,
         childrenProperty: keyof E = 'children' as unknown as keyof E,
         keyProperty: keyof E = 'id' as unknown as keyof E
     ) {
@@ -63,7 +64,7 @@ export class PsrPrmFilterTreeTableContext<E> {
     static create<E>(
         options: {
             loadDataHandler: () => Promise<E[] | undefined>,
-            defaultFilters: () => { [key: string | 'global']: any },
+            defaultFilters: () => FilterType<E>,
             childrenProperty?: keyof E
             keyProperty?: keyof E
         }

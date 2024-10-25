@@ -2,8 +2,8 @@ import {FilterOptions} from "@psr-framework/typescript-utils"
 import {FilterMatchMode} from "@primevue/core/api";
 import {DataTableFilterMetaData} from "primevue/datatable";
 
-export function buildFilterOptions(filters: Record<string, DataTableFilterMetaData>) {
-    const filterOptionsBuilder = FilterOptions.useBuilder()
+export function buildFilterOptions<E>(filters: Record<keyof E, DataTableFilterMetaData>) {
+    const filterOptionsBuilder = FilterOptions.useBuilder<E>()
     for (const field in filters) {
         const filter = filters[field]
         const valueRangesBuilder = filterOptionsBuilder.field(field)

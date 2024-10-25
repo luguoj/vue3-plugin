@@ -20,5 +20,5 @@ export function loadStyle() {
             }
         }))
     })
-    import("primeflex/primeflex.css")
+    import("./loadPrimeStyles").then(({loaded}) => loaded)
 }

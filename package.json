@@ -75,8 +75,7 @@
     "declares",
     "package.json",
     "README.md",
-    "dist",
-    "rollup-external.ts"
+    "dist"
   ],
   "main": "./dist/index.umd.cjs",
   "module": "./dist/index.js",
@@ -87,7 +86,6 @@
       "import": "./dist/index.js",
       "require": "./dist/index.umd.cjs"
     },
-    "./style.css": "./dist/style.css",
-    "./rollup-external.ts": "./rollup-external.ts"
+    "./style.css": "./dist/style.css"
   }
 }

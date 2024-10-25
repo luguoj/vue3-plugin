@@ -1,15 +1,14 @@
-import {DataTableFilterMetaData} from "primevue/datatable";
-
 import {reactive, watch} from "vue";
-import {FilterOptions, PagingTypes} from "@psr-framework/typescript-utils"
-import {buildFilterOptions} from "./buildFilterOptions";
 import {UnwrapNestedRefs} from "@vue/reactivity";
+import {DataTableFilterMeta, DataTableFilterMetaData} from "primevue/datatable";
+import {FilterOptions, PagingTypes} from "@psr-framework/typescript-utils"
+import {buildFilterOptions, FilterType} from "./buildFilterOptions";
 
-type FilterType<E> = Record<keyof E, DataTableFilterMetaData>
+type FilterType2<E> = Partial<Record<keyof E, DataTableFilterMetaData>>
 
 export class PsrPrmFilterPagingDataTableContext<E> {
     loadDataHandler: (filter: Record<keyof E, FilterOptions.ValueRange[]>, pageable: PagingTypes.Pageable) => Promise<PagingTypes.Page<E>>
-    defaultFilters: () => FilterType<E>
+    defaultFilters: () => FilterType2<E>
 
     pageable: PagingTypes.Pageable = {
         offset: 0,
@@ -22,22 +21,22 @@ export class PsrPrmFilterPagingDataTableContext<E> {
         totalPages: 0
     }
     loading: boolean = false
-    filters: FilterType<E>
+    filters: FilterType = {}
 
     constructor(
         loadDataHandler: (filter: Record<keyof E, FilterOptions.ValueRange[]>, pageable: PagingTypes.Pageable) => Promise<PagingTypes.Page<E>>,
-        defaultFilters: () => FilterType<E>
+        defaultFilters: () => FilterType2<E>
     ) {
         this.loadDataHandler = loadDataHandler
         this.defaultFilters = defaultFilters
-        this.filters = defaultFilters()
+        this.clearFilters()
         watch(() => this.pageable.limit, () => this.load(0))
     }
 
     static create<E>(
         options: {
             loadDataHandler: (filter: Record<keyof E, FilterOptions.ValueRange[]>, pageable: PagingTypes.Pageable) => Promise<PagingTypes.Page<E>>,
-            defaultFilters: () => FilterType<E>
+            defaultFilters: () => FilterType2<E>
         }
     ): UnwrapNestedRefs<PsrPrmFilterPagingDataTableContext<E>> {
         return reactive(new PsrPrmFilterPagingDataTableContext(
@@ -58,6 +57,15 @@ export class PsrPrmFilterPagingDataTableContext<E> {
     }
 
     clearFilters() {
-        this.filters = this.defaultFilters()
+        const defaultFilters = this.defaultFilters()
+        const newFilters: Record<string, DataTableFilterMetaData> = {}
+        for (const defaultFiltersKey in defaultFilters) {
+            const filterItem = defaultFilters[defaultFiltersKey]
+            if (filterItem == undefined) {
+                continue
+            }
+            newFilters[defaultFiltersKey] = filterItem
+        }
+        this.filters = newFilters
     }
 }

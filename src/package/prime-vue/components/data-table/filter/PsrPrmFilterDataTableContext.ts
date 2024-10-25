@@ -2,7 +2,7 @@ import {DataTableFilterMeta, DataTableFilterMetaData} from "primevue/datatable";
 import {reactive} from "vue";
 import {UnwrapNestedRefs} from "@vue/reactivity";
 
-type FilterType<E> = Record<keyof E, DataTableFilterMetaData>
+type FilterType<E> = Partial<Record<keyof E, DataTableFilterMetaData>>
 
 export class PsrPrmFilterDataTableContext<E> {
     loadDataHandler: () => Promise<E[]>
@@ -10,7 +10,7 @@ export class PsrPrmFilterDataTableContext<E> {
 
     data: E[] = []
     loading: boolean = false
-    filters: DataTableFilterMeta
+    filters: DataTableFilterMeta = {}
 
     constructor(
         loadDataHandler: () => Promise<E[]>,
@@ -18,7 +18,7 @@ export class PsrPrmFilterDataTableContext<E> {
     ) {
         this.loadDataHandler = loadDataHandler
         this.defaultFilters = defaultFilters
-        this.filters = defaultFilters()
+        this.clearFilters()
     }
 
     static create<E>(
@@ -41,6 +41,15 @@ export class PsrPrmFilterDataTableContext<E> {
     }
 
     clearFilters() {
-        this.filters = this.defaultFilters()
+        const defaultFilters = this.defaultFilters()
+        const newFilters: DataTableFilterMeta = {}
+        for (const defaultFiltersKey in defaultFilters) {
+            const filterItem = defaultFilters[defaultFiltersKey]
+            if (filterItem == undefined) {
+                continue
+            }
+            newFilters[defaultFiltersKey] = filterItem
+        }
+        this.filters = newFilters
     }
 }

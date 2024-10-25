@@ -1,5 +1,6 @@
 import {reactive} from "vue";
 import {UnwrapNestedRefs} from "@vue/reactivity";
+import {TreeTableFilterMeta} from "primevue/treetable";
 
 interface TreeNode<E> {
     key: string,
@@ -34,12 +35,12 @@ function extractData<E>(
     return {rootNodes, recordByKey}
 }
 
-type FilterType<E> = Record<keyof E, any> & { global?: any }
+type FilterType<E> = Partial<Record<keyof E, any>> & { global?: any }
 
 export class PsrPrmFilterTreeTableContext<E> {
     loadDataHandler: () => Promise<E[] | undefined>
     defaultFilters: () => FilterType<E>
-    filters: FilterType<E>
+    filters: TreeTableFilterMeta
     childrenProperty: keyof E
     keyProperty: keyof E
 

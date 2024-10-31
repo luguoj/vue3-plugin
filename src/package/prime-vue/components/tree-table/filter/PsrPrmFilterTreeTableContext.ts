@@ -1,6 +1,5 @@
 import {reactive} from "vue";
 import {UnwrapNestedRefs} from "@vue/reactivity";
-import {TreeTableFilterMeta} from "primevue/treetable";
 
 interface TreeNode<E> {
     key: string,
@@ -40,7 +39,7 @@ type FilterType<E> = Partial<Record<keyof E, any>> & { global?: any }
 export class PsrPrmFilterTreeTableContext<E> {
     loadDataHandler: () => Promise<E[] | undefined>
     defaultFilters: () => FilterType<E>
-    filters: TreeTableFilterMeta
+    filters: { [p: string]: string } = {}
     childrenProperty: keyof E
     keyProperty: keyof E
 
@@ -57,7 +56,7 @@ export class PsrPrmFilterTreeTableContext<E> {
     ) {
         this.loadDataHandler = loadDataHandler
         this.defaultFilters = defaultFilters
-        this.filters = defaultFilters()
+        this.clearFilters()
         this.childrenProperty = childrenProperty
         this.keyProperty = keyProperty
     }

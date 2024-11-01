@@ -10,6 +10,7 @@
     "noEmit": true
   },
   "include": [
+    "resolve-paths.ts",
     "rollup-external.ts",
     "vite.config.ts"
   ]

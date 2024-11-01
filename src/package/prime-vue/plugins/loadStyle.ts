@@ -19,6 +19,7 @@ export function loadStyle() {
                 }
             }
         }))
+        import("./loadThemePatch").then(({loaded}) => loaded)
     })
     import("./loadPrimeStyles").then(({loaded}) => loaded)
 }

@@ -1,7 +1,7 @@
 <script lang="ts">
 import {PsrAntvG6} from "@psr-framework/vue3-plugin";
 import {Circle, Diamond, Ellipse, Rect} from "@antv/g6";
-
+import {Ellipse as GEllipse} from "@antv/g-lite"
 // 动画状态关键字
 const stateKey = 'rippleRunning'
 
@@ -11,27 +11,31 @@ const nodeTypes = [Circle, Rect, Ellipse, Diamond].map(
         'node',
         shape,
         () => [
-          PsrAntvG6.Nodes.Animations.RippleRectAnimation.useHooks({
+          PsrAntvG6.Nodes.Animations.RippleAnimation.useHooks({
             // 配置运动状态字段
             stateKey
           })
         ]
     )
 )
-
 </script>
 <script setup lang="ts">
 import {ref, watch} from "vue";
 import {NodeData} from "@antv/g6";
 
-const nodes: NodeData[] = nodeTypes.map(
-    (nodeType, index) => (
-        {
-          id: '' + index,
-          type: nodeType
-        } as NodeData
-    )
-)
+const nodes: NodeData[] = [
+  ...nodeTypes.map(
+      (nodeType, index) => (
+          {
+            id: '' + index,
+            type: nodeType,
+            style: {
+              size: [50, 25]
+            }
+          } as NodeData
+      )
+  )
+]
 
 const ctGraphRef = ref<HTMLDivElement>()
 const graphRef = PsrAntvG6.useGraph(ctGraphRef, {
@@ -54,20 +58,17 @@ watch([graphRef, runningFlag], ([graph, running]) => {
   if (graph) {
     graph.updateData({
       nodes: [
-        {
-          id: '0',
-          style: {
-            // 更新动画运动状态
-            [stateKey]: running
-          }
-        },
-        {
-          id: '1',
-          style: {
-            // 更新动画运动状态
-            [stateKey]: running
-          }
-        }
+        ...nodeTypes.map(
+            (_, index) => (
+                {
+                  id: '' + index,
+                  style: {
+                    // 更新动画运动状态
+                    [stateKey]: running
+                  }
+                } as NodeData
+            )
+        )
       ]
     })
     graph.render()

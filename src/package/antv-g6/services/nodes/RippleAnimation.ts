@@ -1,6 +1,5 @@
 import {BaseNode, Diamond, ElementHooks, Hexagon, Star, Triangle} from "@antv/g6";
-import {Circle,Ellipse, Rect} from '@antv/g';
-import {DisplayObject, IAnimation} from "@antv/g-lite";
+import {Circle, DisplayObject, Ellipse, Group, IAnimation, Rect} from '@antv/g';
 
 interface Ripple {
     shape: DisplayObject,
@@ -17,6 +16,7 @@ export interface RippleRectAnimationOptions {
 
 function buildCircleRipple(
     this: BaseNode,
+    rippleGroup: Group,
     rippleWidth: number,
     rippleLength: number
 ): Ripple[] {
@@ -24,17 +24,15 @@ function buildCircleRipple(
     const r = this.shapeMap.key.style.r;
     const fillOpacity = 0.5;
     return Array.from({length: rippleLength}).map((_, index) => {
-        const shape = this.upsert(
-            `ripple-${index}`,
-            Circle,
-            {
+        const shape = new Circle({
+            className: `ripple-${index}`,
+            style: {
                 r,
                 fill,
                 fillOpacity,
-            },
-            this,
-        )!;
-        shape.setAttribute('visibility', 'hidden')
+            }
+        })
+        rippleGroup.appendChild(shape)
         const animation = shape.animate(
             [
                 {
@@ -53,13 +51,13 @@ function buildCircleRipple(
                 easing: 'ease-cubic',
             },
         )!;
-        animation.pause()
         return {shape, animation}
     });
 }
 
 function buildEllipseRipple(
     this: BaseNode,
+    rippleGroup: Group,
     rippleWidth: number,
     rippleLength: number
 ): Ripple[] {
@@ -68,18 +66,16 @@ function buildEllipseRipple(
     const ry = this.shapeMap.key.style.ry;
     const fillOpacity = 0.5;
     return Array.from({length: rippleLength}).map((_, index) => {
-        const shape = this.upsert(
-            `ripple-${index}`,
-            Ellipse,
-            {
+        const shape = new Ellipse({
+            className: `ripple-${index}`,
+            style: {
                 rx,
                 ry,
                 fill,
                 fillOpacity,
-            },
-            this,
-        )!;
-        shape.setAttribute('visibility', 'hidden')
+            }
+        });
+        rippleGroup.appendChild(shape)
         const animation = shape.animate(
             [
                 {
@@ -100,13 +96,13 @@ function buildEllipseRipple(
                 easing: 'ease-cubic',
             },
         )!;
-        animation.pause()
         return {shape, animation}
     });
 }
 
 function buildRectRipple(
     this: BaseNode,
+    rippleGroup: Group,
     rippleWidth: number,
     rippleLength: number
 ): Ripple[] {
@@ -115,20 +111,18 @@ function buildRectRipple(
     const height = this.shapeMap.key.style.height;
     const fillOpacity = 0.5;
     return Array.from({length: rippleLength}).map((_, index) => {
-        const shape = this.upsert(
-            `ripple-${index}`,
-            Rect,
-            {
+        const shape = new Rect({
+            className: `ripple-${index}`,
+            style: {
                 x: -(width) / 2,
                 y: -height / 2,
                 width: width,
                 height: height,
                 fill,
                 fillOpacity,
-            },
-            this,
-        )!;
-        shape.setAttribute('visibility', 'hidden')
+            }
+        });
+        rippleGroup.appendChild(shape)
         const animation = shape.animate(
             [
                 {
@@ -153,7 +147,6 @@ function buildRectRipple(
                 easing: 'ease-cubic',
             },
         )!;
-        animation.pause()
         return {shape, animation}
     });
 }
@@ -172,19 +165,21 @@ function useHooks(
         } as KeyframeAnimationOptions,
         ...aniOptions
     }
+    let rippleGroup: Group | null = null
     let ripples: Ripple[] | null = null
     const hooks: ElementHooks = {
         onCreate(this: BaseNode) {
+            rippleGroup = this.upsert('rippleGroup', Group, {}, this)!
             const keyShapeType = this.shapeMap.key.config.type
             switch (keyShapeType) {
                 case 'circle':
-                    ripples = buildCircleRipple.apply(this, [rippleWidth, rippleLength])
+                    ripples = buildCircleRipple.apply(this, [rippleGroup, rippleWidth, rippleLength])
                     break
                 case 'rect':
-                    ripples = buildRectRipple.apply(this, [rippleWidth, rippleLength])
+                    ripples = buildRectRipple.apply(this, [rippleGroup, rippleWidth, rippleLength])
                     break
                 case 'ellipse':
-                    ripples = buildEllipseRipple.apply(this, [rippleWidth, rippleLength])
+                    ripples = buildEllipseRipple.apply(this, [rippleGroup, rippleWidth, rippleLength])
                     break
                 case 'polygon':
                     if (this instanceof Diamond) {
@@ -204,27 +199,18 @@ function useHooks(
         onUpdate(this: BaseNode) {
             const runningState = this.getAttribute(stateKey as any)
             if (runningState) {
-                ripples?.forEach(({animation, shape}) => {
-                    shape.setAttribute('visibility', 'visible')
-                    animation.play()
-                })
+                rippleGroup?.show()
             } else {
-                ripples?.forEach(({animation, shape}) => {
-                    shape.setAttribute('visibility', 'hidden')
-                    animation.cancel()
-                })
+                rippleGroup?.hide()
             }
         },
         onDestroy() {
-            ripples?.forEach(({animation, shape}) => {
-                animation.cancel()
-                shape.remove()
-            })
+            rippleGroup?.remove()
         },
     }
     return hooks
 }
 
-export const RippleRectAnimation = {
+export const RippleAnimation = {
     useHooks,
 }

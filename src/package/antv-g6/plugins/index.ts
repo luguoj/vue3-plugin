@@ -1,9 +1,9 @@
 import {App, getCurrentInstance, inject, ShallowRef} from "vue";
-import {ElementHooks, ExtensionCategory, Graph, GraphOptions} from '@antv/g6';
+import {ElementHooks, ExtensionCategory, Graph, GraphOptions, register} from '@antv/g6';
 import type {Loosen} from "@antv/g6/lib/types";
 import type {ExtensionRegistry} from "@antv/g6/lib/registry/types";
 import {useGraph} from "../services/graph/useGraph";
-import {BreathingAnimation, registerVueNode, RippleRectAnimation} from "../services/nodes";
+import {BreathingAnimation, registerVueNode, RippleAnimation} from "../services/nodes";
 import {AntLineAnimation, FlyMarkerAnimation} from "../services/edges";
 import {registerElementWithHooks} from "../services/utils/useShapeWithExtensions";
 
@@ -18,7 +18,7 @@ export class PsrAntvG6 {
         },
         Animations: {
             BreathingAnimation,
-            RippleRectAnimation
+            RippleAnimation
         }
     }
     static readonly Edges = {
@@ -26,6 +26,14 @@ export class PsrAntvG6 {
             AntLine: AntLineAnimation,
             FlyMarker: FlyMarkerAnimation
         }
+    }
+    static registerElement<T extends ExtensionCategory>(
+        category: Loosen<T>,
+        Ctor: ExtensionRegistry[T][string],
+    ){
+        const type = 'psr-element-' + this.getInstance().nextElementId++
+        register(category, type, Ctor)
+        return type
     }
 
     static registerElementWithHooks<T extends ExtensionCategory.NODE | ExtensionCategory.EDGE | ExtensionCategory.COMBO>(

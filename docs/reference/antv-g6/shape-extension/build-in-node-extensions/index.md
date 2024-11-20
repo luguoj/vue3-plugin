@@ -22,7 +22,7 @@ demo-preview=./BreathingNode.vue
 ## 涟漪节点
 
 :::preview
-demo-preview=./RippleRectNode.vue
+demo-preview=./RippleNode.vue
 :::
 
 

@@ -1,55 +1,59 @@
 <script setup lang="ts">
-import {PsrAntvG6,} from "@psr-framework/vue3-plugin";
-import {ref, watchEffect} from "vue";
+import {ref, watch} from "vue";
+import {PsrAntvG6} from "@psr-framework/vue3-plugin";
 
 // 图形渲染容器
 const ctGraphRef = ref<HTMLDivElement>()
-// 小地图渲染容器
-const ctMiniMapRef = ref<HTMLDivElement | undefined>()
 // 调用API渲染图形，获取图形实例对象引用
 const graphRef = PsrAntvG6.useGraph(ctGraphRef, {
-  minimapCfg: {
-    container: ctMiniMapRef,
+  graph: {
+    autoFit: 'view',
+    layout: {
+      type: 'antv-dagre',
+      nodeSize: [60, 30],
+      nodesep: 60,
+      ranksep: 40,
+      controlPoints: true
+    },
+    behaviors: ["drag-canvas", "zoom-canvas", "drag-element"],
+    plugins: [
+      {
+        type: 'minimap'
+      }
+    ]
   }
 })
 
-watchEffect(() => {
-  if (graphRef.value) {
-    const graph = graphRef.value
+watch(graphRef, graph => {
+  if (graph) {
     new Promise((resolve, reject) => setTimeout(resolve, 500)).then(() => {
-      graph.data({
-        nodes: [{
-          id: '1',
-          label: '1',
-          size: [80, 20],
-          type: 'rect'
-        }, {
-          id: '2',
-          label: '2',
-          size: 50,
-          type: 'rect',
-        }, {
-          id: '3',
-          label: '3',
-          size: [50, 25],
-          style: {
-            fill: 'red'
-          },
-          type: 'rect',
-        }],
-        edges: [{
-          source: '1',
-          target: '2',
-          type: 'line'
-        }, {
-          source: '2',
-          target: '3',
-          type: 'line'
-        }, {
-          source: '3',
-          target: '1',
-          type: 'line'
-        }]
+      graph.setData({
+        nodes: [
+          {id: '0'},
+          {id: '1'},
+          {id: '2'},
+          {id: '3'},
+          {id: '4'},
+          {id: '5'},
+          {id: '6'},
+          {id: '7'},
+          {id: '8'},
+          {id: '9'},
+        ],
+        edges: [
+          {source: '0', target: '1'},
+          {source: '0', target: '2'},
+          {source: '1', target: '4'},
+          {source: '0', target: '3'},
+          {source: '3', target: '4'},
+          {source: '4', target: '5'},
+          {source: '4', target: '6'},
+          {source: '5', target: '7'},
+          {source: '5', target: '8'},
+          {source: '8', target: '9'},
+          {source: '2', target: '9'},
+          {source: '3', target: '9'},
+        ]
       })
       graph.render()
     })
@@ -60,7 +64,6 @@ watchEffect(() => {
 <template>
   <div style="height: 200px;position: relative;overflow: hidden;">
     <div style="height:100%;" ref="ctGraphRef"/>
-    <div style="width: 150px;right: 10px;top:10px;position: absolute;" ref="ctMiniMapRef"/>
   </div>
 </template>
 

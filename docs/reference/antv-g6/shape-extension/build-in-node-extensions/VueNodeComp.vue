@@ -1,17 +1,13 @@
 <script setup lang="ts">
+defineProps<{
+  compData: {
+    text: string
+    count: number
+  }
+}>()
 
-withDefaults(defineProps<{
-    compText?: string
-    compNumber?:number
-}>(), {
-    compText: 'text'
-})
 </script>
 
 <template>
-    <div>{{ compText }}-{{ compNumber}}</div>
+  <button @click="compData.count++">{{ compData.text }}-{{ compData.count }}</button>
 </template>
-
-<style scoped>
-
-</style>

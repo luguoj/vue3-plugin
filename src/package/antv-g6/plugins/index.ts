@@ -1,137 +1,61 @@
-import {App, ComponentOptionsBase, defineCustomElement, getCurrentInstance, inject, onMounted, ShallowRef} from "vue";
-import * as G6Ns from "@antv/g6";
-import {PsrAntvG6Types} from "../types";
+import {App, getCurrentInstance, inject, ShallowRef} from "vue";
+import {ElementHooks, ExtensionCategory, Graph, GraphOptions} from '@antv/g6';
+import type {Loosen} from "@antv/g6/lib/types";
+import type {ExtensionRegistry} from "@antv/g6/lib/registry/types";
 import {useGraph} from "../services/graph/useGraph";
-import {useShape, useShapeWithExtensions} from "../services/utils/useShapeWithExtensions";
-import {ShapeExtensionHandlerBuilder} from "../services/utils/ShapeExtensionHandler";
-import {ArrowRunningBuilder} from "../services/edges/ani-handlers/ArrowRunningHandler";
-import {CircleRunningBuilder} from "../services/edges/ani-handlers/CircleRunningHandler";
-import {LineDashBuilder} from "../services/edges/ani-handlers/LineDashHandler";
-import {LineGrowthBuilder} from "../services/edges/ani-handlers/LineGrowthHandler";
-import {CircleScaleBuilder} from "../services/nodes/ani-handlers/CircleScaleHandler";
-import {CircleShadowBuilder} from "../services/nodes/ani-handlers/CircleShadowHandler";
-import {ElOverlayBuilder} from "../services/nodes/ElOverlayHandler";
-import {SvgOverlayBuilder} from "../services/nodes/SvgOverlayHandler";
+import {BreathingAnimation, registerVueNode, RippleRectAnimation} from "../services/nodes";
+import {AntLineAnimation, FlyMarkerAnimation} from "../services/edges";
+import {registerElementWithHooks} from "../services/utils/useShapeWithExtensions";
 
 const injectKey = 'psr-antv-g6'
-const edgeExtBuilderRaws: ShapeExtensionHandlerBuilder<any>[] = [
-    ArrowRunningBuilder, CircleRunningBuilder, LineDashBuilder, LineGrowthBuilder, // 边动画
-]
-const edgeExtBuilders: Record<string, ShapeExtensionHandlerBuilder<any>> = {}
-for (const builderRaw of edgeExtBuilderRaws) {
-    edgeExtBuilders[builderRaw.type()] = builderRaw
-}
-const nodeExtBuilderRaws: ShapeExtensionHandlerBuilder<any>[] = [
-    CircleScaleBuilder, CircleShadowBuilder, // 节点动画
-    ElOverlayBuilder, SvgOverlayBuilder, // 节点覆盖层
-]
-const nodeExtBuilders: Record<string, ShapeExtensionHandlerBuilder<any>> = {}
-for (const builderRaw of nodeExtBuilderRaws) {
-    nodeExtBuilders[builderRaw.type()] = builderRaw
-}
 
 export class PsrAntvG6 {
     private static _activeInstance: PsrAntvG6
-    private _g6: Promise<typeof G6Ns> | undefined
-    private nextShapeId: number = 0
-
-    g6(): Promise<any> {
-        if (!this._g6) {
-            this._g6 = new Promise((resolve) => {
-                // 必须要在onMounted 中调用，否则会导致SSR构建时抛出异常
-                onMounted(() => {
-                    import("@antv/g6").then((G6) => {
-                        resolve(G6)
-                    })
-                })
-            })
+    private nextElementId: number = 0
+    static readonly Nodes = {
+        Types: {
+            VueNode: registerVueNode()
+        },
+        Animations: {
+            BreathingAnimation,
+            RippleRectAnimation
         }
-        return this._g6
+    }
+    static readonly Edges = {
+        Animations: {
+            AntLine: AntLineAnimation,
+            FlyMarker: FlyMarkerAnimation
+        }
     }
 
-    static useNode(
-        definition: (G6: typeof G6Ns, extendShape?: any) => G6Ns.ShapeOptions | G6Ns.ShapeDefine,
-        extendShapeType?: string
+    static registerElementWithHooks<T extends ExtensionCategory.NODE | ExtensionCategory.EDGE | ExtensionCategory.COMBO>(
+        category: Loosen<T>,
+        Ctor: ExtensionRegistry[T][string],
+        elHooks: () => ElementHooks[]
     ) {
-        return useShape(
-            PsrAntvG6.getInstance().g6(),
-            this.getInstance().nextShapeId++,
-            'node',
-            definition,
-            extendShapeType
-        )
-    }
-
-
-    static useEdge(
-        definition: (G6: typeof G6Ns, extendShape?: any) => G6Ns.ShapeOptions,
-        extendShapeType?: string
-    ) {
-        return useShape(
-            PsrAntvG6.getInstance().g6(),
-            this.getInstance().nextShapeId++,
-            'edge',
-            definition,
-            extendShapeType
-        )
-    }
-
-
-    static useNodeWithExtensions(options: {
-        extendShape?: PsrAntvG6Types.NodeType | string
-        extensions: {
-            type: PsrAntvG6Types.NodeExtensionType,
-            cfg?: any
-        }[]
-    }) {
-        return useShapeWithExtensions(
-            PsrAntvG6.getInstance().g6(),
-            {
-                id: this.getInstance().nextShapeId++,
-                shapeType: 'node',
-                extendShape: options.extendShape,
-                extensions: options.extensions,
-                builders: nodeExtBuilders
-            }
-        )
-    }
-
-    static useEdgeWithExtensions(options: {
-        extendShape?: PsrAntvG6Types.EdgeType | string
-        extensions: {
-            type: PsrAntvG6Types.EdgeExtensionType,
-            cfg?: any
-        }[]
-    }) {
-        return useShapeWithExtensions(
-            PsrAntvG6.getInstance().g6(),
-            {
-                id: this.getInstance().nextShapeId++,
-                shapeType: 'edge',
-                extendShape: options.extendShape,
-                extensions: options.extensions,
-                builders: edgeExtBuilders
-            }
-        )
-    }
-
-    static useElWithComponent(options: {
-        component: ComponentOptionsBase<any, any, any, any, any, any, any, any>
-    }) {
-        const tag = `psr-antv-g6-el-${this.getInstance().nextShapeId++}`
-        onMounted(() => {
-            customElements.define(tag, defineCustomElement(options.component as any))
-        })
-        return tag
+        const type = 'psr-element-' + this.getInstance().nextElementId++
+        registerElementWithHooks(category, type, Ctor, elHooks)
+        return type
     }
 
     static useGraph(
         containerDivRef: ShallowRef<HTMLDivElement | undefined>,
         options?: {
-            graphCfg?: PsrAntvG6Types.GraphOptions,
-            minimapCfg?: PsrAntvG6Types.MiniMapConfig
+            graph?: GraphOptions
         }) {
-        return useGraph(PsrAntvG6.getInstance().g6(), containerDivRef, options)
+        return useGraph(containerDivRef, options)
+    }
+
+    static setElementState(graph: Graph, element: string, stateKey: string, enabled: boolean) {
+        const state = graph.getElementState(element)
+        if (!enabled) {
+            graph.setElementState(element, state.filter(s => s != stateKey))
+        } else {
+            const stateIndex = state.indexOf(stateKey)
+            if (stateIndex < 0) {
+                graph.setElementState(element, [...state, stateKey])
+            }
+        }
     }
 
     private static getInstance(): PsrAntvG6 {

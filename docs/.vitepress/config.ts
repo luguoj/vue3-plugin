@@ -3,6 +3,7 @@ import {componentPreview, containerPreview} from "@vitepress-demo-preview/plugin
 import {resolve} from "path";
 import {rollupExternal} from "../../rollup-external";
 import {resolvePaths} from "../../resolve-paths";
+import vueJsxPlugin from "@vitejs/plugin-vue-jsx";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -14,6 +15,9 @@ export default defineConfig({
         }
     },
     vite: {
+        plugins:[
+            vueJsxPlugin()
+        ],
         resolve: {
             alias: {
                 ...resolvePaths,

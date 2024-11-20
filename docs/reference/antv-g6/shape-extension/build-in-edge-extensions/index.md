@@ -1,50 +1,35 @@
-# 内置边扩展类型
+# 内置边扩展
+## FlyMarker 飞行标记
 
-## ArrowRunning 跑动箭头动效
+- 选项：
 
-- 类型：arrow-running
-- 配置：
-
-| 参数       | 描述   | 默认值     |
-|:---------|:-----|:--------|
-| stroke   | 线条样式 | #3370ff |
-| fill     | 填充色  | #fff    |
-| duration | 动画时长 | 3000    |
-| repeat   | 是否重放 | true    |
+| 参数               | 描述                                                                 | 默认值                                                        |
+|:-----------------|:-------------------------------------------------------------------|:-----------------------------------------------------------|
+| stateKey         | 运行状态属性关键字, 在边样式中设置对应的属性值切换动画状态                                     |                                                            |
+| markerKey        | 标记形状关键字, 用于在组成边元素的形状中索引                                            |                                                            |
+| shape            | 标记形状选项                                                             | ```{type: Circle, attributes: {r: 10, fill: '#c3d5f9'}}``` |
+| shape.type       | 标记形状类型, 注意此类型须使用 DisplayObject 子类型(可从@antv/g库中获取), 而不是@antv/g6元素类型 |                                                            |
+| shape.attributes | 标记形状属性                                                             |                                                            |
+| keyframes        | 动画关键帧                                                              | ```[{offsetDistance: 0}, {offsetDistance: 1},]```          |
+| options          | 动画选项                                                               | ```{duration: 3000, iterations: Infinity}```               |
 
 :::preview
-demo-preview=./ArrowRunning.vue
+demo-preview=./FlyMarkerEdge.vue
 :::
 
-## CircleRunning 跑动圆形动效
+## AntLine 蚂蚁线
 
-- 类型：circle-running
-- 配置：
+- 选项：
 
-| 参数       | 描述   | 默认值     |
-|:---------|:-----|:--------|
-| radius   | 圆形半径 | 3       |
-| stroke   | 线条样式 | #3370ff |
-| fill     | 填充色  | #fff    |
-| duration | 动画时长 | 3000    |
-| repeat   | 是否重放 | true    |
+| 参数        | 描述                             | 默认值                                                |
+|:----------|:-------------------------------|:---------------------------------------------------|
+| stateKey  | 运行状态属性关键字, 在边样式中设置对应的属性值切换动画状态 |                                                    |
+| lineDash  | 虚线段模式                          | ```[10, 10]```                                     |
+| keyframes | 动画关键帧                          | ```[{lineDashOffset: -20}, {lineDashOffset: 0}]``` |
+| options   | 动画选项                           | ```{duration: 500, iterations: Infinity}```        |
 
 :::preview
-demo-preview=./CircleRunning.vue
-:::
-
-## LineDash 虚线动效
-
-- 类型：line-dash
-- 配置：
-
-| 参数       | 描述    | 默认值          |
-|:---------|:------|:-------------|
-| lineDash | 虚线段模式 | [4, 2, 1, 2] |
-| duration | 动画时长  | 3000         |
-
-:::preview
-demo-preview=./LineDash.vue
+demo-preview=./AntLineEdge.vue
 :::
 
 ## LineGrowth 画线动效
@@ -57,6 +42,3 @@ demo-preview=./LineDash.vue
 | duration | 动画时长 | 2000 |
 | repeat   | 是否重放 | true |
 
-:::preview
-demo-preview=./LineGrowth.vue
-:::

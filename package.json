@@ -12,7 +12,7 @@
     "docs:preview": "vitepress preview docs"
   },
   "dependencies": {
-    "@antv/g6": "4.8.24",
+    "@antv/g6": "^5.0.27",
     "@element-plus/icons-vue": "2.3.1",
     "@joint/core": "4.0.4",
     "@pansy/amap-types": "^2.22.0",

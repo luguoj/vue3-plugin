@@ -173,24 +173,24 @@ export function useBreathingAnimation(
         ...aniOptions
     }
     return () => {
-        let breathingHaloGroup: Group = new Group()
+        const group: Group = new Group()
         const hooks: ElementHooks = {
             onCreate(this: BaseNode) {
-                this.appendChild(breathingHaloGroup, 0)
+                this.appendChild(group, 0)
                 const keyShapeType = this.shapeMap.key.config.type
                 switch (keyShapeType) {
                     case 'circle':
-                        buildCircleRipple.apply(this, [breathingHaloGroup, breathingHaloWidth, options])
+                        buildCircleRipple.apply(this, [group, breathingHaloWidth, options])
                         break
                     case 'html':
                     case 'rect':
-                        buildRectRipple.apply(this, [breathingHaloGroup, breathingHaloWidth, options])
+                        buildRectRipple.apply(this, [group, breathingHaloWidth, options])
                         break
                     case 'ellipse':
-                        buildEllipseRipple.apply(this, [breathingHaloGroup, breathingHaloWidth, options])
+                        buildEllipseRipple.apply(this, [group, breathingHaloWidth, options])
                         break
                     case 'polygon':
-                        buildPolygonRipple.apply(this, [breathingHaloGroup, breathingHaloWidth, options])
+                        buildPolygonRipple.apply(this, [group, breathingHaloWidth, options])
                         break
                     default:
                         return
@@ -199,13 +199,13 @@ export function useBreathingAnimation(
             onUpdate(this: BaseNode) {
                 const runningState = this.getAttribute(stateKey as any)
                 if (runningState) {
-                    breathingHaloGroup?.setAttribute('visibility', 'visible')
+                    group.show()
                 } else {
-                    breathingHaloGroup?.setAttribute('visibility', 'hidden')
+                    group.hide()
                 }
             },
             onDestroy() {
-                breathingHaloGroup?.remove()
+                group?.remove()
             },
         }
         return hooks

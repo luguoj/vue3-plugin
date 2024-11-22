@@ -11,15 +11,15 @@ export interface RippleRectAnimationOptions {
     stateKey: string
     rippleWidth?: number
     rippleLength?: number
-    keyframes?: Keyframe[] | PropertyIndexedKeyframes
-    options?: number | KeyframeAnimationOptions
+    options?: EffectTiming
 }
 
 function buildCircleRipple(
     this: BaseNode,
     rippleGroup: Group,
     rippleWidth: number,
-    rippleLength: number
+    rippleLength: number,
+    options: EffectTiming //TODO
 ): Ripple[] {
     const {fill} = this.attributes;
     const r = this.shapeMap.key.style.r;
@@ -200,36 +200,35 @@ function buildPolygonRipple(
 export function useRippleAnimation(
     aniOptions: RippleRectAnimationOptions
 ): ElementHooksBuilder {
-    const {stateKey, rippleWidth, rippleLength, keyframes, options} = {
+    const {stateKey, rippleWidth, rippleLength, options} = {
         rippleWidth: 5,
         rippleLength: 5,
-        keyframes: [{lineWidth: 0}, {lineWidth: 20}],
         options: {
             duration: 1000,
             iterations: Infinity,
             direction: 'alternate'
-        } as KeyframeAnimationOptions,
+        } as EffectTiming,
         ...aniOptions
     }
     return () => {
-        let rippleGroup: Group = new Group()
+        const group: Group = new Group()
         const hooks: ElementHooks = {
             onCreate(this: BaseNode) {
-                this.appendChild(rippleGroup, 0)
+                this.appendChild(group, 0)
                 const keyShapeType = this.shapeMap.key.config.type
                 switch (keyShapeType) {
                     case 'circle':
-                        buildCircleRipple.apply(this, [rippleGroup, rippleWidth, rippleLength])
+                        buildCircleRipple.apply(this, [group, rippleWidth, rippleLength])
                         break
                     case 'html':
                     case 'rect':
-                        buildRectRipple.apply(this, [rippleGroup, rippleWidth, rippleLength])
+                        buildRectRipple.apply(this, [group, rippleWidth, rippleLength])
                         break
                     case 'ellipse':
-                        buildEllipseRipple.apply(this, [rippleGroup, rippleWidth, rippleLength])
+                        buildEllipseRipple.apply(this, [group, rippleWidth, rippleLength])
                         break
                     case 'polygon':
-                        buildPolygonRipple.apply(this, [rippleGroup, rippleWidth, rippleLength])
+                        buildPolygonRipple.apply(this, [group, rippleWidth, rippleLength])
                         break
                     default:
                         return
@@ -238,13 +237,13 @@ export function useRippleAnimation(
             onUpdate(this: BaseNode) {
                 const runningState = this.getAttribute(stateKey as any)
                 if (runningState) {
-                    rippleGroup?.show()
+                    group.show()
                 } else {
-                    rippleGroup?.hide()
+                    group.hide()
                 }
             },
             onDestroy() {
-                rippleGroup?.remove()
+                group?.remove()
             },
         }
         return hooks

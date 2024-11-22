@@ -30,7 +30,8 @@ import {ref, watch} from "vue";
 const ctGraphRef = ref<HTMLDivElement>()
 const graphRef = PsrAntvG6.useGraph(ctGraphRef, {
   graph: {
-    autoFit: 'view',
+    autoResize: true,
+    autoFit: 'center',
     layout: {
       type: 'grid',
       controlPoints: true

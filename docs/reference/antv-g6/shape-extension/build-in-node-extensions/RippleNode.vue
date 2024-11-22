@@ -1,12 +1,14 @@
-<script lang="ts">
+<script setup lang="tsx">
+import {ref, watch} from "vue";
+import {Circle, Diamond, Ellipse, Hexagon, NodeData, Rect, Star, Triangle} from "@antv/g6";
+import VueNodeComp from "./VueNodeComp.vue";
+
 import {PsrAntvG6} from "@psr-framework/vue3-plugin";
-import {Circle, Diamond, Ellipse, Rect} from "@antv/g6";
-import {Ellipse as GEllipse} from "@antv/g-lite"
 // 动画状态关键字
 const stateKey = 'rippleRunning'
 
 // 注册涟漪节点类型
-const nodeTypes = [Circle, Rect, Ellipse, Diamond].map(
+const nodeTypes = [Circle, Rect, Ellipse, Diamond, Triangle, Star, Hexagon, PsrAntvG6.Nodes.Shapes.VueNode].map(
     shape => PsrAntvG6.registerElementWithHooks(
         'node',
         shape,
@@ -18,24 +20,12 @@ const nodeTypes = [Circle, Rect, Ellipse, Diamond].map(
         ]
     )
 )
-</script>
-<script setup lang="ts">
-import {ref, watch} from "vue";
-import {NodeData} from "@antv/g6";
 
-const nodes: NodeData[] = [
-  ...nodeTypes.map(
-      (nodeType, index) => (
-          {
-            id: '' + index,
-            type: nodeType,
-            style: {
-              size: [50, 25]
-            }
-          } as NodeData
-      )
-  )
-]
+const compData = {
+  text: "a",
+  count: 1
+}
+
 
 const ctGraphRef = ref<HTMLDivElement>()
 const graphRef = PsrAntvG6.useGraph(ctGraphRef, {
@@ -47,7 +37,34 @@ const graphRef = PsrAntvG6.useGraph(ctGraphRef, {
     },
     behaviors: ["drag-element"],
     data: {
-      nodes
+      nodes: [
+        ...nodeTypes.map(
+            (nodeType, index) => {
+              const style: NodeData['style'] = {
+                size: [50, 25]
+              }
+              if (index == 7) {
+                style.component = () =>
+                    <VueNodeComp
+                        comp-data={
+                          ({
+                            text: "a",
+                            count: 1
+                          })
+                        }
+                        style="width:100%;height:100%;"
+                    />
+                style.dx = -25
+                style.dy = -12.5
+              }
+              return {
+                id: '' + index,
+                type: nodeType,
+                style
+              } as NodeData
+            }
+        )
+      ]
     }
   }
 })

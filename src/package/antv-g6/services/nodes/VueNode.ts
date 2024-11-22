@@ -3,7 +3,7 @@ import {HTMLStyleProps as GHTMLStyleProps} from "@antv/g";
 import {BaseNodeStyleProps, ExtensionCategory, HTML, HTMLStyleProps, register} from "@antv/g6";
 
 interface VueNodeStyleProps extends BaseNodeStyleProps {
-    component: VNode
+    component: VNode | (() => VNode)
 }
 
 export class VueNode extends HTML {
@@ -13,7 +13,11 @@ export class VueNode extends HTML {
 
     private renderVNode() {
         const {component} = this.attributes as unknown as VueNodeStyleProps
-        render(component, this.getDomElement())
+        if (component instanceof Function) {
+            render(component(), this.getDomElement())
+        } else {
+            render(component, this.getDomElement())
+        }
     }
 
     connectedCallback() {

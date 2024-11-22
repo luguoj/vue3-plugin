@@ -2,6 +2,8 @@ import {ElementHooks, ExtensionCategory, register} from "@antv/g6";
 import type {ExtensionRegistry} from "@antv/g6/lib/registry/types";
 import type {Loosen} from "@antv/g6/lib/types";
 
+export type  ElementHooksBuilder = () => ElementHooks
+
 export function registerElementWithHooks<T extends ExtensionCategory.NODE | ExtensionCategory.EDGE | ExtensionCategory.COMBO>(
     category: Loosen<T>,
     type: string,

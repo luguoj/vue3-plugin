@@ -1,13 +1,13 @@
 <script lang="ts">
 import {PsrAntvG6} from "@psr-framework/vue3-plugin";
-import {Rect} from "@antv/g6";
+import {Rect,Star} from "@antv/g6";
 
 // 动画状态关键字
 const stateKey = 'breathingRunning'
 // 注册呼吸节点类型
 const nodeType = PsrAntvG6.registerElementWithHooks(
     'node',
-    Rect,
+    Star,
     () => [
       PsrAntvG6.Nodes.Animations.BreathingAnimation.useHooks({
         // 配置运动状态字段

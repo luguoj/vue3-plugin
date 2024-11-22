@@ -15,7 +15,11 @@ const nodeTypes = [Circle, Rect, Ellipse, Diamond, Triangle, Star, Hexagon, PsrA
         () => [
           PsrAntvG6.Nodes.Animations.RippleAnimation.useHooks({
             // 配置运动状态字段
-            stateKey
+            stateKey,
+            // 配置涟漪宽度
+            rippleWidth: 20,
+            // 配置涟漪层数
+            rippleLength: 2
           })
         ]
     )

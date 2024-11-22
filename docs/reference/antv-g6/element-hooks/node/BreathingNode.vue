@@ -1,28 +1,27 @@
 <script lang="ts">
 import {PsrAntvG6} from "@psr-framework/vue3-plugin";
-import {Line} from "@antv/g6";
+import {Rect} from "@antv/g6";
 
 // 动画状态关键字
-const stateKey = 'flyMarkerRunning'
-// 注册飞行标记边类型
-const edgeType = PsrAntvG6.registerElementWithHooks(
-    'edge',
-    Line,
-    () => [
-      PsrAntvG6.Edges.Animations.FlyMarker.useHooks({
-        // 配置运动状态字段
-        stateKey,
-        markerKey: "flyMarker",
-      })
-    ]
+const stateKey = 'breathingRunning'
+// 注册呼吸节点类型
+const nodeType = PsrAntvG6.registerElement(
+    'node',
+    Rect,
+    {
+      elHooksBuilders: [
+        PsrAntvG6.ElementHooksBuilders.Node.useBreathingAnimation({
+          // 配置运动状态字段
+          stateKey
+        })
+      ]
+    }
 )
 </script>
 <script setup lang="ts">
 import {ref, watch} from "vue";
 
-// 图形渲染容器
 const ctGraphRef = ref<HTMLDivElement>()
-// 调用API渲染图形，获取图形实例对象引用
 const graphRef = PsrAntvG6.useGraph(ctGraphRef, {
   graph: {
     autoFit: 'view',
@@ -31,17 +30,20 @@ const graphRef = PsrAntvG6.useGraph(ctGraphRef, {
       controlPoints: true
     },
     behaviors: ["drag-element"],
-    edge: {
-      // 使用飞行标记边类型
-      type: edgeType,
+    node: {
+      // 使用呼吸节点类型
+      type: nodeType,
+      style: {
+        halo: true
+      }
     },
     data: {
       nodes: [
-        {id: '0'},
-        {id: '1'}
+        {id: 'n0'},
+        {id: 'n1'}
       ],
       edges: [
-        {id: 'edge-1', source: '0', target: '1'}
+        {id: 'edge-1', source: 'n0', target: 'n1',}
       ]
     }
   }
@@ -52,9 +54,9 @@ let runningFlag = ref<boolean>(true)
 watch([graphRef, runningFlag], ([graph, running]) => {
   if (graph) {
     graph.updateData({
-      edges: [
+      nodes: [
         {
-          id: 'edge-1',
+          id: 'n0',
           style: {
             // 更新动画运动状态
             [stateKey]: running
@@ -65,6 +67,7 @@ watch([graphRef, runningFlag], ([graph, running]) => {
     graph.render()
   }
 }, {immediate: true})
+
 </script>
 
 <template>

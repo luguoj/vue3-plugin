@@ -1,5 +1,5 @@
 <script setup lang="tsx">
-import {reactive, ref, watch, watchEffect} from "vue";
+import {reactive, ref, watch} from "vue";
 import {PsrAntvG6} from "@psr-framework/vue3-plugin";
 import VueNodeComp from "./VueNodeComp.vue";
 
@@ -23,9 +23,11 @@ const graphRef = PsrAntvG6.useGraph(ctGraphRef, {
     node: {
       type: PsrAntvG6.Nodes.Types.VueNode,
       style: {
+        size:50,
         component: ({data}: { data: { nodeData: NodeDataType } }) =>
             // 实现数据绑定，注意此处绑定无法实现响应性重绘，但是可以通过传入响应性对象
             <VueNodeComp
+                style="height:100%;width:100%;"
                 comp-data={data.nodeData}
             />
 
@@ -38,12 +40,7 @@ const graphRef = PsrAntvG6.useGraph(ctGraphRef, {
 const nodeDataRef = reactive<NodeDataType[]>([
   {
     id: '0',
-    text: 'abc',
-    count: 0
-  },
-  {
-    id: '1',
-    text: 'def',
+    text: 'click',
     count: 0
   }
 ])
@@ -58,10 +55,7 @@ watch([graphRef, nodeDataRef], ([graph, nodeData]) => {
           // 通过data字段传值响应性对象
           nodeData: node
         }
-      })),
-      edges: [
-        {source: '0', target: '1'}
-      ]
+      }))
     })
     graph.render()
   }
@@ -69,8 +63,7 @@ watch([graphRef, nodeDataRef], ([graph, nodeData]) => {
 </script>
 
 <template>
-  <button class="inline-block" @click="nodeDataRef[0].count++">节点1:{{ nodeDataRef[0].count }}</button>
-  <button class="inline-block ml-1" @click="nodeDataRef[1].count++">节点2:{{ nodeDataRef[1].count }}</button>
+  <button class="inline-block" @click="nodeDataRef[0].count++">count:{{ nodeDataRef[0].count }}</button>
   <div style="height: 200px;position: relative;overflow: hidden;">
     <div style="height:100%;" ref="ctGraphRef"/>
   </div>

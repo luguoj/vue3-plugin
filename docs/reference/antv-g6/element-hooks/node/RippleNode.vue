@@ -1,35 +1,31 @@
-<script setup lang="tsx">
-import {ref, watch} from "vue";
-import {Circle, Diamond, Ellipse, Hexagon, NodeData, Rect, Star, Triangle} from "@antv/g6";
-import VueNodeComp from "./VueNodeComp.vue";
-
+<script lang="ts">
+import {Circle, Diamond, Ellipse, Hexagon, NodeData, Rect, Star, Triangle, HTML} from "@antv/g6";
 import {PsrAntvG6} from "@psr-framework/vue3-plugin";
 // 动画状态关键字
 const stateKey = 'rippleRunning'
 
 // 注册涟漪节点类型
-const nodeTypes = [Circle, Rect, Ellipse, Diamond, Triangle, Star, Hexagon, PsrAntvG6.Nodes.Shapes.VueNode].map(
-    shape => PsrAntvG6.registerElementWithHooks(
+const nodeTypes = [Circle, Rect, Ellipse, Diamond, Triangle, Star, Hexagon, HTML].map(
+    shape => PsrAntvG6.registerElement(
         'node',
         shape,
-        () => [
-          PsrAntvG6.Nodes.Animations.RippleAnimation.useHooks({
-            // 配置运动状态字段
-            stateKey,
-            // 配置涟漪宽度
-            rippleWidth: 20,
-            // 配置涟漪层数
-            rippleLength: 2
-          })
-        ]
+        {
+          elHooksBuilders: [
+            PsrAntvG6.ElementHooksBuilders.Node.useRippleAnimation({
+              // 配置运动状态字段
+              stateKey,
+              // 配置涟漪宽度
+              rippleWidth: 20,
+              // 配置涟漪层数
+              rippleLength: 2
+            })
+          ]
+        }
     )
 )
-
-const compData = {
-  text: "a",
-  count: 1
-}
-
+</script>
+<script setup lang="ts">
+import {ref, watch} from "vue";
 
 const ctGraphRef = ref<HTMLDivElement>()
 const graphRef = PsrAntvG6.useGraph(ctGraphRef, {
@@ -48,16 +44,12 @@ const graphRef = PsrAntvG6.useGraph(ctGraphRef, {
                 size: [50, 25]
               }
               if (index == 7) {
-                style.component = () =>
-                    <VueNodeComp
-                        comp-data={
-                          ({
-                            text: "a",
-                            count: 1
-                          })
-                        }
+                style.innerHTML =
+                    `
+                    <button
                         style="width:100%;height:100%;"
-                    />
+                    >HTML</button>
+                    `
                 style.dx = -25
                 style.dy = -12.5
               }

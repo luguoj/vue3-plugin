@@ -1,19 +1,21 @@
 <script lang="ts">
 import {PsrAntvG6} from "@psr-framework/vue3-plugin";
-import {Rect,Star} from "@antv/g6";
+import {Line} from "@antv/g6";
 
 // 动画状态关键字
-const stateKey = 'breathingRunning'
-// 注册呼吸节点类型
-const nodeType = PsrAntvG6.registerElementWithHooks(
-    'node',
-    Star,
-    () => [
-      PsrAntvG6.Nodes.Animations.BreathingAnimation.useHooks({
-        // 配置运动状态字段
-        stateKey
-      })
-    ]
+const stateKey = 'antLineRunning'
+// 注册蚂蚁线边类型
+const edgeType = PsrAntvG6.registerElement(
+    'edge',
+    Line,
+    {
+      elHooksBuilders: [
+        PsrAntvG6.ElementHooksBuilders.Edge.useAntLineAnimation({
+          // 配置运动状态字段
+          stateKey
+        })
+      ]
+    }
 )
 </script>
 <script setup lang="ts">
@@ -28,20 +30,17 @@ const graphRef = PsrAntvG6.useGraph(ctGraphRef, {
       controlPoints: true
     },
     behaviors: ["drag-element"],
-    node: {
-      // 使用呼吸节点类型
-      type: nodeType,
-      style: {
-        halo: true
-      }
+    edge: {
+      // 使用蚂蚁线边类型
+      type: edgeType,
     },
     data: {
       nodes: [
-        {id: 'n0'},
-        {id: 'n1'}
+        {id: '0'},
+        {id: '1'}
       ],
       edges: [
-        {id: 'edge-1', source: 'n0', target: 'n1',}
+        {id: 'edge-1', source: '0', target: '1',}
       ]
     }
   }
@@ -52,9 +51,9 @@ let runningFlag = ref<boolean>(true)
 watch([graphRef, runningFlag], ([graph, running]) => {
   if (graph) {
     graph.updateData({
-      nodes: [
+      edges: [
         {
-          id: 'n0',
+          id: 'edge-1',
           style: {
             // 更新动画运动状态
             [stateKey]: running

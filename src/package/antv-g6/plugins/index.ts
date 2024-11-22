@@ -1,53 +1,56 @@
 import {App, getCurrentInstance, inject, ShallowRef} from "vue";
-import {ElementHooks, ExtensionCategory, Graph, GraphOptions, register} from '@antv/g6';
+import {ExtensionCategory, Graph, GraphOptions, register} from '@antv/g6';
 import type {Loosen} from "@antv/g6/lib/types";
 import type {ExtensionRegistry} from "@antv/g6/lib/registry/types";
 import {useGraph} from "../services/graph/useGraph";
-import {BreathingAnimation, registerVueNode, RippleAnimation, VueNode} from "../services/nodes";
-import {AntLineAnimation, FlyMarkerAnimation} from "../services/edges";
-import {registerElementWithHooks} from "../services/utils/useShapeWithExtensions";
+import {useBreathingAnimation, useAntLineAnimation, useRippleAnimation, useFlyMarkerAnimation} from "../services/hooks";
+import {VueNode, registerVueNode} from "../services/nodes"
+import {ElementHooksBuilder, wrapElementCtorWithHooks} from "../services/wrapElementCtorWithHooks";
 
 const injectKey = 'psr-antv-g6'
 
 export class PsrAntvG6 {
     private static _activeInstance: PsrAntvG6
     private nextElementId: number = 0
+    static readonly ElementHooksBuilders = {
+        Edge: {
+            useAntLineAnimation,
+            useFlyMarkerAnimation
+        },
+        Node: {
+            useBreathingAnimation,
+            useRippleAnimation
+        }
+    }
     static readonly Nodes = {
         Shapes: {
             VueNode,
         },
         Types: {
             VueNode: registerVueNode()
-        },
-        Animations: {
-            BreathingAnimation,
-            RippleAnimation
-        }
-    }
-    static readonly Edges = {
-        Animations: {
-            AntLine: AntLineAnimation,
-            FlyMarker: FlyMarkerAnimation
         }
     }
 
-    static registerElement<T extends ExtensionCategory>(
+    static register<T extends ExtensionCategory>(
         category: Loosen<T>,
-        Ctor: ExtensionRegistry[T][string],
+        Ctor: ExtensionRegistry[T][string]
     ) {
-        const type = 'psr-element-' + this.getInstance().nextElementId++
+        const type = 'psr-ext-' + this.getInstance().nextElementId++
         register(category, type, Ctor)
         return type
     }
 
-    static registerElementWithHooks<T extends ExtensionCategory.NODE | ExtensionCategory.EDGE | ExtensionCategory.COMBO>(
+    static registerElement<T extends ExtensionCategory.NODE | ExtensionCategory.EDGE | ExtensionCategory.COMBO>(
         category: Loosen<T>,
         Ctor: ExtensionRegistry[T][string],
-        elHooks: () => ElementHooks[]
+        options?: {
+            elHooksBuilders?: ElementHooksBuilder[]
+        }
     ) {
-        const type = 'psr-element-' + this.getInstance().nextElementId++
-        registerElementWithHooks(category, type, Ctor, elHooks)
-        return type
+        if (options?.elHooksBuilders) {
+            Ctor = wrapElementCtorWithHooks(Ctor, options.elHooksBuilders)
+        }
+        return this.register(category, Ctor)
     }
 
     static useGraph(

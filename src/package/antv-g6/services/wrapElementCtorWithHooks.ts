@@ -1,18 +1,14 @@
-import {ElementHooks, ExtensionCategory, register} from "@antv/g6";
+import {ElementHooks, ExtensionCategory} from "@antv/g6";
 import type {ExtensionRegistry} from "@antv/g6/lib/registry/types";
-import type {Loosen} from "@antv/g6/lib/types";
 
 export type  ElementHooksBuilder = () => ElementHooks
 
-export function registerElementWithHooks<T extends ExtensionCategory.NODE | ExtensionCategory.EDGE | ExtensionCategory.COMBO>(
-    category: Loosen<T>,
-    type: string,
+export function wrapElementCtorWithHooks<T extends ExtensionCategory.NODE | ExtensionCategory.EDGE | ExtensionCategory.COMBO>(
     Ctor: ExtensionRegistry[T][string],
-    elHooks: () => ElementHooks[],
-    override = false,
+    elHooksBuilders: ElementHooksBuilder[]
 ) {
-    class NewCtor extends Ctor implements ElementHooks {
-        _elHooks: ElementHooks[] = elHooks()
+    class ElementCtor extends Ctor implements ElementHooks {
+        _elHooks: ElementHooks[] = elHooksBuilders.map(builder => builder())
 
         onCreate() {
             super.onCreate?.()
@@ -35,6 +31,5 @@ export function registerElementWithHooks<T extends ExtensionCategory.NODE | Exte
             })
         }
     }
-
-    register(category, type, NewCtor as any, override)
+    return ElementCtor
 }

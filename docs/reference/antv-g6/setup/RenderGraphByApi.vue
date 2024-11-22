@@ -66,7 +66,3 @@ watch(graphRef, graph => {
     <div style="height:100%;" ref="ctGraphRef"/>
   </div>
 </template>
-
-<style scoped>
-
-</style>

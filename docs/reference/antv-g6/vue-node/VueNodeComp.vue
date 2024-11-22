@@ -9,5 +9,8 @@ defineProps<{
 </script>
 
 <template>
-  <button @click="compData.count++">{{ compData.text }}-{{ compData.count }}</button>
+  <div>
+    count:{{ compData.count }}
+    <button @click="compData.count++">{{ compData.text }}</button>
+  </div>
 </template>

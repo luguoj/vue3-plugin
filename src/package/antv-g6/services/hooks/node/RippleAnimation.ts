@@ -1,5 +1,6 @@
 import {BaseNode, ElementHooks} from "@antv/g6";
 import {Circle, DisplayObject, Ellipse, Group, IAnimation, Polygon, Rect} from '@antv/g';
+import {ElementHooksBuilder} from "../../wrapElementCtorWithHooks.ts";
 
 interface Ripple {
     shape: DisplayObject,
@@ -196,9 +197,9 @@ function buildPolygonRipple(
     });
 }
 
-function useHooks(
+export function useRippleAnimation(
     aniOptions: RippleRectAnimationOptions
-) {
+): ElementHooksBuilder {
     const {stateKey, rippleWidth, rippleLength, keyframes, options} = {
         rippleWidth: 5,
         rippleLength: 5,
@@ -210,45 +211,42 @@ function useHooks(
         } as KeyframeAnimationOptions,
         ...aniOptions
     }
-    let rippleGroup: Group = new Group()
-    let ripples: Ripple[] | null = null
-    const hooks: ElementHooks = {
-        onCreate(this: BaseNode) {
-            this.appendChild(rippleGroup, 0)
-            const keyShapeType = this.shapeMap.key.config.type
-            switch (keyShapeType) {
-                case 'circle':
-                    ripples = buildCircleRipple.apply(this, [rippleGroup, rippleWidth, rippleLength])
-                    break
-                case 'html':
-                case 'rect':
-                    ripples = buildRectRipple.apply(this, [rippleGroup, rippleWidth, rippleLength])
-                    break
-                case 'ellipse':
-                    ripples = buildEllipseRipple.apply(this, [rippleGroup, rippleWidth, rippleLength])
-                    break
-                case 'polygon':
-                    ripples = buildPolygonRipple.apply(this, [rippleGroup, rippleWidth, rippleLength])
-                    break
-                default:
-                    return
-            }
-        },
-        onUpdate(this: BaseNode) {
-            const runningState = this.getAttribute(stateKey as any)
-            if (runningState) {
-                rippleGroup?.show()
-            } else {
-                rippleGroup?.hide()
-            }
-        },
-        onDestroy() {
-            rippleGroup?.remove()
-        },
+    return () => {
+        let rippleGroup: Group = new Group()
+        const hooks: ElementHooks = {
+            onCreate(this: BaseNode) {
+                this.appendChild(rippleGroup, 0)
+                const keyShapeType = this.shapeMap.key.config.type
+                switch (keyShapeType) {
+                    case 'circle':
+                        buildCircleRipple.apply(this, [rippleGroup, rippleWidth, rippleLength])
+                        break
+                    case 'html':
+                    case 'rect':
+                        buildRectRipple.apply(this, [rippleGroup, rippleWidth, rippleLength])
+                        break
+                    case 'ellipse':
+                        buildEllipseRipple.apply(this, [rippleGroup, rippleWidth, rippleLength])
+                        break
+                    case 'polygon':
+                        buildPolygonRipple.apply(this, [rippleGroup, rippleWidth, rippleLength])
+                        break
+                    default:
+                        return
+                }
+            },
+            onUpdate(this: BaseNode) {
+                const runningState = this.getAttribute(stateKey as any)
+                if (runningState) {
+                    rippleGroup?.show()
+                } else {
+                    rippleGroup?.hide()
+                }
+            },
+            onDestroy() {
+                rippleGroup?.remove()
+            },
+        }
+        return hooks
     }
-    return hooks
-}
-
-export const RippleAnimation = {
-    useHooks,
 }

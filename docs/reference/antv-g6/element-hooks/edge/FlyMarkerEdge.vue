@@ -3,17 +3,20 @@ import {PsrAntvG6} from "@psr-framework/vue3-plugin";
 import {Line} from "@antv/g6";
 
 // 动画状态关键字
-const stateKey = 'antLineRunning'
-// 注册蚂蚁线边类型
-const edgeType = PsrAntvG6.registerElementWithHooks(
+const stateKey = 'flyMarkerRunning'
+// 注册飞行标记边类型
+const edgeType = PsrAntvG6.registerElement(
     'edge',
     Line,
-    () => [
-      PsrAntvG6.Edges.Animations.AntLine.useHooks({
-        // 配置运动状态字段
-        stateKey
-      })
-    ]
+    {
+      elHooksBuilders: [
+        PsrAntvG6.ElementHooksBuilders.Edge.useFlyMarkerAnimation({
+          // 配置运动状态字段
+          stateKey,
+          markerKey: "flyMarker",
+        })
+      ]
+    }
 )
 </script>
 <script setup lang="ts">
@@ -29,7 +32,7 @@ const graphRef = PsrAntvG6.useGraph(ctGraphRef, {
     },
     behaviors: ["drag-element"],
     edge: {
-      // 使用蚂蚁线边类型
+      // 使用飞行标记边类型
       type: edgeType,
     },
     data: {
@@ -38,7 +41,7 @@ const graphRef = PsrAntvG6.useGraph(ctGraphRef, {
         {id: '1'}
       ],
       edges: [
-        {id: 'edge-1', source: '0', target: '1',}
+        {id: 'edge-1', source: '0', target: '1'}
       ]
     }
   }
@@ -62,7 +65,6 @@ watch([graphRef, runningFlag], ([graph, running]) => {
     graph.render()
   }
 }, {immediate: true})
-
 </script>
 
 <template>

@@ -265,17 +265,25 @@ export default defineConfig({
                         {
                             text: '图形扩展',
                             link: '/reference/antv-g6/shape-extension/',
+                        },
+                        {
+                            text: '元素钩子',
+                            link: '/reference/antv-g6/element-hooks/',
                             items: [
                                 {
                                     text: '内置边扩展类型',
-                                    link: '/reference/antv-g6/shape-extension/build-in-edge-extensions/'
+                                    link: '/reference/antv-g6/element-hooks/edge/'
                                 },
                                 {
                                     text: '内置节点扩展类型',
-                                    link: '/reference/antv-g6/shape-extension/build-in-node-extensions/'
+                                    link: '/reference/antv-g6/element-hooks/node/'
                                 },
                             ]
-                        }
+                        },
+                        {
+                            text: 'Vue组件节点',
+                            link: '/reference/antv-g6/vue-node/',
+                        },
                     ]
                 },
                 {

@@ -1,25 +1,28 @@
 <script lang="ts">
 import {PsrAntvG6} from "@psr-framework/vue3-plugin";
-import {Rect} from "@antv/g6";
+import {Circle, Diamond, Ellipse, Hexagon, HTML, Rect, Star, Triangle} from "@antv/g6";
 
 // 动画状态关键字
 const stateKey = 'breathingRunning'
 // 注册呼吸节点类型
-const nodeType = PsrAntvG6.registerElement(
-    'node',
-    Rect,
-    {
-      elHooksBuilders: [
-        PsrAntvG6.ElementHooksBuilders.Node.useBreathingAnimation({
-          // 配置运动状态字段
-          stateKey
-        })
-      ]
-    }
+const nodeTypes = [Circle, Rect, Ellipse, Diamond, Triangle, Star, Hexagon, HTML].map(
+    shape => PsrAntvG6.registerElement(
+        'node',
+        shape,
+        {
+          elHooksBuilders: [
+            PsrAntvG6.ElementHooksBuilders.Node.useBreathingAnimation({
+              // 配置运动状态字段
+              stateKey
+            })
+          ]
+        }
+    )
 )
 </script>
 <script setup lang="ts">
 import {ref, watch} from "vue";
+import {NodeData} from "@antv/g6";
 
 const ctGraphRef = ref<HTMLDivElement>()
 const graphRef = PsrAntvG6.useGraph(ctGraphRef, {
@@ -31,16 +34,30 @@ const graphRef = PsrAntvG6.useGraph(ctGraphRef, {
       controlPoints: true
     },
     behaviors: ["drag-element"],
-    node: {
-      // 使用呼吸节点类型
-      type: nodeType,
-      style: {
-        halo: true
-      }
-    },
     data: {
       nodes: [
-        {id: 'n0'}
+        ...nodeTypes.map(
+            (nodeType, index) => {
+              const style: NodeData['style'] = {
+                size: [50, 25]
+              }
+              if (index == 7) {
+                style.innerHTML =
+                    `
+                    <button
+                        style="width:100%;height:100%;"
+                    >HTML</button>
+                    `
+                style.dx = -25
+                style.dy = -12.5
+              }
+              return {
+                id: '' + index,
+                type: nodeType,
+                style
+              } as NodeData
+            }
+        )
       ]
     }
   }
@@ -52,13 +69,17 @@ watch([graphRef, runningFlag], ([graph, running]) => {
   if (graph) {
     graph.updateData({
       nodes: [
-        {
-          id: 'n0',
-          style: {
-            // 更新动画运动状态
-            [stateKey]: running
-          }
-        }
+        ...nodeTypes.map(
+            (_, index) => (
+                {
+                  id: '' + index,
+                  style: {
+                    // 更新动画运动状态
+                    [stateKey]: running
+                  }
+                } as NodeData
+            )
+        )
       ]
     })
     graph.render()

@@ -34,6 +34,9 @@ const graphRef = PsrAntvG6.useGraph(ctGraphRef, {
     edge: {
       // 使用蚂蚁线边类型
       type: edgeType,
+      style: {
+        lineDash: [20, 20, 10, 10]
+      }
     },
     data: {
       nodes: [

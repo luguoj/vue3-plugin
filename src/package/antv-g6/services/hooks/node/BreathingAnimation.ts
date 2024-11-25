@@ -199,9 +199,9 @@ export function useBreathingAnimation(
             onUpdate(this: BaseNode) {
                 const runningState = this.getAttribute(stateKey as any)
                 if (runningState) {
-                    group.show()
+                    group.forEach((shape: any) => {shape.setAttribute('visibility','visible')})
                 } else {
-                    group.hide()
+                    group.forEach((shape: any) => {shape.setAttribute('visibility','hidden')})
                 }
             },
             onDestroy() {

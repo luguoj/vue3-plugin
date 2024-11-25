@@ -7,11 +7,15 @@ interface Ripple {
     animation: IAnimation
 }
 
+export interface RippleAnimationOptionsFn {
+    (ripple: { rippleLength: number, index: number }): EffectTiming
+}
+
 export interface RippleRectAnimationOptions {
     stateKey: string
     rippleWidth?: number
     rippleLength?: number
-    options?: EffectTiming
+    options?: RippleAnimationOptionsFn
 }
 
 function buildCircleRipple(
@@ -19,7 +23,7 @@ function buildCircleRipple(
     rippleGroup: Group,
     rippleWidth: number,
     rippleLength: number,
-    options: EffectTiming //TODO
+    optionsFn: RippleAnimationOptionsFn
 ): Ripple[] {
     const {fill} = this.attributes;
     const r = this.shapeMap.key.style.r;
@@ -45,12 +49,7 @@ function buildCircleRipple(
                     fillOpacity: 0
                 },
             ],
-            {
-                duration: 1000 * rippleLength,
-                iterations: Infinity,
-                delay: 1000 * index,
-                easing: 'ease-cubic',
-            },
+            optionsFn({rippleLength, index})
         )!;
         return {shape, animation}
     });
@@ -60,7 +59,8 @@ function buildEllipseRipple(
     this: BaseNode,
     rippleGroup: Group,
     rippleWidth: number,
-    rippleLength: number
+    rippleLength: number,
+    optionsFn: RippleAnimationOptionsFn
 ): Ripple[] {
     const {fill} = this.attributes;
     const rx = this.shapeMap.key.style.rx;
@@ -91,12 +91,7 @@ function buildEllipseRipple(
                     fillOpacity: 0
                 },
             ],
-            {
-                duration: 1000 * rippleLength,
-                iterations: Infinity,
-                delay: 1000 * index,
-                easing: 'ease-cubic',
-            },
+            optionsFn({rippleLength, index})
         )!;
         return {shape, animation}
     });
@@ -106,7 +101,8 @@ function buildRectRipple(
     this: BaseNode,
     rippleGroup: Group,
     rippleWidth: number,
-    rippleLength: number
+    rippleLength: number,
+    optionsFn: RippleAnimationOptionsFn
 ): Ripple[] {
     const {fill} = this.attributes;
     const width = this.shapeMap.key.style.width;
@@ -144,12 +140,7 @@ function buildRectRipple(
                     fillOpacity: 0
                 },
             ],
-            {
-                duration: 1000 * rippleLength,
-                iterations: Infinity,
-                delay: 1000 * index,
-                easing: 'ease-cubic',
-            },
+            optionsFn({rippleLength, index})
         )!;
         return {shape, animation}
     });
@@ -159,7 +150,8 @@ function buildPolygonRipple(
     this: BaseNode,
     rippleGroup: Group,
     rippleWidth: number,
-    rippleLength: number
+    rippleLength: number,
+    optionsFn: RippleAnimationOptionsFn
 ): Ripple[] {
     const [width, height] = this.getSize(this.attributes);
     const rippleAttributes = {
@@ -186,12 +178,7 @@ function buildPolygonRipple(
                     fillOpacity: 0
                 },
             ],
-            {
-                duration: 1000 * rippleLength,
-                iterations: Infinity,
-                delay: 1000 * index,
-                easing: 'ease-cubic',
-            },
+            optionsFn({rippleLength, index})
         )!;
         return {shape, animation}
     });
@@ -203,11 +190,14 @@ export function useRippleAnimation(
     const {stateKey, rippleWidth, rippleLength, options} = {
         rippleWidth: 5,
         rippleLength: 5,
-        options: {
-            duration: 1000,
-            iterations: Infinity,
-            direction: 'alternate'
-        } as EffectTiming,
+        options: (({rippleLength, index}) => {
+            return {
+                duration: 1000 * rippleLength,
+                iterations: Infinity,
+                delay: 1000 * index,
+                easing: 'ease-cubic',
+            }
+        }) as RippleAnimationOptionsFn,
         ...aniOptions
     }
     return () => {
@@ -218,17 +208,17 @@ export function useRippleAnimation(
                 const keyShapeType = this.shapeMap.key.config.type
                 switch (keyShapeType) {
                     case 'circle':
-                        buildCircleRipple.apply(this, [group, rippleWidth, rippleLength])
+                        buildCircleRipple.apply(this, [group, rippleWidth, rippleLength, options])
                         break
                     case 'html':
                     case 'rect':
-                        buildRectRipple.apply(this, [group, rippleWidth, rippleLength])
+                        buildRectRipple.apply(this, [group, rippleWidth, rippleLength, options])
                         break
                     case 'ellipse':
-                        buildEllipseRipple.apply(this, [group, rippleWidth, rippleLength])
+                        buildEllipseRipple.apply(this, [group, rippleWidth, rippleLength, options])
                         break
                     case 'polygon':
-                        buildPolygonRipple.apply(this, [group, rippleWidth, rippleLength])
+                        buildPolygonRipple.apply(this, [group, rippleWidth, rippleLength, options])
                         break
                     default:
                         return
@@ -237,9 +227,9 @@ export function useRippleAnimation(
             onUpdate(this: BaseNode) {
                 const runningState = this.getAttribute(stateKey as any)
                 if (runningState) {
-                    group.show()
+                    group.forEach((shape: any) => {shape.setAttribute('visibility','visible')})
                 } else {
-                    group.hide()
+                    group.forEach((shape: any) => {shape.setAttribute('visibility','hidden')})
                 }
             },
             onDestroy() {

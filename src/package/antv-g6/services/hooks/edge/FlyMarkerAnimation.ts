@@ -1,11 +1,11 @@
 import {BaseEdge, ElementHooks, subStyleProps} from "@antv/g6";
-import {Circle, CircleStyleProps} from '@antv/g';
+import {Circle, CircleStyleProps, Group} from '@antv/g';
 import {DisplayObject, IAnimation} from "@antv/g-lite";
 import {ElementHooksBuilder} from "../../wrapElementCtorWithHooks.ts";
 
 export interface MarkerShapeOptions<M extends DisplayObject> {
     /** marker形状类型 */
-    type: string | { new(...args: any[]): M },
+    type: { new(...args: any[]): M },
     /** marker对象样式属性 */
     attributes: M['attributes'],
 }
@@ -19,16 +19,18 @@ export interface FlyMarkerAnimationOptions<M extends DisplayObject> {
     /** marker对象关键字，同时作为marker对象样式属性前缀 */
     markerKey: string
     shape?: MarkerShapeOptions<M>
-    /** 动画关键帧 */
-    keyframes?: Keyframe[] | PropertyIndexedKeyframes
     /** 动画选项 */
-    options?: number | KeyframeAnimationOptions
+    options?: EffectTiming
 }
 
 export function useFlyMarkerAnimation<M extends DisplayObject>(
     aniOptions: FlyMarkerAnimationOptions<M>
 ): ElementHooksBuilder {
-    const {stateKey, markerKey, shape: {type, attributes}, keyframes, options} = {
+    const keyframes: Keyframe[] = [
+        {offsetDistance: 0},
+        {offsetDistance: 1},
+    ]
+    const {stateKey, markerKey, shape: {type, attributes}, options} = {
         shape: {
             type: Circle,
             attributes: {
@@ -36,10 +38,6 @@ export function useFlyMarkerAnimation<M extends DisplayObject>(
                 fill: '#c3d5f9'
             } as CircleStyleProps
         } as unknown as MarkerShapeOptions<M>,
-        keyframes: [
-            {offsetDistance: 0},
-            {offsetDistance: 1},
-        ],
         options: {
             duration: 3000,
             iterations: Infinity
@@ -47,22 +45,19 @@ export function useFlyMarkerAnimation<M extends DisplayObject>(
         ...aniOptions
     }
     return () => {
+        const group: Group = new Group()
         let marker: M | null = null
         let animation: IAnimation | null = null
         const hooks: ElementHooks = {
             onCreate(this: BaseEdge) {
+                this.appendChild(group)
                 const markerStyle = {
                     ...attributes,
                     offsetPath: this.shapeMap.key, // 附加移动路径
                     ...subStyleProps(this.attributes, markerKey) // 附加其他样式属性
                 }
-                marker = this.upsert(
-                    markerKey,
-                    type,
-                    markerStyle,
-                    this
-                )!
-                marker.setAttribute('visibility', 'hidden')
+                marker = new type(markerStyle)
+                group.appendChild(marker)
                 animation = marker.animate(keyframes, options)
                 animation?.pause()
             },
@@ -76,18 +71,19 @@ export function useFlyMarkerAnimation<M extends DisplayObject>(
                 for (const markerStyleKey in markerStyle) {
                     marker?.setAttribute(markerStyleKey, markerStyle[markerStyleKey])
                 }
+
                 const runningState = this.getAttribute(stateKey as any)
                 if (runningState) {
-                    marker?.setAttribute('visibility', 'visible')
+                    group.forEach((shape: any) => {shape.setAttribute('visibility','visible')})
                     animation?.play()
                 } else {
-                    marker?.setAttribute('visibility', 'hidden')
+                    group.forEach((shape: any) => {shape.setAttribute('visibility','hidden')})
                     animation?.cancel()
                 }
             },
             onDestroy(this: BaseEdge) {
-                animation?.cancel()
-                this.upsert(markerKey, type, false, this)
+                group.remove()
+                group.destroy()
             },
         }
         return hooks

@@ -1,13 +1,13 @@
 <script lang="ts">
 import {PsrAntvG6} from "@psr-framework/vue3-plugin";
-import {Line} from "@antv/g6";
+import {Cubic} from "@antv/g6";
 
 // 动画状态关键字
 const stateKey = 'antLineRunning'
 // 注册蚂蚁线边类型
 const edgeType = PsrAntvG6.registerElement(
     'edge',
-    Line,
+    Cubic,
     {
       elHooksBuilders: [
         PsrAntvG6.ElementHooksBuilders.Edge.useAntLineAnimation({

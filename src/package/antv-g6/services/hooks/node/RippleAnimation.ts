@@ -233,7 +233,8 @@ export function useRippleAnimation(
                 }
             },
             onDestroy() {
-                group?.remove()
+                group.remove()
+                group.destroy()
             },
         }
         return hooks

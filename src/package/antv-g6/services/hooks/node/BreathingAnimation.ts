@@ -205,7 +205,8 @@ export function useBreathingAnimation(
                 }
             },
             onDestroy() {
-                group?.remove()
+                group.remove()
+                group.destroy()
             },
         }
         return hooks

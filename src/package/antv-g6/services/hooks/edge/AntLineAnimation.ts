@@ -1,5 +1,5 @@
 import {BaseEdge, ElementHooks} from "@antv/g6";
-import {IAnimation} from "@antv/g-lite";
+import {DisplayObject} from "@antv/g-lite";
 import {ElementHooksBuilder} from "../../wrapElementCtorWithHooks.ts";
 import {Keyframe} from "@antv/g6/lib/types";
 
@@ -25,23 +25,34 @@ export function useAntLineAnimation(
             {lineDashOffset: 0},
             {lineDashOffset: lineDash.reduce((a, b) => -(a + b))}
         ]
-        let animation: IAnimation | null = null
+        let antLine: DisplayObject | null = null
         const hooks: ElementHooks = {
             onCreate(this: BaseEdge) {
-                animation = this.getShape('key').animate(keyframes, options)!
-                animation?.pause()
+                antLine = this.getShape('key').cloneNode(true)
+                antLine.setAttribute('lineDash', lineDash)
+                antLine.setAttribute('visibility', 'hidden')
+                this.appendChild(antLine)
+                antLine.animate(keyframes, options)
             },
             onUpdate(this: BaseEdge) {
+                if (antLine) {
+                    for (const attKey in this.getShape('key').attributes) {
+                        antLine.setAttribute(attKey, this.getShape('key').getAttribute(attKey))
+                    }
+                    antLine.setAttribute('lineDash', lineDash)
+                }
                 const runningState = this.getAttribute(stateKey as any)
                 if (runningState) {
-                    this.getShape('key').setAttribute('lineDash', lineDash)
-                    animation?.play()
+                    this.getShape('key').setAttribute('visibility', 'hidden')
+                    antLine?.setAttribute('visibility', 'visible')
                 } else {
-                    animation?.pause()
+                    this.getShape('key').setAttribute('visibility', 'visible')
+                    antLine?.setAttribute('visibility', 'hidden')
                 }
             },
             onDestroy() {
-                animation?.cancel()
+                antLine?.remove()
+                antLine?.destroy()
             },
         }
         return hooks

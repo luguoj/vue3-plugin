@@ -12,7 +12,8 @@ const edgeType = PsrAntvG6.registerElement(
       elHooksBuilders: [
         PsrAntvG6.ElementHooksBuilders.Edge.useAntLineAnimation({
           // 配置运动状态字段
-          stateKey
+          stateKey,
+          lineDash: [20, 5]
         })
       ]
     }

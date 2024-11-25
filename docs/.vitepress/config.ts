@@ -263,19 +263,19 @@ export default defineConfig({
                             link: '/reference/antv-g6/setup/'
                         },
                         {
-                            text: '图形扩展',
-                            link: '/reference/antv-g6/shape-extension/',
+                            text: '使用扩展',
+                            link: '/reference/antv-g6/extension/',
                         },
                         {
                             text: '元素钩子',
                             link: '/reference/antv-g6/element-hooks/',
                             items: [
                                 {
-                                    text: '内置边扩展类型',
+                                    text: '内置边钩子',
                                     link: '/reference/antv-g6/element-hooks/edge/'
                                 },
                                 {
-                                    text: '内置节点扩展类型',
+                                    text: '内置节点钩子',
                                     link: '/reference/antv-g6/element-hooks/node/'
                                 },
                             ]

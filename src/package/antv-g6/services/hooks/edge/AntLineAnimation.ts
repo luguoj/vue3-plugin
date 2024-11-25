@@ -5,7 +5,7 @@ import {Keyframe} from "@antv/g6/lib/types";
 
 export interface AntLineAnimationOptions {
     stateKey: string
-    lineDash?: number[]
+    lineDash?: [number,number]
     options?: EffectTiming
 }
 
@@ -22,8 +22,8 @@ export function useAntLineAnimation(
     }
     return () => {
         const keyframes: Keyframe[] = [
-            {lineDashOffset: 0},
-            {lineDashOffset: lineDash.reduce((a, b) => -(a + b))}
+            {lineDashOffset: lineDash.reduce((a, b) => a + b)},
+            {lineDashOffset: 0}
         ]
         let antLine: DisplayObject | null = null
         const hooks: ElementHooks = {

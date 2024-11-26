@@ -3,8 +3,14 @@ import {ExtensionCategory, Graph, GraphOptions, register} from '@antv/g6';
 import type {Loosen} from "@antv/g6/lib/types";
 import type {ExtensionRegistry} from "@antv/g6/lib/registry/types";
 import {useGraph} from "../services/graph/useGraph";
-import {useBreathingAnimation, useAntLineAnimation, useRippleAnimation, useFlyMarkerAnimation} from "../services/hooks";
-import {VueNode, registerVueNode} from "../services/nodes"
+import {
+    useAntLineAnimation,
+    useBreathingAnimation,
+    useFlyMarkerAnimation,
+    usePathInAnimation,
+    useRippleAnimation
+} from "../services/hooks";
+import {registerVueNode, VueNode} from "../services/nodes"
 import {ElementHooksBuilder, wrapElementCtorWithHooks} from "../services/wrapElementCtorWithHooks";
 
 const injectKey = 'psr-antv-g6'
@@ -15,7 +21,8 @@ export class PsrAntvG6 {
     static readonly ElementHooksBuilders = {
         Edge: {
             useAntLineAnimation,
-            useFlyMarkerAnimation
+            useFlyMarkerAnimation,
+            usePathInAnimation
         },
         Node: {
             useBreathingAnimation,

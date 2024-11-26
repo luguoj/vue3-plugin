@@ -31,14 +31,15 @@ demo-preview=./AntLineEdge.vue
 | lineDash | 虚线段模式，目前仅支持[dash,gap]格式        | ```[10, 10]```                              |
 | options  | 动画选项                           | ```{duration: 500, iterations: Infinity}``` |
 
+## PathIn 路径入场
 
-## LineGrowth 画线动效
+:::preview
+demo-preview=./PathInEdge.vue
+:::
 
-- 类型：line-growth
-- 配置：
+- 选项：
 
-| 参数       | 描述   | 默认值  |
-|:---------|:-----|:-----|
-| duration | 动画时长 | 2000 |
-| repeat   | 是否重放 | true |
+| 参数      | 描述   | 默认值                                 |
+|:--------|:-----|:------------------------------------|
+| options | 动画选项 | ```{duration: 500, fill: 'both'}``` |
 

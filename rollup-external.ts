@@ -14,6 +14,7 @@ export const rollupExternal = [
     ...Object.keys(packageJson.dependencies),
     ...getSubModules("@antv"),
     ...getSubModules("primevue"),
+    ...getSubModules("@primevue/themes"),
     "primeflex/primeflex.css",
     "primeicons/primeicons.css",
     "bubblesets-js"

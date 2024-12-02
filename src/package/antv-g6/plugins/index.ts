@@ -68,16 +68,23 @@ export class PsrAntvG6 {
         return useGraph(containerDivRef, options)
     }
 
-    static setElementState(graph: Graph, element: string, stateKey: string, enabled: boolean) {
-        const state = graph.getElementState(element)
-        if (!enabled) {
-            graph.setElementState(element, state.filter(s => s != stateKey))
-        } else {
-            const stateIndex = state.indexOf(stateKey)
-            if (stateIndex < 0) {
-                graph.setElementState(element, [...state, stateKey])
-            }
-        }
+    static setElementState(graph: Graph, statesByElement: Record<string, Record<string, boolean>>) {
+        const elementStateToSet: Record<string, string[]> = {}
+        Object.entries(statesByElement).forEach(([element, states]) => {
+            let elementState = graph.getElementState(element)
+            Object.entries(states).forEach(([stateKey, enabled]) => {
+                if (!enabled) {
+                    elementState = elementState.filter(s => s != stateKey)
+                } else {
+                    const stateIndex = elementState.indexOf(stateKey)
+                    if (stateIndex < 0) {
+                        elementState = [...elementState, stateKey]
+                    }
+                }
+                elementStateToSet[element] = elementState
+            })
+        })
+        return graph.setElementState(elementStateToSet)
     }
 
     private static getInstance(): PsrAntvG6 {
